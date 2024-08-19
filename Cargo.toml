@@ -1,0 +1,462 @@
+[workspace]
+members = []
+
+[package]
+name = "coreutils-rust"
+authors = ["C2Rust"]
+version = "0.0.0"
+publish = false
+edition = "2021"
+autobins = false
+
+[[bin]]
+name = "coreutils_rust"
+path = ""
+
+[[bin]]
+path = "hostid.rs"
+name = "hostid"
+
+[[bin]]
+path = "timeout.rs"
+name = "timeout"
+
+[[bin]]
+path = "nice.rs"
+name = "nice"
+
+[[bin]]
+path = "who.rs"
+name = "who"
+
+[[bin]]
+path = "users.rs"
+name = "users"
+
+[[bin]]
+path = "pinky.rs"
+name = "pinky"
+
+[[bin]]
+path = "stty.rs"
+name = "stty"
+
+[[bin]]
+path = "b2sum_digest.rs"
+name = "b2sum_digest"
+
+[[bin]]
+path = "df.rs"
+name = "df"
+
+[[bin]]
+path = "lbracket.rs"
+name = "lbracket"
+
+[[bin]]
+path = "base64_basenc.rs"
+name = "base64_basenc"
+
+[[bin]]
+path = "base32_basenc.rs"
+name = "base32_basenc"
+
+[[bin]]
+path = "basenc_basenc.rs"
+name = "basenc_basenc"
+
+[[bin]]
+path = "basename.rs"
+name = "basename"
+
+[[bin]]
+path = "cat.rs"
+name = "cat"
+
+[[bin]]
+path = "chcon.rs"
+name = "chcon"
+
+[[bin]]
+path = "cksum_digest.rs"
+name = "cksum_digest"
+
+[[bin]]
+path = "chgrp.rs"
+name = "chgrp"
+
+[[bin]]
+path = "chown.rs"
+name = "chown"
+
+[[bin]]
+path = "chmod.rs"
+name = "chmod"
+
+[[bin]]
+path = "comm.rs"
+name = "comm"
+
+[[bin]]
+path = "cp.rs"
+name = "cp"
+
+[[bin]]
+path = "cut.rs"
+name = "cut"
+
+[[bin]]
+path = "csplit.rs"
+name = "csplit"
+
+[[bin]]
+path = "date.rs"
+name = "date"
+
+[[bin]]
+path = "dd.rs"
+name = "dd"
+
+[[bin]]
+path = "ls.rs"
+name = "ls"
+
+[[bin]]
+path = "dircolors.rs"
+name = "dircolors"
+
+[[bin]]
+path = "dirname.rs"
+name = "dirname"
+
+[[bin]]
+path = "echo.rs"
+name = "echo"
+
+[[bin]]
+path = "du.rs"
+name = "du"
+
+[[bin]]
+path = "expand.rs"
+name = "expand"
+
+[[bin]]
+path = "env.rs"
+name = "env"
+
+[[bin]]
+path = "expr.rs"
+name = "expr"
+
+[[bin]]
+path = "false.rs"
+name = "r#false"
+
+[[bin]]
+path = "fmt.rs"
+name = "fmt"
+
+[[bin]]
+path = "fold.rs"
+name = "fold"
+
+[[bin]]
+path = "install.rs"
+name = "install"
+
+[[bin]]
+path = "groups.rs"
+name = "groups"
+
+[[bin]]
+path = "join.rs"
+name = "join"
+
+[[bin]]
+path = "head.rs"
+name = "head"
+
+[[bin]]
+path = "id.rs"
+name = "id"
+
+[[bin]]
+path = "link.rs"
+name = "link"
+
+[[bin]]
+path = "ln.rs"
+name = "ln"
+
+[[bin]]
+path = "logname.rs"
+name = "logname"
+
+[[bin]]
+path = "md5sum_digest.rs"
+name = "md5sum_digest"
+
+[[bin]]
+path = "mkdir.rs"
+name = "mkdir"
+
+[[bin]]
+path = "mktemp.rs"
+name = "mktemp"
+
+[[bin]]
+path = "mknod.rs"
+name = "mknod"
+
+[[bin]]
+path = "mkfifo.rs"
+name = "mkfifo"
+
+[[bin]]
+path = "mv.rs"
+name = "mv"
+
+[[bin]]
+path = "nl.rs"
+name = "nl"
+
+[[bin]]
+path = "nproc.rs"
+name = "nproc"
+
+[[bin]]
+path = "nohup.rs"
+name = "nohup"
+
+[[bin]]
+path = "numfmt.rs"
+name = "numfmt"
+
+[[bin]]
+path = "od.rs"
+name = "od"
+
+[[bin]]
+path = "paste.rs"
+name = "paste"
+
+[[bin]]
+path = "pathchk.rs"
+name = "pathchk"
+
+[[bin]]
+path = "printf.rs"
+name = "printf"
+
+[[bin]]
+path = "pr.rs"
+name = "pr"
+
+[[bin]]
+path = "printenv.rs"
+name = "printenv"
+
+[[bin]]
+path = "ptx.rs"
+name = "ptx"
+
+[[bin]]
+path = "readlink.rs"
+name = "readlink"
+
+[[bin]]
+path = "pwd.rs"
+name = "pwd"
+
+[[bin]]
+path = "realpath.rs"
+name = "realpath"
+
+[[bin]]
+path = "rm.rs"
+name = "rm"
+
+[[bin]]
+path = "rmdir.rs"
+name = "rmdir"
+
+[[bin]]
+path = "runcon.rs"
+name = "runcon"
+
+[[bin]]
+path = "seq.rs"
+name = "seq"
+
+[[bin]]
+path = "sha1sum_digest.rs"
+name = "sha1sum_digest"
+
+[[bin]]
+path = "sha224sum_digest.rs"
+name = "sha224sum_digest"
+
+[[bin]]
+path = "sha256sum_digest.rs"
+name = "sha256sum_digest"
+
+[[bin]]
+path = "sha384sum_digest.rs"
+name = "sha384sum_digest"
+
+[[bin]]
+path = "sha512sum_digest.rs"
+name = "sha512sum_digest"
+
+[[bin]]
+path = "shuf.rs"
+name = "shuf"
+
+[[bin]]
+path = "shred.rs"
+name = "shred"
+
+[[bin]]
+path = "sleep.rs"
+name = "sleep"
+
+[[bin]]
+path = "sort.rs"
+name = "sort"
+
+[[bin]]
+path = "split.rs"
+name = "split"
+
+[[bin]]
+path = "stat.rs"
+name = "stat"
+
+[[bin]]
+path = "sum_digest.rs"
+name = "sum_digest"
+
+[[bin]]
+path = "sync.rs"
+name = "sync"
+
+[[bin]]
+path = "tac.rs"
+name = "tac"
+
+[[bin]]
+path = "tail.rs"
+name = "tail"
+
+[[bin]]
+path = "tee.rs"
+name = "tee"
+
+[[bin]]
+path = "test.rs"
+name = "test"
+
+[[bin]]
+path = "touch.rs"
+name = "touch"
+
+[[bin]]
+path = "tr.rs"
+name = "tr"
+
+[[bin]]
+path = "true.rs"
+name = "r#true"
+
+[[bin]]
+path = "truncate.rs"
+name = "truncate"
+
+[[bin]]
+path = "tsort.rs"
+name = "tsort"
+
+[[bin]]
+path = "tty.rs"
+name = "tty"
+
+[[bin]]
+path = "uname.rs"
+name = "uname"
+
+[[bin]]
+path = "unexpand.rs"
+name = "unexpand"
+
+[[bin]]
+path = "uniq.rs"
+name = "uniq"
+
+[[bin]]
+path = "unlink.rs"
+name = "unlink"
+
+[[bin]]
+path = "wc.rs"
+name = "wc"
+
+[[bin]]
+path = "whoami.rs"
+name = "whoami"
+
+[[bin]]
+path = "yes.rs"
+name = "yes"
+
+[[bin]]
+path = "getlimits.rs"
+name = "getlimits"
+
+[[bin]]
+path = "make_prime_list.rs"
+name = "make_prime_list"
+
+[[bin]]
+path = "chroot.rs"
+name = "chroot"
+
+[[bin]]
+path = "bench_md5.rs"
+name = "bench_md5"
+
+[[bin]]
+path = "bench_sha1.rs"
+name = "bench_sha1"
+
+[[bin]]
+path = "bench_sha224.rs"
+name = "bench_sha224"
+
+[[bin]]
+path = "bench_sha256.rs"
+name = "bench_sha256"
+
+[[bin]]
+path = "bench_sha384.rs"
+name = "bench_sha384"
+
+[[bin]]
+path = "bench_sha512.rs"
+name = "bench_sha512"
+
+[[bin]]
+path = "locale.rs"
+name = "locale"
+
+[[bin]]
+path = "test_localcharset.rs"
+name = "test_localcharset"
+
+[dependencies]
+c2rust-bitfields = "0.3"
+c2rust-asm-casts = "0.2"
+f128 = "0.2"
+num-traits = "0.2"
+libc = "0.2"
+selinux-sys = "0.4"
