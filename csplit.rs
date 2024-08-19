@@ -11,6 +11,7 @@
 
 #[macro_use]
 extern crate c2rust_bitfields;
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -5904,11 +5905,11 @@ unsafe extern "C" fn check_format_conv_type(
                     b"invalid flags in conversion specification: %%%c%c\0" as *const u8
                         as *const libc::c_char,
                 ),
-                (if flags & !compatible_flags & FLAG_ALTERNATIVE as libc::c_int != 0 {
+                if flags & !compatible_flags & FLAG_ALTERNATIVE as libc::c_int != 0 {
                     '#' as i32
                 } else {
                     '\'' as i32
-                }),
+                },
                 ch as libc::c_int,
             );
             if 0 as libc::c_int != 0 {} else {
@@ -5922,11 +5923,11 @@ unsafe extern "C" fn check_format_conv_type(
                     b"invalid flags in conversion specification: %%%c%c\0" as *const u8
                         as *const libc::c_char,
                 ),
-                (if flags & !compatible_flags & FLAG_ALTERNATIVE as libc::c_int != 0 {
+                if flags & !compatible_flags & FLAG_ALTERNATIVE as libc::c_int != 0 {
                     '#' as i32
                 } else {
                     '\'' as i32
-                }),
+                },
                 ch as libc::c_int,
             );
             if 0 as libc::c_int != 0 {} else {

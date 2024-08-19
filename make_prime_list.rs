@@ -8,6 +8,7 @@
 #![feature(extern_types)]
 
 
+extern crate selinux_sys;
 extern crate libc;
 extern "C" {
     pub type _IO_wide_data;

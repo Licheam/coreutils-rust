@@ -14,6 +14,7 @@
 
 extern crate f128;#[macro_use]
 extern crate num_traits;
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {

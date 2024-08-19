@@ -13,6 +13,7 @@
 
 extern crate f128;#[macro_use]
 extern crate num_traits;
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -3019,7 +3020,7 @@ unsafe extern "C" fn scanargs(
                     {
                         9223372036854775807 as libc::c_long
                     } else {
-                        (if (0 as libc::c_int as off_t) < -(1 as libc::c_int) as off_t {
+                        if (0 as libc::c_int as off_t) < -(1 as libc::c_int) as off_t {
                             -(1 as libc::c_int) as off_t
                         } else {
                             (((1 as libc::c_int as off_t)
@@ -3029,7 +3030,7 @@ unsafe extern "C" fn scanargs(
                                 - 1 as libc::c_int as libc::c_long)
                                 * 2 as libc::c_int as libc::c_long
                                 + 1 as libc::c_int as libc::c_long
-                        })
+                        }
                     }) as libc::c_ulong
                 {
                     (18446744073709551615 as libc::c_ulong)
@@ -3092,7 +3093,7 @@ unsafe extern "C" fn scanargs(
                     {
                         9223372036854775807 as libc::c_long
                     } else {
-                        (if (0 as libc::c_int as off_t) < -(1 as libc::c_int) as off_t {
+                        if (0 as libc::c_int as off_t) < -(1 as libc::c_int) as off_t {
                             -(1 as libc::c_int) as off_t
                         } else {
                             (((1 as libc::c_int as off_t)
@@ -3102,7 +3103,7 @@ unsafe extern "C" fn scanargs(
                                 - 1 as libc::c_int as libc::c_long)
                                 * 2 as libc::c_int as libc::c_long
                                 + 1 as libc::c_int as libc::c_long
-                        })
+                        }
                     }) as libc::c_ulong
                 {
                     (18446744073709551615 as libc::c_ulong)
@@ -3165,7 +3166,7 @@ unsafe extern "C" fn scanargs(
                     {
                         9223372036854775807 as libc::c_long
                     } else {
-                        (if (0 as libc::c_int as off_t) < -(1 as libc::c_int) as off_t {
+                        if (0 as libc::c_int as off_t) < -(1 as libc::c_int) as off_t {
                             -(1 as libc::c_int) as off_t
                         } else {
                             (((1 as libc::c_int as off_t)
@@ -3175,7 +3176,7 @@ unsafe extern "C" fn scanargs(
                                 - 1 as libc::c_int as libc::c_long)
                                 * 2 as libc::c_int as libc::c_long
                                 + 1 as libc::c_int as libc::c_long
-                        })
+                        }
                     }) as libc::c_ulong
                 {
                     (18446744073709551615 as libc::c_ulong)
@@ -3246,13 +3247,13 @@ unsafe extern "C" fn scanargs(
                 if ::core::mem::size_of::<C2RustUnnamed_26>() as libc::c_ulong != 0 {
                     nl_error(
                         1 as libc::c_int,
-                        (if invalid as libc::c_uint
+                        if invalid as libc::c_uint
                             == LONGINT_OVERFLOW as libc::c_int as libc::c_uint
                         {
                             75 as libc::c_int
                         } else {
                             0 as libc::c_int
-                        }),
+                        },
                         b"%s: %s\0" as *const u8 as *const libc::c_char,
                         gettext(b"invalid number\0" as *const u8 as *const libc::c_char),
                         quote(val),
@@ -3263,13 +3264,13 @@ unsafe extern "C" fn scanargs(
                 } else {
                     nl_error(
                         1 as libc::c_int,
-                        (if invalid as libc::c_uint
+                        if invalid as libc::c_uint
                             == LONGINT_OVERFLOW as libc::c_int as libc::c_uint
                         {
                             75 as libc::c_int
                         } else {
                             0 as libc::c_int
-                        }),
+                        },
                         b"%s: %s\0" as *const u8 as *const libc::c_char,
                         gettext(b"invalid number\0" as *const u8 as *const libc::c_char),
                         quote(val),
@@ -3835,7 +3836,7 @@ unsafe extern "C" fn advance_input_after_read_error(mut nbytes: size_t) -> bool 
                         .wrapping_sub(2 as libc::c_int as libc::c_ulong))
                     - 1 as libc::c_int as libc::c_long)
                     * 2 as libc::c_int as libc::c_long + 1 as libc::c_int as libc::c_long
-            }) as libc::c_ulong) < input_offset) as libc::c_int) as bool;
+            }) as libc::c_ulong) < input_offset) as libc::c_int) != 0;
         if input_offset_overflow {
             nl_error(
                 0 as libc::c_int,
@@ -4217,12 +4218,10 @@ unsafe extern "C" fn dd_copy() -> libc::c_int {
                 invalidate_cache(0 as libc::c_int, nread);
             }
         } else if nread == 0 as libc::c_int as libc::c_long {
-            i_nocache_eof = (i_nocache_eof as libc::c_int | i_nocache as libc::c_int)
-                as bool;
+            i_nocache_eof = (i_nocache_eof as libc::c_int | i_nocache as libc::c_int) != 0;
             o_nocache_eof = (o_nocache_eof as libc::c_int
                 | (o_nocache as libc::c_int != 0
-                    && conversions_mask & C_NOTRUNC as libc::c_int == 0) as libc::c_int)
-                as bool;
+                    && conversions_mask & C_NOTRUNC as libc::c_int == 0) as libc::c_int) != 0;
             break;
         } else {
             if conversions_mask & C_NOERROR as libc::c_int == 0

@@ -11,6 +11,7 @@
 
 #[macro_use]
 extern crate c2rust_bitfields;
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -2004,12 +2005,12 @@ unsafe extern "C" fn sort_die(
             quotearg_n_style_colon(
                 0 as libc::c_int,
                 shell_escape_quoting_style,
-                (if !file.is_null() {
+                if !file.is_null() {
                     file
                 } else {
                     gettext(b"standard output\0" as *const u8 as *const libc::c_char)
                         as *const libc::c_char
-                }),
+                },
             ),
         );
         unreachable!();
@@ -2022,12 +2023,12 @@ unsafe extern "C" fn sort_die(
             quotearg_n_style_colon(
                 0 as libc::c_int,
                 shell_escape_quoting_style,
-                (if !file.is_null() {
+                if !file.is_null() {
                     file
                 } else {
                     gettext(b"standard output\0" as *const u8 as *const libc::c_char)
                         as *const libc::c_char
-                }),
+                },
             ),
         );
         unreachable!();
@@ -3439,7 +3440,7 @@ unsafe extern "C" fn sort_buffer_size(
         if (if i < nfps {
             fstat(fileno(*fps.offset(i as isize)), &mut st)
         } else {
-            (if strcmp(
+            if strcmp(
                 *files.offset(i as isize),
                 b"-\0" as *const u8 as *const libc::c_char,
             ) == 0 as libc::c_int
@@ -3447,7 +3448,7 @@ unsafe extern "C" fn sort_buffer_size(
                 fstat(0 as libc::c_int, &mut st)
             } else {
                 stat(*files.offset(i as isize), &mut st)
-            })
+            }
         }) != 0 as libc::c_int
         {
             sort_die(
@@ -4405,17 +4406,17 @@ unsafe extern "C" fn compare_random(
             let mut a_fits: bool = sizea <= bufsize;
             let mut sizeb: size_t = if textb < limb as *mut libc::c_char {
                 (xstrxfrm(
-                    (if a_fits as libc::c_int != 0 {
+                    if a_fits as libc::c_int != 0 {
                         buf.offset(sizea as isize)
                     } else {
                         0 as *mut libc::c_char
-                    }),
+                    },
                     textb,
-                    (if a_fits as libc::c_int != 0 {
+                    if a_fits as libc::c_int != 0 {
                         bufsize.wrapping_sub(sizea)
                     } else {
                         0 as libc::c_int as libc::c_ulong
-                    }),
+                    },
                 ))
                     .wrapping_add(1 as libc::c_int as libc::c_ulong)
             } else {
@@ -4834,30 +4835,26 @@ unsafe extern "C" fn key_warnings(mut gkey: *const keyfield, mut gkey_only: bool
         }
         ugkey
             .skipsblanks = (ugkey.skipsblanks as libc::c_int
-            & !(*key).skipsblanks as libc::c_int) as bool;
+            & !(*key).skipsblanks as libc::c_int) != 0;
         ugkey
             .skipeblanks = (ugkey.skipeblanks as libc::c_int
-            & !(*key).skipeblanks as libc::c_int) as bool;
+            & !(*key).skipeblanks as libc::c_int) != 0;
         ugkey
-            .month = (ugkey.month as libc::c_int & !(*key).month as libc::c_int) as bool;
+            .month = (ugkey.month as libc::c_int & !(*key).month as libc::c_int) != 0;
         ugkey
-            .numeric = (ugkey.numeric as libc::c_int & !(*key).numeric as libc::c_int)
-            as bool;
+            .numeric = (ugkey.numeric as libc::c_int & !(*key).numeric as libc::c_int) != 0;
         ugkey
             .general_numeric = (ugkey.general_numeric as libc::c_int
-            & !(*key).general_numeric as libc::c_int) as bool;
+            & !(*key).general_numeric as libc::c_int) != 0;
         ugkey
             .human_numeric = (ugkey.human_numeric as libc::c_int
-            & !(*key).human_numeric as libc::c_int) as bool;
+            & !(*key).human_numeric as libc::c_int) != 0;
         ugkey
-            .random = (ugkey.random as libc::c_int & !(*key).random as libc::c_int)
-            as bool;
+            .random = (ugkey.random as libc::c_int & !(*key).random as libc::c_int) != 0;
         ugkey
-            .version = (ugkey.version as libc::c_int & !(*key).version as libc::c_int)
-            as bool;
+            .version = (ugkey.version as libc::c_int & !(*key).version as libc::c_int) != 0;
         ugkey
-            .reverse = (ugkey.reverse as libc::c_int & !(*key).reverse as libc::c_int)
-            as bool;
+            .reverse = (ugkey.reverse as libc::c_int & !(*key).reverse as libc::c_int) != 0;
         key = (*key).next;
         keynum = keynum.wrapping_add(1);
         keynum;
@@ -7218,7 +7215,7 @@ unsafe fn main_0(
                                 <= 9 as libc::c_int as libc::c_uint;
                         traditional_usage = (traditional_usage as libc::c_int
                             | (minus_pos_usage as libc::c_int != 0 && !posixly_correct)
-                                as libc::c_int) as bool;
+                                as libc::c_int) != 0;
                         if traditional_usage {
                             key = key_init(&mut key_buf);
                             s = parse_field_count(
@@ -7856,14 +7853,13 @@ unsafe fn main_0(
             (*key).random = gkey.random;
             (*key).reverse = gkey.reverse;
         }
-        need_random = (need_random as libc::c_int | (*key).random as libc::c_int)
-            as bool;
+        need_random = (need_random as libc::c_int | (*key).random as libc::c_int) != 0;
         key = (*key).next;
     }
     if keylist.is_null() && !default_key_compare(&mut gkey) {
         gkey_only = 1 as libc::c_int != 0;
         insertkey(&mut gkey);
-        need_random = (need_random as libc::c_int | gkey.random as libc::c_int) as bool;
+        need_random = (need_random as libc::c_int | gkey.random as libc::c_int) != 0;
     }
     check_ordering_compatibility();
     if debug {

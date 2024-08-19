@@ -10,6 +10,7 @@
 #![feature(label_break_value)]
 
 
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -1712,13 +1713,13 @@ unsafe extern "C" fn add_file_name(
             1 => {
                 let ref mut fresh7 = *joption_count.offset(0 as libc::c_int as isize);
                 *fresh7 -= 1;
-                *fresh7;
+                let _ = *fresh7;
                 set_join_field(&mut join_field_1, string_to_join_field(arg));
             }
             2 => {
                 let ref mut fresh8 = *joption_count.offset(1 as libc::c_int as isize);
                 *fresh8 -= 1;
-                *fresh8;
+                let _ = *fresh8;
                 set_join_field(&mut join_field_2, string_to_join_field(arg));
             }
             3 => {

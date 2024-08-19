@@ -9,6 +9,7 @@
 #![feature(extern_types)]
 
 
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -1688,7 +1689,7 @@ unsafe fn main_0(
                     dest_base,
                     dest,
                     -(1 as libc::c_int),
-                ) as libc::c_int) as bool;
+                ) as libc::c_int) != 0;
             free(dest as *mut libc::c_void);
             i += 1;
             i;

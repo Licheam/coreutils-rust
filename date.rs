@@ -13,6 +13,7 @@
 
 extern crate f128;#[macro_use]
 extern crate num_traits;
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -1360,8 +1361,7 @@ unsafe extern "C" fn batch_convert(
             );
             ok = 0 as libc::c_int != 0;
         } else {
-            ok = (ok as libc::c_int & show_date(format, when, tz) as libc::c_int)
-                as bool;
+            ok = (ok as libc::c_int & show_date(format, when, tz) as libc::c_int) != 0;
         }
     }
     if rpl_fclose(in_stream) == -(1 as libc::c_int) {
@@ -1789,7 +1789,7 @@ unsafe fn main_0(
                 ok = 0 as libc::c_int != 0;
             }
         }
-        ok = (ok as libc::c_int & show_date(format, when, tz) as libc::c_int) as bool;
+        ok = (ok as libc::c_int & show_date(format, when, tz) as libc::c_int) != 0;
     }
     return if ok as libc::c_int != 0 { 0 as libc::c_int } else { 1 as libc::c_int };
 }

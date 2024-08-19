@@ -21,7 +21,7 @@ pub unsafe extern "C" fn mmalloca(mut n: size_t) -> *mut libc::c_void {
     let mut plus: libc::c_int = (::core::mem::size_of::<small_t>() as libc::c_ulong)
         .wrapping_add(alignment2_mask) as libc::c_int;
     let mut nplus: idx_t = 0;
-    let (fresh0, fresh1) = n.overflowing_add(plus);
+    let (fresh0, fresh1) = n.overflowing_add(plus.try_into().unwrap());
     *(&mut nplus as *mut idx_t) = fresh0;
     if !fresh1
         && !(1 as libc::c_int != 0 as libc::c_int

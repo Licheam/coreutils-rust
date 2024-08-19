@@ -13,6 +13,7 @@
 extern crate c2rust_bitfields;
 extern crate f128;#[macro_use]
 extern crate num_traits;
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -7164,7 +7165,7 @@ unsafe extern "C" fn decode_switches(
     );
     dired = (dired as libc::c_int
         & ((format as libc::c_uint == long_format as libc::c_int as libc::c_uint)
-            as libc::c_int & !print_hyperlink as libc::c_int)) as bool;
+            as libc::c_int & !print_hyperlink as libc::c_int)) != 0;
     if (eolbyte as libc::c_int) < dired as libc::c_int {
         if ::core::mem::size_of::<C2RustUnnamed_22>() as libc::c_ulong != 0 {
             error(
@@ -7606,8 +7607,7 @@ unsafe extern "C" fn gobble_file(
             }) as acl_type;
             any_has_acl = (any_has_acl as libc::c_int
                 | ((*f).acl_type as libc::c_uint
-                    != ACL_T_NONE as libc::c_int as libc::c_uint) as libc::c_int)
-                as bool;
+                    != ACL_T_NONE as libc::c_int as libc::c_uint) as libc::c_int) != 0;
             if err != 0 {
                 error(
                     0 as libc::c_int,
@@ -9109,12 +9109,12 @@ unsafe extern "C" fn sort_files() {
         cwd_n_used,
         sort_functions[(sort_type as libc::c_uint)
             .wrapping_add(
-                (if sort_type as libc::c_uint == sort_time as libc::c_int as libc::c_uint
+                if sort_type as libc::c_uint == sort_time as libc::c_int as libc::c_uint
                 {
                     time_type as libc::c_uint
                 } else {
                     0 as libc::c_int as libc::c_uint
-                }),
+                },
             )
             as usize][use_strcmp
             as usize][sort_reverse as usize][directories_first as usize],
@@ -10294,14 +10294,14 @@ unsafe extern "C" fn dired_dump_obstack(
                 .offset(
                     ((((*__o1).next_free)
                         .offset_from(
-                            (if (::core::mem::size_of::<ptrdiff_t>() as libc::c_ulong)
+                            if (::core::mem::size_of::<ptrdiff_t>() as libc::c_ulong)
                                 < ::core::mem::size_of::<*mut libc::c_void>()
                                     as libc::c_ulong
                             {
                                 (*__o1).object_base
                             } else {
                                 0 as *mut libc::c_char
-                            }),
+                            },
                         ) as libc::c_long as libc::c_ulong)
                         .wrapping_add((*__o1).alignment_mask) & !(*__o1).alignment_mask)
                         as isize,
@@ -13078,13 +13078,13 @@ unsafe extern "C" fn length_of_file_name_and_frills(mut f: *const fileinfo) -> s
             .wrapping_add(
                 (1 as libc::c_int as libc::c_ulong)
                     .wrapping_add(
-                        (if format as libc::c_uint
+                        if format as libc::c_uint
                             == with_commas as libc::c_int as libc::c_uint
                         {
                             strlen(umaxtostr((*f).stat.st_ino, buf.as_mut_ptr()))
                         } else {
                             inode_number_width as libc::c_ulong
-                        }),
+                        },
                     ),
             ) as size_t as size_t;
     }
@@ -13093,11 +13093,11 @@ unsafe extern "C" fn length_of_file_name_and_frills(mut f: *const fileinfo) -> s
             .wrapping_add(
                 (1 as libc::c_int as libc::c_ulong)
                     .wrapping_add(
-                        (if format as libc::c_uint
+                        if format as libc::c_uint
                             == with_commas as libc::c_int as libc::c_uint
                         {
                             strlen(
-                                (if !(*f).stat_ok {
+                                if !(*f).stat_ok {
                                     b"?\0" as *const u8 as *const libc::c_char
                                 } else {
                                     human_readable(
@@ -13107,11 +13107,11 @@ unsafe extern "C" fn length_of_file_name_and_frills(mut f: *const fileinfo) -> s
                                         512 as libc::c_int as uintmax_t,
                                         output_block_size,
                                     ) as *const libc::c_char
-                                }),
+                                },
                             )
                         } else {
                             block_size_width as libc::c_ulong
-                        }),
+                        },
                     ),
             ) as size_t as size_t;
     }
@@ -13120,13 +13120,13 @@ unsafe extern "C" fn length_of_file_name_and_frills(mut f: *const fileinfo) -> s
             .wrapping_add(
                 (1 as libc::c_int as libc::c_ulong)
                     .wrapping_add(
-                        (if format as libc::c_uint
+                        if format as libc::c_uint
                             == with_commas as libc::c_int as libc::c_uint
                         {
                             strlen((*f).scontext)
                         } else {
                             scontext_width as libc::c_ulong
-                        }),
+                        },
                     ),
             ) as size_t as size_t;
     }

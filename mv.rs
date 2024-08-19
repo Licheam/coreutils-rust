@@ -11,6 +11,7 @@
 #![feature(linkage)]
 
 
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -1494,7 +1495,7 @@ unsafe fn main_0(
                     target_directory,
                     1 as libc::c_int != 0,
                     &mut x,
-                ) as libc::c_int) as bool;
+                ) as libc::c_int) != 0;
             i += 1;
             i;
         }

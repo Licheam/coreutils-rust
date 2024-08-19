@@ -1011,13 +1011,13 @@ pub unsafe extern "C" fn vasnprintf(
                             } else {
                                 let mut sign: libc::c_int = 0 as libc::c_int;
                                 let mut oldcw: fpucw_t = 0;
-                                oldcw = ({
+                                oldcw = {
                                     let mut _cw: fpucw_t = 0;
                                     asm!(
                                         "fnstcw [{0}]", in (reg) & mut _cw, options(preserves_flags)
                                     );
                                     _cw
-                                });
+                                };
                                 let mut _ncw: fpucw_t = (oldcw as libc::c_int
                                     & !(0x300 as libc::c_int) | 0x300 as libc::c_int)
                                     as fpucw_t;
@@ -1827,13 +1827,13 @@ pub unsafe extern "C" fn vasnprintf(
                             } else {
                                 let mut sign_1: libc::c_int = 0 as libc::c_int;
                                 let mut oldcw_0: fpucw_t = 0;
-                                oldcw_0 = ({
+                                oldcw_0 = {
                                     let mut _cw: fpucw_t = 0;
                                     asm!(
                                         "fnstcw [{0}]", in (reg) & mut _cw, options(preserves_flags)
                                     );
                                     _cw
-                                });
+                                };
                                 let mut _ncw: fpucw_t = (oldcw_0 as libc::c_int
                                     & !(0x300 as libc::c_int) | 0x300 as libc::c_int)
                                     as fpucw_t;

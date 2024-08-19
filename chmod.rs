@@ -10,6 +10,7 @@
 #![feature(label_break_value)]
 
 
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -1093,7 +1094,7 @@ unsafe extern "C" fn process_files(
             }
             break;
         } else {
-            ok = (ok as libc::c_int & process_file(fts, ent) as libc::c_int) as bool;
+            ok = (ok as libc::c_int & process_file(fts, ent) as libc::c_int) != 0;
         }
     }
     if rpl_fts_close(fts) != 0 as libc::c_int {

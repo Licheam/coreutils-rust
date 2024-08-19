@@ -141,7 +141,7 @@ pub unsafe extern "C" fn find_mount_point(
     } else {
         let mut xdir: *mut libc::c_char = dir_name(file);
         let mut dir: *mut libc::c_char = 0 as *mut libc::c_char;
-        dir = ({
+        dir = {
             let mut __old: *const libc::c_char = xdir;
             let mut __len: size_t = (strlen(__old))
                 .wrapping_add(1 as libc::c_int as libc::c_ulong);
@@ -149,7 +149,7 @@ pub unsafe extern "C" fn find_mount_point(
             let mut __new: *mut libc::c_char = fresh0.as_mut_ptr() as *mut libc::c_char;
             memcpy(__new as *mut libc::c_void, __old as *const libc::c_void, __len)
                 as *mut libc::c_char
-        });
+        };
         free(xdir as *mut libc::c_void);
         if chdir(dir) < 0 as libc::c_int {
             error(

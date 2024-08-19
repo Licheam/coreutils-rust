@@ -9,6 +9,7 @@
 #![feature(extern_types)]
 
 
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -901,8 +902,7 @@ unsafe fn main_0(
     }
     while optind < argc {
         ok = (ok as libc::c_int
-            & process_path(*argv.offset(optind as isize), can_mode) as libc::c_int)
-            as bool;
+            & process_path(*argv.offset(optind as isize), can_mode) as libc::c_int) != 0;
         optind += 1;
         optind;
     }

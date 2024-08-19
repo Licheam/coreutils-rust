@@ -13,6 +13,7 @@
 
 extern crate f128;#[macro_use]
 extern crate num_traits;
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -1056,8 +1057,7 @@ unsafe fn main_0(
         usage(1 as libc::c_int);
     }
     while optind < argc {
-        ok = (ok as libc::c_int & touch(*argv.offset(optind as isize)) as libc::c_int)
-            as bool;
+        ok = (ok as libc::c_int & touch(*argv.offset(optind as isize)) as libc::c_int) != 0;
         optind += 1;
         optind;
     }

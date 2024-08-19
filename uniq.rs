@@ -10,6 +10,7 @@
 #![feature(label_break_value)]
 
 
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -1205,7 +1206,7 @@ unsafe fn main_0(
                     if (if ::core::mem::size_of::<C2RustUnnamed_7>() as libc::c_ulong
                         != 0
                     {
-                        (if (-(1 as libc::c_int) as size_t)
+                        if (-(1 as libc::c_int) as size_t)
                             .wrapping_div(10 as libc::c_int as libc::c_ulong)
                             < skip_fields
                             || skip_fields
@@ -1219,9 +1220,9 @@ unsafe fn main_0(
                                 .wrapping_mul(10 as libc::c_int as libc::c_ulong)
                                 .wrapping_add((optc - '0' as i32) as libc::c_ulong);
                             1 as libc::c_int
-                        })
+                        }
                     } else {
-                        (if (-(1 as libc::c_int) as size_t)
+                        if (-(1 as libc::c_int) as size_t)
                             .wrapping_div(10 as libc::c_int as libc::c_ulong)
                             < skip_fields
                             || skip_fields
@@ -1235,7 +1236,7 @@ unsafe fn main_0(
                                 .wrapping_mul(10 as libc::c_int as libc::c_ulong)
                                 .wrapping_add((optc - '0' as i32) as libc::c_ulong);
                             1 as libc::c_int
-                        })
+                        }
                     }) == 0
                     {
                         skip_fields = 18446744073709551615 as libc::c_ulong;

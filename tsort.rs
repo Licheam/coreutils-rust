@@ -10,6 +10,7 @@
 #![feature(label_break_value)]
 
 
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -627,7 +628,7 @@ unsafe extern "C" fn record_relation(mut j: *mut item, mut k: *mut item) {
         (*j).top = p;
     }
 }
-unsafe extern "C" fn count_items(mut unused: *mut item) -> bool {
+unsafe extern "C" fn count_items(mut _unused: *mut item) -> bool {
     n_strings = n_strings.wrapping_add(1);
     n_strings;
     return 0 as libc::c_int != 0;
@@ -903,7 +904,7 @@ unsafe extern "C" fn tsort(mut file: *const libc::c_char) -> bool {
                 1 as libc::c_int,
                 *__errno_location(),
                 b"%s\0" as *const u8 as *const libc::c_char,
-                (if is_stdin as libc::c_int != 0 {
+                if is_stdin as libc::c_int != 0 {
                     gettext(b"standard input\0" as *const u8 as *const libc::c_char)
                 } else {
                     quotearg_n_style_colon(
@@ -911,7 +912,7 @@ unsafe extern "C" fn tsort(mut file: *const libc::c_char) -> bool {
                         shell_escape_quoting_style,
                         file,
                     )
-                }),
+                },
             );
             if 0 as libc::c_int != 0 {} else {
                 unreachable!();
@@ -921,7 +922,7 @@ unsafe extern "C" fn tsort(mut file: *const libc::c_char) -> bool {
                 1 as libc::c_int,
                 *__errno_location(),
                 b"%s\0" as *const u8 as *const libc::c_char,
-                (if is_stdin as libc::c_int != 0 {
+                if is_stdin as libc::c_int != 0 {
                     gettext(b"standard input\0" as *const u8 as *const libc::c_char)
                 } else {
                     quotearg_n_style_colon(
@@ -929,7 +930,7 @@ unsafe extern "C" fn tsort(mut file: *const libc::c_char) -> bool {
                         shell_escape_quoting_style,
                         file,
                     )
-                }),
+                },
             );
             if 0 as libc::c_int != 0 {} else {
                 unreachable!();

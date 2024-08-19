@@ -7,6 +7,7 @@
 #![allow(unused_mut)]
 
 
+extern crate selinux_sys;
 extern crate libc;
 extern "C" {
     fn setlocale(

@@ -12,6 +12,7 @@
 
 extern crate f128;#[macro_use]
 extern crate num_traits;
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -1586,7 +1587,7 @@ unsafe extern "C" fn simple_strtod_int(
         val *= f128::f128::new(10 as libc::c_int);
         val += f128::f128::new(digit);
         *endptr = (*endptr).offset(1);
-        *endptr;
+        let _ = *endptr;
     }
     if !found_digit
         && !(strncmp(*endptr, decimal_point, decimal_point_length as libc::c_ulong)
@@ -1705,7 +1706,7 @@ unsafe extern "C" fn simple_strtod_human(
             != 0
         {
             *endptr = (*endptr).offset(1);
-            *endptr;
+            let _ = *endptr;
         }
         if valid_suffix(**endptr) == 0 {
             return SSE_INVALID_SUFFIX;
@@ -1715,13 +1716,13 @@ unsafe extern "C" fn simple_strtod_human(
         }
         power = suffix_power(**endptr);
         *endptr = (*endptr).offset(1);
-        *endptr;
+        let _ = *endptr;
         if allowed_scaling as libc::c_uint == scale_auto as libc::c_int as libc::c_uint
             && **endptr as libc::c_int == 'i' as i32
         {
             scale_base = 1024 as libc::c_int;
             *endptr = (*endptr).offset(1);
-            *endptr;
+            let _ = *endptr;
             if dev_debug {
                 fprintf(
                     stderr,
@@ -1736,7 +1737,7 @@ unsafe extern "C" fn simple_strtod_human(
     if allowed_scaling as libc::c_uint == scale_IEC_I as libc::c_int as libc::c_uint {
         if **endptr as libc::c_int == 'i' as i32 {
             *endptr = (*endptr).offset(1);
-            *endptr;
+            let _ = *endptr;
         } else {
             return SSE_MISSING_I_SUFFIX
         }

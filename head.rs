@@ -10,6 +10,7 @@
 #![feature(label_break_value)]
 
 
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -1826,7 +1827,7 @@ unsafe fn main_0(
                 n_units,
                 count_lines,
                 elide_from_end,
-            ) as libc::c_int) as bool;
+            ) as libc::c_int) != 0;
         i = i.wrapping_add(1);
         i;
     }

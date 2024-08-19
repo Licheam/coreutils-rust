@@ -9,6 +9,7 @@
 #![feature(extern_types)]
 
 
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {

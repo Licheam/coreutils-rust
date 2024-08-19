@@ -9,6 +9,7 @@
 #![feature(extern_types)]
 
 
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -1287,7 +1288,7 @@ unsafe fn main_0(
                                     ptr_align(inbuf as *const libc::c_void, page_size)
                                         as *mut libc::c_char,
                                     insize,
-                                ) as libc::c_int) as bool;
+                                ) as libc::c_int) != 0;
                         } else {
                             inbuf = xmalloc(
                                 insize
@@ -1319,7 +1320,7 @@ unsafe fn main_0(
                                     number_nonblank,
                                     show_ends,
                                     squeeze_blank,
-                                ) as libc::c_int) as bool;
+                                ) as libc::c_int) != 0;
                             free(outbuf as *mut libc::c_void);
                         }
                         free(inbuf as *mut libc::c_void);

@@ -11,6 +11,7 @@
 #![feature(linkage)]
 
 
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -1091,7 +1092,7 @@ unsafe extern "C" fn re_protect(
     let mut p: *mut dir_attr = 0 as *mut dir_attr;
     let mut dst_name: *mut libc::c_char = 0 as *mut libc::c_char;
     let mut src_name: *mut libc::c_char = 0 as *mut libc::c_char;
-    dst_name = ({
+    dst_name = {
         let mut __old: *const libc::c_char = const_dst_name;
         let mut __len: size_t = (strlen(__old))
             .wrapping_add(1 as libc::c_int as libc::c_ulong);
@@ -1099,7 +1100,7 @@ unsafe extern "C" fn re_protect(
         let mut __new: *mut libc::c_char = fresh0.as_mut_ptr() as *mut libc::c_char;
         memcpy(__new as *mut libc::c_void, __old as *const libc::c_void, __len)
             as *mut libc::c_char
-    });
+    };
     src_name = dst_name.offset(src_offset as isize);
     p = attr_list;
     while !p.is_null() {
@@ -1197,7 +1198,7 @@ unsafe extern "C" fn make_dir_parents_private(
     let mut src: *mut libc::c_char = 0 as *mut libc::c_char;
     let mut dst_dir: *mut libc::c_char = 0 as *mut libc::c_char;
     let mut dirlen: size_t = 0;
-    dir = ({
+    dir = {
         let mut __old: *const libc::c_char = const_dir;
         let mut __len: size_t = (strlen(__old))
             .wrapping_add(1 as libc::c_int as libc::c_ulong);
@@ -1205,7 +1206,7 @@ unsafe extern "C" fn make_dir_parents_private(
         let mut __new: *mut libc::c_char = fresh1.as_mut_ptr() as *mut libc::c_char;
         memcpy(__new as *mut libc::c_void, __old as *const libc::c_void, __len)
             as *mut libc::c_char
-    });
+    };
     src = dir.offset(src_offset as isize);
     dirlen = dir_len(dir);
     let mut fresh2 = ::std::vec::from_elem(
@@ -1312,13 +1313,13 @@ unsafe extern "C" fn make_dir_parents_private(
                                 | 0o100 as libc::c_int) >> 3 as libc::c_int
                                 >> 3 as libc::c_int
                     } else {
-                        (if (*x).preserve_mode as libc::c_int != 0 {
+                        if (*x).preserve_mode as libc::c_int != 0 {
                             0o200 as libc::c_int >> 3 as libc::c_int
                                 | 0o200 as libc::c_int >> 3 as libc::c_int
                                     >> 3 as libc::c_int
                         } else {
                             0 as libc::c_int
-                        })
+                        }
                     }) as libc::c_uint;
                 mkdir_mode = if (*x).explicit_no_preserve_mode as libc::c_int != 0 {
                     (0o400 as libc::c_int | 0o200 as libc::c_int | 0o100 as libc::c_int
@@ -1668,7 +1669,7 @@ unsafe extern "C" fn do_copy(
             if parents_option {
                 let mut arg_no_trailing_slash: *mut libc::c_char = 0
                     as *mut libc::c_char;
-                arg_no_trailing_slash = ({
+                arg_no_trailing_slash = {
                     let mut __old: *const libc::c_char = arg;
                     let mut __len: size_t = (strlen(__old))
                         .wrapping_add(1 as libc::c_int as libc::c_ulong);
@@ -1680,7 +1681,7 @@ unsafe extern "C" fn do_copy(
                         __old as *const libc::c_void,
                         __len,
                     ) as *mut libc::c_char
-                });
+                };
                 strip_trailing_slashes(arg_no_trailing_slash);
                 dst_name = file_name_concat(
                     target_directory,
@@ -1701,7 +1702,7 @@ unsafe extern "C" fn do_copy(
                 );
             } else {
                 let mut arg_base: *mut libc::c_char = 0 as *mut libc::c_char;
-                arg_base = ({
+                arg_base = {
                     let mut __old: *const libc::c_char = last_component(arg);
                     let mut __len: size_t = (strlen(__old))
                         .wrapping_add(1 as libc::c_int as libc::c_ulong);
@@ -1713,7 +1714,7 @@ unsafe extern "C" fn do_copy(
                         __old as *const libc::c_void,
                         __len,
                     ) as *mut libc::c_char
-                });
+                };
                 strip_trailing_slashes(arg_base);
                 dst_name = if strcmp(
                     arg_base,
@@ -1741,7 +1742,7 @@ unsafe extern "C" fn do_copy(
                         x,
                         &mut copy_into_self,
                         0 as *mut bool,
-                    ) as libc::c_int) as bool;
+                    ) as libc::c_int) != 0;
                 if parents_option {
                     ok = (ok as libc::c_int
                         & re_protect(
@@ -1750,7 +1751,7 @@ unsafe extern "C" fn do_copy(
                                 as size_t,
                             attr_list,
                             x,
-                        ) as libc::c_int) as bool;
+                        ) as libc::c_int) != 0;
                 }
             }
             if parents_option {

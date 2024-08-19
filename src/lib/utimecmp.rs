@@ -423,7 +423,7 @@ unsafe extern "C" fn dev_info_hash(
             {
                 2147483647 as libc::c_int as libc::c_ulong
             } else {
-                (if (0 as libc::c_int as dev_t) < -(1 as libc::c_int) as dev_t {
+                if (0 as libc::c_int as dev_t) < -(1 as libc::c_int) as dev_t {
                     -(1 as libc::c_int) as dev_t
                 } else {
                     ((1 as libc::c_int as dev_t)
@@ -433,7 +433,7 @@ unsafe extern "C" fn dev_info_hash(
                         .wrapping_sub(1 as libc::c_int as libc::c_ulong)
                         .wrapping_mul(2 as libc::c_int as libc::c_ulong)
                         .wrapping_add(1 as libc::c_int as libc::c_ulong)
-                })
+                }
             })
     {
         let mut dev: uintmax_t = (*p).dev;

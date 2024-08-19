@@ -10,6 +10,7 @@
 #![feature(label_break_value)]
 
 
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -466,7 +467,7 @@ unsafe extern "C" fn print_user(mut uid: uid_t) {
                 ),
                 uidtostr_ptr(&mut uid),
             );
-            ok = (ok as libc::c_int & 0 as libc::c_int) as bool;
+            ok = (ok as libc::c_int & 0 as libc::c_int) != 0;
         }
     }
     let mut s: *mut libc::c_char = if !pwd.is_null() {
@@ -548,7 +549,7 @@ unsafe extern "C" fn print_full_info(mut username: *const libc::c_char) {
                 ),
             );
         }
-        ok = (ok as libc::c_int & 0 as libc::c_int) as bool;
+        ok = (ok as libc::c_int & 0 as libc::c_int) != 0;
         return;
     }
     if n_groups > 0 as libc::c_int {
@@ -583,7 +584,7 @@ unsafe extern "C" fn print_stuff(mut pw_name: *const libc::c_char) {
             & print_group(
                 if use_real as libc::c_int != 0 { rgid } else { egid },
                 use_name,
-            ) as libc::c_int) as bool;
+            ) as libc::c_int) != 0;
     } else if just_group_list {
         ok = (ok as libc::c_int
             & print_group_list(
@@ -594,7 +595,7 @@ unsafe extern "C" fn print_stuff(mut pw_name: *const libc::c_char) {
                 use_name,
                 (if opt_zero as libc::c_int != 0 { '\0' as i32 } else { ' ' as i32 })
                     as libc::c_char,
-            ) as libc::c_int) as bool;
+            ) as libc::c_int) != 0;
     } else if just_context {
         fputs_unlocked(context, stdout);
     } else {
@@ -988,7 +989,7 @@ unsafe fn main_0(
                     gettext(b"%s: no such user\0" as *const u8 as *const libc::c_char),
                     quote(*argv.offset(optind as isize)),
                 );
-                ok = (ok as libc::c_int & 0 as libc::c_int) as bool;
+                ok = (ok as libc::c_int & 0 as libc::c_int) != 0;
             } else {
                 pw_name = xstrdup((*pwd).pw_name);
                 euid = (*pwd).pw_uid;

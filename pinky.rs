@@ -9,6 +9,7 @@
 #![feature(extern_types)]
 
 
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -590,12 +591,12 @@ unsafe extern "C" fn create_fullname(
         if (if ::core::mem::size_of::<size_t>() as libc::c_ulong
             == ::core::mem::size_of::<libc::c_schar>() as libc::c_ulong
         {
-            (if !((0 as libc::c_int as size_t) < -(1 as libc::c_int) as size_t) {
-                (if (if ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong)
+            if !((0 as libc::c_int as size_t) < -(1 as libc::c_int) as size_t) {
+                if (if ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong)
                     < 0 as libc::c_int as libc::c_ulong
                 {
-                    (if ulen < 0 as libc::c_int as libc::c_ulong {
-                        (if (if 1 as libc::c_int != 0 {
+                    if ulen < 0 as libc::c_int as libc::c_ulong {
+                        if (if 1 as libc::c_int != 0 {
                             0 as libc::c_int as libc::c_ulong
                         } else {
                             ((if 1 as libc::c_int != 0 {
@@ -704,9 +705,9 @@ unsafe extern "C" fn create_fullname(
                             })
                                 <= (-(1 as libc::c_int) as libc::c_ulong)
                                     .wrapping_sub(ulen)) as libc::c_int
-                        })
+                        }
                     } else {
-                        (if (if (if (if 1 as libc::c_int != 0 {
+                        if (if (if (if 1 as libc::c_int != 0 {
                             0 as libc::c_int as libc::c_ulong
                         } else {
                             (if 1 as libc::c_int != 0 {
@@ -830,7 +831,7 @@ unsafe extern "C" fn create_fullname(
                             && ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong)
                                 == -(1 as libc::c_int) as libc::c_ulong
                         {
-                            (if (if 1 as libc::c_int != 0 {
+                            if (if 1 as libc::c_int != 0 {
                                 0 as libc::c_int as libc::c_ulong
                             } else {
                                 ulen
@@ -850,23 +851,23 @@ unsafe extern "C" fn create_fullname(
                                         as libc::c_ulong)
                                         < ulen.wrapping_sub(1 as libc::c_int as libc::c_ulong))
                                     as libc::c_int
-                            })
+                            }
                         } else {
                             (((-(127 as libc::c_int) - 1 as libc::c_int)
                                 as libc::c_ulong)
                                 .wrapping_div(
                                     ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong),
                                 ) < ulen) as libc::c_int
-                        })
-                    })
+                        }
+                    }
                 } else {
-                    (if ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong)
+                    if ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong)
                         == 0 as libc::c_int as libc::c_ulong
                     {
                         0 as libc::c_int
                     } else {
-                        (if ulen < 0 as libc::c_int as libc::c_ulong {
-                            (if (if (if (if 1 as libc::c_int != 0 {
+                        if ulen < 0 as libc::c_int as libc::c_ulong {
+                            if (if (if (if 1 as libc::c_int != 0 {
                                 0 as libc::c_int as libc::c_ulong
                             } else {
                                 (if 1 as libc::c_int != 0 {
@@ -988,7 +989,7 @@ unsafe extern "C" fn create_fullname(
                                         )) as libc::c_int
                             }) != 0 && ulen == -(1 as libc::c_int) as libc::c_ulong
                             {
-                                (if (if 1 as libc::c_int != 0 {
+                                if (if 1 as libc::c_int != 0 {
                                     0 as libc::c_int as libc::c_ulong
                                 } else {
                                     ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong)
@@ -1010,7 +1011,7 @@ unsafe extern "C" fn create_fullname(
                                             .wrapping_sub(1 as libc::c_int as libc::c_ulong)
                                             .wrapping_sub(1 as libc::c_int as libc::c_ulong))
                                         as libc::c_int
-                                })
+                                }
                             } else {
                                 (((-(127 as libc::c_int) - 1 as libc::c_int)
                                     as libc::c_ulong)
@@ -1018,14 +1019,14 @@ unsafe extern "C" fn create_fullname(
                                     < ampersands
                                         .wrapping_sub(1 as libc::c_int as libc::c_ulong))
                                     as libc::c_int
-                            })
+                            }
                         } else {
                             ((127 as libc::c_int as libc::c_ulong)
                                 .wrapping_div(
                                     ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong),
                                 ) < ulen) as libc::c_int
-                        })
-                    })
+                        }
+                    }
                 }) != 0
                 {
                     product = (ulen as libc::c_uint)
@@ -1041,13 +1042,13 @@ unsafe extern "C" fn create_fullname(
                                 as libc::c_uint,
                         ) as libc::c_schar as size_t;
                     0 as libc::c_int
-                })
+                }
             } else {
-                (if (if ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong)
+                if (if ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong)
                     < 0 as libc::c_int as libc::c_ulong
                 {
-                    (if ulen < 0 as libc::c_int as libc::c_ulong {
-                        (if (if 1 as libc::c_int != 0 {
+                    if ulen < 0 as libc::c_int as libc::c_ulong {
+                        if (if 1 as libc::c_int != 0 {
                             0 as libc::c_int as libc::c_ulong
                         } else {
                             ((if 1 as libc::c_int != 0 {
@@ -1161,9 +1162,9 @@ unsafe extern "C" fn create_fullname(
                             })
                                 <= (-(1 as libc::c_int) as libc::c_ulong)
                                     .wrapping_sub(ulen)) as libc::c_int
-                        })
+                        }
                     } else {
-                        (if (if (if (if 1 as libc::c_int != 0 {
+                        if (if (if (if 1 as libc::c_int != 0 {
                             0 as libc::c_int as libc::c_ulong
                         } else {
                             (if 1 as libc::c_int != 0 {
@@ -1272,7 +1273,7 @@ unsafe extern "C" fn create_fullname(
                             && ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong)
                                 == -(1 as libc::c_int) as libc::c_ulong
                         {
-                            (if (if 1 as libc::c_int != 0 {
+                            if (if 1 as libc::c_int != 0 {
                                 0 as libc::c_int as libc::c_ulong
                             } else {
                                 ulen
@@ -1289,22 +1290,22 @@ unsafe extern "C" fn create_fullname(
                                         as libc::c_ulong)
                                         < ulen.wrapping_sub(1 as libc::c_int as libc::c_ulong))
                                     as libc::c_int
-                            })
+                            }
                         } else {
                             ((0 as libc::c_int as libc::c_ulong)
                                 .wrapping_div(
                                     ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong),
                                 ) < ulen) as libc::c_int
-                        })
-                    })
+                        }
+                    }
                 } else {
-                    (if ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong)
+                    if ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong)
                         == 0 as libc::c_int as libc::c_ulong
                     {
                         0 as libc::c_int
                     } else {
-                        (if ulen < 0 as libc::c_int as libc::c_ulong {
-                            (if (if (if (if 1 as libc::c_int != 0 {
+                        if ulen < 0 as libc::c_int as libc::c_ulong {
+                            if (if (if (if 1 as libc::c_int != 0 {
                                 0 as libc::c_int as libc::c_ulong
                             } else {
                                 (if 1 as libc::c_int != 0 {
@@ -1411,7 +1412,7 @@ unsafe extern "C" fn create_fullname(
                                     as libc::c_int
                             }) != 0 && ulen == -(1 as libc::c_int) as libc::c_ulong
                             {
-                                (if (if 1 as libc::c_int != 0 {
+                                if (if 1 as libc::c_int != 0 {
                                     0 as libc::c_int as libc::c_ulong
                                 } else {
                                     ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong)
@@ -1430,21 +1431,21 @@ unsafe extern "C" fn create_fullname(
                                             .wrapping_sub(1 as libc::c_int as libc::c_ulong)
                                             .wrapping_sub(1 as libc::c_int as libc::c_ulong))
                                         as libc::c_int
-                                })
+                                }
                             } else {
                                 ((0 as libc::c_int as libc::c_ulong).wrapping_div(ulen)
                                     < ampersands
                                         .wrapping_sub(1 as libc::c_int as libc::c_ulong))
                                     as libc::c_int
-                            })
+                            }
                         } else {
                             (((127 as libc::c_int * 2 as libc::c_int + 1 as libc::c_int)
                                 as libc::c_ulong)
                                 .wrapping_div(
                                     ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong),
                                 ) < ulen) as libc::c_int
-                        })
-                    })
+                        }
+                    }
                 }) != 0
                 {
                     product = (ulen as libc::c_uint)
@@ -1460,18 +1461,18 @@ unsafe extern "C" fn create_fullname(
                                 as libc::c_uint,
                         ) as libc::c_uchar as size_t;
                     0 as libc::c_int
-                })
-            })
+                }
+            }
         } else {
-            (if ::core::mem::size_of::<size_t>() as libc::c_ulong
+            if ::core::mem::size_of::<size_t>() as libc::c_ulong
                 == ::core::mem::size_of::<libc::c_short>() as libc::c_ulong
             {
-                (if !((0 as libc::c_int as size_t) < -(1 as libc::c_int) as size_t) {
-                    (if (if ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong)
+                if !((0 as libc::c_int as size_t) < -(1 as libc::c_int) as size_t) {
+                    if (if ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong)
                         < 0 as libc::c_int as libc::c_ulong
                     {
-                        (if ulen < 0 as libc::c_int as libc::c_ulong {
-                            (if (if 1 as libc::c_int != 0 {
+                        if ulen < 0 as libc::c_int as libc::c_ulong {
+                            if (if 1 as libc::c_int != 0 {
                                 0 as libc::c_int as libc::c_ulong
                             } else {
                                 ((if 1 as libc::c_int != 0 {
@@ -1580,9 +1581,9 @@ unsafe extern "C" fn create_fullname(
                                 })
                                     <= (-(1 as libc::c_int) as libc::c_ulong)
                                         .wrapping_sub(ulen)) as libc::c_int
-                            })
+                            }
                         } else {
-                            (if (if (if (if 1 as libc::c_int != 0 {
+                            if (if (if (if 1 as libc::c_int != 0 {
                                 0 as libc::c_int as libc::c_ulong
                             } else {
                                 (if 1 as libc::c_int != 0 {
@@ -1715,7 +1716,7 @@ unsafe extern "C" fn create_fullname(
                                     .wrapping_sub(1 as libc::c_int as libc::c_ulong)
                                     == -(1 as libc::c_int) as libc::c_ulong
                             {
-                                (if (if 1 as libc::c_int != 0 {
+                                if (if 1 as libc::c_int != 0 {
                                     0 as libc::c_int as libc::c_ulong
                                 } else {
                                     ulen
@@ -1736,23 +1737,23 @@ unsafe extern "C" fn create_fullname(
                                             as libc::c_ulong)
                                             < ulen.wrapping_sub(1 as libc::c_int as libc::c_ulong))
                                         as libc::c_int
-                                })
+                                }
                             } else {
                                 (((-(32767 as libc::c_int) - 1 as libc::c_int)
                                     as libc::c_ulong)
                                     .wrapping_div(
                                         ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong),
                                     ) < ulen) as libc::c_int
-                            })
-                        })
+                            }
+                        }
                     } else {
-                        (if ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong)
+                        if ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong)
                             == 0 as libc::c_int as libc::c_ulong
                         {
                             0 as libc::c_int
                         } else {
-                            (if ulen < 0 as libc::c_int as libc::c_ulong {
-                                (if (if (if (if 1 as libc::c_int != 0 {
+                            if ulen < 0 as libc::c_int as libc::c_ulong {
+                                if (if (if (if 1 as libc::c_int != 0 {
                                     0 as libc::c_int as libc::c_ulong
                                 } else {
                                     (if 1 as libc::c_int != 0 {
@@ -1882,7 +1883,7 @@ unsafe extern "C" fn create_fullname(
                                             )) as libc::c_int
                                 }) != 0 && ulen == -(1 as libc::c_int) as libc::c_ulong
                                 {
-                                    (if (if 1 as libc::c_int != 0 {
+                                    if (if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_ulong
                                     } else {
                                         ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong)
@@ -1905,7 +1906,7 @@ unsafe extern "C" fn create_fullname(
                                                 .wrapping_sub(1 as libc::c_int as libc::c_ulong)
                                                 .wrapping_sub(1 as libc::c_int as libc::c_ulong))
                                             as libc::c_int
-                                    })
+                                    }
                                 } else {
                                     (((-(32767 as libc::c_int) - 1 as libc::c_int)
                                         as libc::c_ulong)
@@ -1913,14 +1914,14 @@ unsafe extern "C" fn create_fullname(
                                         < ampersands
                                             .wrapping_sub(1 as libc::c_int as libc::c_ulong))
                                         as libc::c_int
-                                })
+                                }
                             } else {
                                 ((32767 as libc::c_int as libc::c_ulong)
                                     .wrapping_div(
                                         ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong),
                                     ) < ulen) as libc::c_int
-                            })
-                        })
+                            }
+                        }
                     }) != 0
                     {
                         product = (ulen as libc::c_uint)
@@ -1936,13 +1937,13 @@ unsafe extern "C" fn create_fullname(
                                     as libc::c_uint,
                             ) as libc::c_short as size_t;
                         0 as libc::c_int
-                    })
+                    }
                 } else {
-                    (if (if ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong)
+                    if (if ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong)
                         < 0 as libc::c_int as libc::c_ulong
                     {
-                        (if ulen < 0 as libc::c_int as libc::c_ulong {
-                            (if (if 1 as libc::c_int != 0 {
+                        if ulen < 0 as libc::c_int as libc::c_ulong {
+                            if (if 1 as libc::c_int != 0 {
                                 0 as libc::c_int as libc::c_ulong
                             } else {
                                 ((if 1 as libc::c_int != 0 {
@@ -2056,9 +2057,9 @@ unsafe extern "C" fn create_fullname(
                                 })
                                     <= (-(1 as libc::c_int) as libc::c_ulong)
                                         .wrapping_sub(ulen)) as libc::c_int
-                            })
+                            }
                         } else {
-                            (if (if (if (if 1 as libc::c_int != 0 {
+                            if (if (if (if 1 as libc::c_int != 0 {
                                 0 as libc::c_int as libc::c_ulong
                             } else {
                                 (if 1 as libc::c_int != 0 {
@@ -2168,7 +2169,7 @@ unsafe extern "C" fn create_fullname(
                                     .wrapping_sub(1 as libc::c_int as libc::c_ulong)
                                     == -(1 as libc::c_int) as libc::c_ulong
                             {
-                                (if (if 1 as libc::c_int != 0 {
+                                if (if 1 as libc::c_int != 0 {
                                     0 as libc::c_int as libc::c_ulong
                                 } else {
                                     ulen
@@ -2185,22 +2186,22 @@ unsafe extern "C" fn create_fullname(
                                             as libc::c_ulong)
                                             < ulen.wrapping_sub(1 as libc::c_int as libc::c_ulong))
                                         as libc::c_int
-                                })
+                                }
                             } else {
                                 ((0 as libc::c_int as libc::c_ulong)
                                     .wrapping_div(
                                         ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong),
                                     ) < ulen) as libc::c_int
-                            })
-                        })
+                            }
+                        }
                     } else {
-                        (if ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong)
+                        if ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong)
                             == 0 as libc::c_int as libc::c_ulong
                         {
                             0 as libc::c_int
                         } else {
-                            (if ulen < 0 as libc::c_int as libc::c_ulong {
-                                (if (if (if (if 1 as libc::c_int != 0 {
+                            if ulen < 0 as libc::c_int as libc::c_ulong {
+                                if (if (if (if 1 as libc::c_int != 0 {
                                     0 as libc::c_int as libc::c_ulong
                                 } else {
                                     (if 1 as libc::c_int != 0 {
@@ -2307,7 +2308,7 @@ unsafe extern "C" fn create_fullname(
                                         as libc::c_int
                                 }) != 0 && ulen == -(1 as libc::c_int) as libc::c_ulong
                                 {
-                                    (if (if 1 as libc::c_int != 0 {
+                                    if (if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_ulong
                                     } else {
                                         ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong)
@@ -2326,21 +2327,21 @@ unsafe extern "C" fn create_fullname(
                                                 .wrapping_sub(1 as libc::c_int as libc::c_ulong)
                                                 .wrapping_sub(1 as libc::c_int as libc::c_ulong))
                                             as libc::c_int
-                                    })
+                                    }
                                 } else {
                                     ((0 as libc::c_int as libc::c_ulong).wrapping_div(ulen)
                                         < ampersands
                                             .wrapping_sub(1 as libc::c_int as libc::c_ulong))
                                         as libc::c_int
-                                })
+                                }
                             } else {
                                 (((32767 as libc::c_int * 2 as libc::c_int
                                     + 1 as libc::c_int) as libc::c_ulong)
                                     .wrapping_div(
                                         ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong),
                                     ) < ulen) as libc::c_int
-                            })
-                        })
+                            }
+                        }
                     }) != 0
                     {
                         product = (ulen as libc::c_uint)
@@ -2356,13 +2357,13 @@ unsafe extern "C" fn create_fullname(
                                     as libc::c_uint,
                             ) as libc::c_ushort as size_t;
                         0 as libc::c_int
-                    })
-                })
+                    }
+                }
             } else {
-                (if ::core::mem::size_of::<size_t>() as libc::c_ulong
+                if ::core::mem::size_of::<size_t>() as libc::c_ulong
                     == ::core::mem::size_of::<libc::c_int>() as libc::c_ulong
                 {
-                    (if (if 1 as libc::c_int != 0 {
+                    if (if 1 as libc::c_int != 0 {
                         0 as libc::c_int as libc::c_ulong
                     } else {
                         product
@@ -2370,12 +2371,12 @@ unsafe extern "C" fn create_fullname(
                         .wrapping_sub(1 as libc::c_int as libc::c_ulong)
                         < 0 as libc::c_int as libc::c_ulong
                     {
-                        (if (if ampersands
+                        if (if ampersands
                             .wrapping_sub(1 as libc::c_int as libc::c_ulong)
                             < 0 as libc::c_int as libc::c_ulong
                         {
-                            (if ulen < 0 as libc::c_int as libc::c_ulong {
-                                (if (if 1 as libc::c_int != 0 {
+                            if ulen < 0 as libc::c_int as libc::c_ulong {
+                                if (if 1 as libc::c_int != 0 {
                                     0 as libc::c_int as libc::c_ulong
                                 } else {
                                     ((if 1 as libc::c_int != 0 {
@@ -2484,9 +2485,9 @@ unsafe extern "C" fn create_fullname(
                                     })
                                         <= (-(1 as libc::c_int) as libc::c_ulong)
                                             .wrapping_sub(ulen)) as libc::c_int
-                                })
+                                }
                             } else {
-                                (if (if (if (if 1 as libc::c_int != 0 {
+                                if (if (if (if 1 as libc::c_int != 0 {
                                     0 as libc::c_int as libc::c_ulong
                                 } else {
                                     (if 1 as libc::c_int != 0 {
@@ -2619,7 +2620,7 @@ unsafe extern "C" fn create_fullname(
                                         .wrapping_sub(1 as libc::c_int as libc::c_ulong)
                                         == -(1 as libc::c_int) as libc::c_ulong
                                 {
-                                    (if (if 1 as libc::c_int != 0 {
+                                    if (if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_ulong
                                     } else {
                                         ulen
@@ -2640,24 +2641,24 @@ unsafe extern "C" fn create_fullname(
                                                 as libc::c_ulong)
                                                 < ulen.wrapping_sub(1 as libc::c_int as libc::c_ulong))
                                             as libc::c_int
-                                    })
+                                    }
                                 } else {
                                     (((-(2147483647 as libc::c_int) - 1 as libc::c_int)
                                         as libc::c_ulong)
                                         .wrapping_div(
                                             ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong),
                                         ) < ulen) as libc::c_int
-                                })
-                            })
+                                }
+                            }
                         } else {
-                            (if ampersands
+                            if ampersands
                                 .wrapping_sub(1 as libc::c_int as libc::c_ulong)
                                 == 0 as libc::c_int as libc::c_ulong
                             {
                                 0 as libc::c_int
                             } else {
-                                (if ulen < 0 as libc::c_int as libc::c_ulong {
-                                    (if (if (if (if 1 as libc::c_int != 0 {
+                                if ulen < 0 as libc::c_int as libc::c_ulong {
+                                    if (if (if (if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_ulong
                                     } else {
                                         (if 1 as libc::c_int != 0 {
@@ -2787,7 +2788,7 @@ unsafe extern "C" fn create_fullname(
                                                 )) as libc::c_int
                                     }) != 0 && ulen == -(1 as libc::c_int) as libc::c_ulong
                                     {
-                                        (if (if 1 as libc::c_int != 0 {
+                                        if (if 1 as libc::c_int != 0 {
                                             0 as libc::c_int as libc::c_ulong
                                         } else {
                                             ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong)
@@ -2810,7 +2811,7 @@ unsafe extern "C" fn create_fullname(
                                                     .wrapping_sub(1 as libc::c_int as libc::c_ulong)
                                                     .wrapping_sub(1 as libc::c_int as libc::c_ulong))
                                                 as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         (((-(2147483647 as libc::c_int) - 1 as libc::c_int)
                                             as libc::c_ulong)
@@ -2818,14 +2819,14 @@ unsafe extern "C" fn create_fullname(
                                             < ampersands
                                                 .wrapping_sub(1 as libc::c_int as libc::c_ulong))
                                             as libc::c_int
-                                    })
+                                    }
                                 } else {
                                     ((2147483647 as libc::c_int as libc::c_ulong)
                                         .wrapping_div(
                                             ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong),
                                         ) < ulen) as libc::c_int
-                                })
-                            })
+                                }
+                            }
                         }) != 0
                         {
                             product = (ulen as libc::c_uint)
@@ -2841,14 +2842,14 @@ unsafe extern "C" fn create_fullname(
                                         as libc::c_uint,
                                 ) as libc::c_int as size_t;
                             0 as libc::c_int
-                        })
+                        }
                     } else {
-                        (if (if ampersands
+                        if (if ampersands
                             .wrapping_sub(1 as libc::c_int as libc::c_ulong)
                             < 0 as libc::c_int as libc::c_ulong
                         {
-                            (if ulen < 0 as libc::c_int as libc::c_ulong {
-                                (if (if 1 as libc::c_int != 0 {
+                            if ulen < 0 as libc::c_int as libc::c_ulong {
+                                if (if 1 as libc::c_int != 0 {
                                     0 as libc::c_int as libc::c_ulong
                                 } else {
                                     ((if 1 as libc::c_int != 0 {
@@ -2967,9 +2968,9 @@ unsafe extern "C" fn create_fullname(
                                     })
                                         <= (-(1 as libc::c_int) as libc::c_ulong)
                                             .wrapping_sub(ulen)) as libc::c_int
-                                })
+                                }
                             } else {
-                                (if (if (if (if 1 as libc::c_int != 0 {
+                                if (if (if (if 1 as libc::c_int != 0 {
                                     0 as libc::c_int as libc::c_ulong
                                 } else {
                                     (if 1 as libc::c_int != 0 {
@@ -3079,7 +3080,7 @@ unsafe extern "C" fn create_fullname(
                                         .wrapping_sub(1 as libc::c_int as libc::c_ulong)
                                         == -(1 as libc::c_int) as libc::c_ulong
                                 {
-                                    (if (if 1 as libc::c_int != 0 {
+                                    if (if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_ulong
                                     } else {
                                         ulen
@@ -3096,23 +3097,23 @@ unsafe extern "C" fn create_fullname(
                                                 as libc::c_ulong)
                                                 < ulen.wrapping_sub(1 as libc::c_int as libc::c_ulong))
                                             as libc::c_int
-                                    })
+                                    }
                                 } else {
                                     ((0 as libc::c_int as libc::c_ulong)
                                         .wrapping_div(
                                             ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong),
                                         ) < ulen) as libc::c_int
-                                })
-                            })
+                                }
+                            }
                         } else {
-                            (if ampersands
+                            if ampersands
                                 .wrapping_sub(1 as libc::c_int as libc::c_ulong)
                                 == 0 as libc::c_int as libc::c_ulong
                             {
                                 0 as libc::c_int
                             } else {
-                                (if ulen < 0 as libc::c_int as libc::c_ulong {
-                                    (if (if (if (if 1 as libc::c_int != 0 {
+                                if ulen < 0 as libc::c_int as libc::c_ulong {
+                                    if (if (if (if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_ulong
                                     } else {
                                         (if 1 as libc::c_int != 0 {
@@ -3219,7 +3220,7 @@ unsafe extern "C" fn create_fullname(
                                             as libc::c_int
                                     }) != 0 && ulen == -(1 as libc::c_int) as libc::c_ulong
                                     {
-                                        (if (if 1 as libc::c_int != 0 {
+                                        if (if 1 as libc::c_int != 0 {
                                             0 as libc::c_int as libc::c_ulong
                                         } else {
                                             ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong)
@@ -3238,13 +3239,13 @@ unsafe extern "C" fn create_fullname(
                                                     .wrapping_sub(1 as libc::c_int as libc::c_ulong)
                                                     .wrapping_sub(1 as libc::c_int as libc::c_ulong))
                                                 as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         ((0 as libc::c_int as libc::c_ulong).wrapping_div(ulen)
                                             < ampersands
                                                 .wrapping_sub(1 as libc::c_int as libc::c_ulong))
                                             as libc::c_int
-                                    })
+                                    }
                                 } else {
                                     (((2147483647 as libc::c_int as libc::c_uint)
                                         .wrapping_mul(2 as libc::c_uint)
@@ -3252,8 +3253,8 @@ unsafe extern "C" fn create_fullname(
                                         .wrapping_div(
                                             ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong),
                                         ) < ulen) as libc::c_int
-                                })
-                            })
+                                }
+                            }
                         }) != 0
                         {
                             product = (ulen as libc::c_uint)
@@ -3269,13 +3270,13 @@ unsafe extern "C" fn create_fullname(
                                         as libc::c_uint,
                                 ) as size_t;
                             0 as libc::c_int
-                        })
-                    })
+                        }
+                    }
                 } else {
-                    (if ::core::mem::size_of::<size_t>() as libc::c_ulong
+                    if ::core::mem::size_of::<size_t>() as libc::c_ulong
                         == ::core::mem::size_of::<libc::c_long>() as libc::c_ulong
                     {
-                        (if (if 1 as libc::c_int != 0 {
+                        if (if 1 as libc::c_int != 0 {
                             0 as libc::c_int as libc::c_ulong
                         } else {
                             product
@@ -3283,12 +3284,12 @@ unsafe extern "C" fn create_fullname(
                             .wrapping_sub(1 as libc::c_int as libc::c_ulong)
                             < 0 as libc::c_int as libc::c_ulong
                         {
-                            (if (if ampersands
+                            if (if ampersands
                                 .wrapping_sub(1 as libc::c_int as libc::c_ulong)
                                 < 0 as libc::c_int as libc::c_ulong
                             {
-                                (if ulen < 0 as libc::c_int as libc::c_ulong {
-                                    (if (if 1 as libc::c_int != 0 {
+                                if ulen < 0 as libc::c_int as libc::c_ulong {
+                                    if (if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_ulong
                                     } else {
                                         ((if 1 as libc::c_int != 0 {
@@ -3399,9 +3400,9 @@ unsafe extern "C" fn create_fullname(
                                         })
                                             <= (-(1 as libc::c_int) as libc::c_ulong)
                                                 .wrapping_sub(ulen)) as libc::c_int
-                                    })
+                                    }
                                 } else {
-                                    (if (if (if (if 1 as libc::c_int != 0 {
+                                    if (if (if (if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_ulong
                                     } else {
                                         (if 1 as libc::c_int != 0 {
@@ -3534,7 +3535,7 @@ unsafe extern "C" fn create_fullname(
                                             .wrapping_sub(1 as libc::c_int as libc::c_ulong)
                                             == -(1 as libc::c_int) as libc::c_ulong
                                     {
-                                        (if (if 1 as libc::c_int != 0 {
+                                        if (if 1 as libc::c_int != 0 {
                                             0 as libc::c_int as libc::c_ulong
                                         } else {
                                             ulen
@@ -3555,24 +3556,24 @@ unsafe extern "C" fn create_fullname(
                                                         - 1 as libc::c_long)) as libc::c_ulong)
                                                     < ulen.wrapping_sub(1 as libc::c_int as libc::c_ulong))
                                                 as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         (((-(9223372036854775807 as libc::c_long)
                                             - 1 as libc::c_long) as libc::c_ulong)
                                             .wrapping_div(
                                                 ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong),
                                             ) < ulen) as libc::c_int
-                                    })
-                                })
+                                    }
+                                }
                             } else {
-                                (if ampersands
+                                if ampersands
                                     .wrapping_sub(1 as libc::c_int as libc::c_ulong)
                                     == 0 as libc::c_int as libc::c_ulong
                                 {
                                     0 as libc::c_int
                                 } else {
-                                    (if ulen < 0 as libc::c_int as libc::c_ulong {
-                                        (if (if (if (if 1 as libc::c_int != 0 {
+                                    if ulen < 0 as libc::c_int as libc::c_ulong {
+                                        if (if (if (if 1 as libc::c_int != 0 {
                                             0 as libc::c_int as libc::c_ulong
                                         } else {
                                             (if 1 as libc::c_int != 0 {
@@ -3702,7 +3703,7 @@ unsafe extern "C" fn create_fullname(
                                                     )) as libc::c_int
                                         }) != 0 && ulen == -(1 as libc::c_int) as libc::c_ulong
                                         {
-                                            (if (if 1 as libc::c_int != 0 {
+                                            if (if 1 as libc::c_int != 0 {
                                                 0 as libc::c_int as libc::c_ulong
                                             } else {
                                                 ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong)
@@ -3725,7 +3726,7 @@ unsafe extern "C" fn create_fullname(
                                                         .wrapping_sub(1 as libc::c_int as libc::c_ulong)
                                                         .wrapping_sub(1 as libc::c_int as libc::c_ulong))
                                                     as libc::c_int
-                                            })
+                                            }
                                         } else {
                                             (((-(9223372036854775807 as libc::c_long)
                                                 - 1 as libc::c_long) as libc::c_ulong)
@@ -3733,14 +3734,14 @@ unsafe extern "C" fn create_fullname(
                                                 < ampersands
                                                     .wrapping_sub(1 as libc::c_int as libc::c_ulong))
                                                 as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         ((9223372036854775807 as libc::c_long as libc::c_ulong)
                                             .wrapping_div(
                                                 ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong),
                                             ) < ulen) as libc::c_int
-                                    })
-                                })
+                                    }
+                                }
                             }) != 0
                             {
                                 product = ulen
@@ -3754,14 +3755,14 @@ unsafe extern "C" fn create_fullname(
                                         ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong),
                                     ) as libc::c_long as size_t;
                                 0 as libc::c_int
-                            })
+                            }
                         } else {
-                            (if (if ampersands
+                            if (if ampersands
                                 .wrapping_sub(1 as libc::c_int as libc::c_ulong)
                                 < 0 as libc::c_int as libc::c_ulong
                             {
-                                (if ulen < 0 as libc::c_int as libc::c_ulong {
-                                    (if (if 1 as libc::c_int != 0 {
+                                if ulen < 0 as libc::c_int as libc::c_ulong {
+                                    if (if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_ulong
                                     } else {
                                         (if 1 as libc::c_int != 0 {
@@ -3880,9 +3881,9 @@ unsafe extern "C" fn create_fullname(
                                         })
                                             <= (-(1 as libc::c_int) as libc::c_ulong)
                                                 .wrapping_sub(ulen)) as libc::c_int
-                                    })
+                                    }
                                 } else {
-                                    (if (if (if (if 1 as libc::c_int != 0 {
+                                    if (if (if (if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_ulong
                                     } else {
                                         (if 1 as libc::c_int != 0 {
@@ -3992,7 +3993,7 @@ unsafe extern "C" fn create_fullname(
                                             .wrapping_sub(1 as libc::c_int as libc::c_ulong)
                                             == -(1 as libc::c_int) as libc::c_ulong
                                     {
-                                        (if (if 1 as libc::c_int != 0 {
+                                        if (if 1 as libc::c_int != 0 {
                                             0 as libc::c_int as libc::c_ulong
                                         } else {
                                             ulen
@@ -4009,23 +4010,23 @@ unsafe extern "C" fn create_fullname(
                                                     as libc::c_ulong)
                                                     < ulen.wrapping_sub(1 as libc::c_int as libc::c_ulong))
                                                 as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         ((0 as libc::c_int as libc::c_ulong)
                                             .wrapping_div(
                                                 ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong),
                                             ) < ulen) as libc::c_int
-                                    })
-                                })
+                                    }
+                                }
                             } else {
-                                (if ampersands
+                                if ampersands
                                     .wrapping_sub(1 as libc::c_int as libc::c_ulong)
                                     == 0 as libc::c_int as libc::c_ulong
                                 {
                                     0 as libc::c_int
                                 } else {
-                                    (if ulen < 0 as libc::c_int as libc::c_ulong {
-                                        (if (if (if (if 1 as libc::c_int != 0 {
+                                    if ulen < 0 as libc::c_int as libc::c_ulong {
+                                        if (if (if (if 1 as libc::c_int != 0 {
                                             0 as libc::c_int as libc::c_ulong
                                         } else {
                                             (if 1 as libc::c_int != 0 {
@@ -4132,7 +4133,7 @@ unsafe extern "C" fn create_fullname(
                                                 as libc::c_int
                                         }) != 0 && ulen == -(1 as libc::c_int) as libc::c_ulong
                                         {
-                                            (if (if 1 as libc::c_int != 0 {
+                                            if (if 1 as libc::c_int != 0 {
                                                 0 as libc::c_int as libc::c_ulong
                                             } else {
                                                 ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong)
@@ -4151,13 +4152,13 @@ unsafe extern "C" fn create_fullname(
                                                         .wrapping_sub(1 as libc::c_int as libc::c_ulong)
                                                         .wrapping_sub(1 as libc::c_int as libc::c_ulong))
                                                     as libc::c_int
-                                            })
+                                            }
                                         } else {
                                             ((0 as libc::c_int as libc::c_ulong).wrapping_div(ulen)
                                                 < ampersands
                                                     .wrapping_sub(1 as libc::c_int as libc::c_ulong))
                                                 as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         ((9223372036854775807 as libc::c_long as libc::c_ulong)
                                             .wrapping_mul(2 as libc::c_ulong)
@@ -4165,8 +4166,8 @@ unsafe extern "C" fn create_fullname(
                                             .wrapping_div(
                                                 ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong),
                                             ) < ulen) as libc::c_int
-                                    })
-                                })
+                                    }
+                                }
                             }) != 0
                             {
                                 product = ulen
@@ -4180,10 +4181,10 @@ unsafe extern "C" fn create_fullname(
                                         ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong),
                                     );
                                 0 as libc::c_int
-                            })
-                        })
+                            }
+                        }
                     } else {
-                        (if (if 1 as libc::c_int != 0 {
+                        if (if 1 as libc::c_int != 0 {
                             0 as libc::c_int as libc::c_ulong
                         } else {
                             product
@@ -4191,12 +4192,12 @@ unsafe extern "C" fn create_fullname(
                             .wrapping_sub(1 as libc::c_int as libc::c_ulong)
                             < 0 as libc::c_int as libc::c_ulong
                         {
-                            (if (if ampersands
+                            if (if ampersands
                                 .wrapping_sub(1 as libc::c_int as libc::c_ulong)
                                 < 0 as libc::c_int as libc::c_ulong
                             {
-                                (if ulen < 0 as libc::c_int as libc::c_ulong {
-                                    (if (if 1 as libc::c_int != 0 {
+                                if ulen < 0 as libc::c_int as libc::c_ulong {
+                                    if (if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_ulonglong
                                     } else {
                                         ((if 1 as libc::c_int != 0 {
@@ -4311,9 +4312,9 @@ unsafe extern "C" fn create_fullname(
                                         })
                                             <= (-(1 as libc::c_int) as libc::c_ulong).wrapping_sub(ulen)
                                                 as libc::c_ulonglong) as libc::c_int
-                                    })
+                                    }
                                 } else {
-                                    (if (if (if (if 1 as libc::c_int != 0 {
+                                    if (if (if (if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_ulonglong
                                     } else {
                                         ((if 1 as libc::c_int != 0 {
@@ -4446,7 +4447,7 @@ unsafe extern "C" fn create_fullname(
                                             .wrapping_sub(1 as libc::c_int as libc::c_ulong)
                                             == -(1 as libc::c_int) as libc::c_ulong
                                     {
-                                        (if (if 1 as libc::c_int != 0 {
+                                        if (if 1 as libc::c_int != 0 {
                                             0 as libc::c_int as libc::c_ulong
                                         } else {
                                             ulen
@@ -4467,7 +4468,7 @@ unsafe extern "C" fn create_fullname(
                                                         - 1 as libc::c_longlong)) as libc::c_ulonglong)
                                                     < ulen.wrapping_sub(1 as libc::c_int as libc::c_ulong)
                                                         as libc::c_ulonglong) as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         (((-(9223372036854775807 as libc::c_longlong)
                                             - 1 as libc::c_longlong) as libc::c_ulonglong)
@@ -4475,17 +4476,17 @@ unsafe extern "C" fn create_fullname(
                                                 ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong)
                                                     as libc::c_ulonglong,
                                             ) < ulen as libc::c_ulonglong) as libc::c_int
-                                    })
-                                })
+                                    }
+                                }
                             } else {
-                                (if ampersands
+                                if ampersands
                                     .wrapping_sub(1 as libc::c_int as libc::c_ulong)
                                     == 0 as libc::c_int as libc::c_ulong
                                 {
                                     0 as libc::c_int
                                 } else {
-                                    (if ulen < 0 as libc::c_int as libc::c_ulong {
-                                        (if (if (if (if 1 as libc::c_int != 0 {
+                                    if ulen < 0 as libc::c_int as libc::c_ulong {
+                                        if (if (if (if 1 as libc::c_int != 0 {
                                             0 as libc::c_int as libc::c_ulonglong
                                         } else {
                                             ((if 1 as libc::c_int != 0 {
@@ -4615,7 +4616,7 @@ unsafe extern "C" fn create_fullname(
                                                     )) as libc::c_int
                                         }) != 0 && ulen == -(1 as libc::c_int) as libc::c_ulong
                                         {
-                                            (if (if 1 as libc::c_int != 0 {
+                                            if (if 1 as libc::c_int != 0 {
                                                 0 as libc::c_int as libc::c_ulong
                                             } else {
                                                 ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong)
@@ -4639,14 +4640,14 @@ unsafe extern "C" fn create_fullname(
                                                         .wrapping_sub(1 as libc::c_int as libc::c_ulong)
                                                         .wrapping_sub(1 as libc::c_int as libc::c_ulong)
                                                         as libc::c_ulonglong) as libc::c_int
-                                            })
+                                            }
                                         } else {
                                             (((-(9223372036854775807 as libc::c_longlong)
                                                 - 1 as libc::c_longlong) as libc::c_ulonglong)
                                                 .wrapping_div(ulen as libc::c_ulonglong)
                                                 < ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong)
                                                     as libc::c_ulonglong) as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         ((9223372036854775807 as libc::c_longlong
                                             as libc::c_ulonglong)
@@ -4654,8 +4655,8 @@ unsafe extern "C" fn create_fullname(
                                                 ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong)
                                                     as libc::c_ulonglong,
                                             ) < ulen as libc::c_ulonglong) as libc::c_int
-                                    })
-                                })
+                                    }
+                                }
                             }) != 0
                             {
                                 product = (ulen as libc::c_ulonglong)
@@ -4671,14 +4672,14 @@ unsafe extern "C" fn create_fullname(
                                             as libc::c_ulonglong,
                                     ) as libc::c_longlong as size_t;
                                 0 as libc::c_int
-                            })
+                            }
                         } else {
-                            (if (if ampersands
+                            if (if ampersands
                                 .wrapping_sub(1 as libc::c_int as libc::c_ulong)
                                 < 0 as libc::c_int as libc::c_ulong
                             {
-                                (if ulen < 0 as libc::c_int as libc::c_ulong {
-                                    (if (if 1 as libc::c_int != 0 {
+                                if ulen < 0 as libc::c_int as libc::c_ulong {
+                                    if (if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_ulonglong
                                     } else {
                                         (if 1 as libc::c_int != 0 {
@@ -4803,9 +4804,9 @@ unsafe extern "C" fn create_fullname(
                                         })
                                             <= (-(1 as libc::c_int) as libc::c_ulong).wrapping_sub(ulen)
                                                 as libc::c_ulonglong) as libc::c_int
-                                    })
+                                    }
                                 } else {
-                                    (if (if (if (if 1 as libc::c_int != 0 {
+                                    if (if (if (if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_ulong
                                     } else {
                                         (if 1 as libc::c_int != 0 {
@@ -4915,7 +4916,7 @@ unsafe extern "C" fn create_fullname(
                                             .wrapping_sub(1 as libc::c_int as libc::c_ulong)
                                             == -(1 as libc::c_int) as libc::c_ulong
                                     {
-                                        (if (if 1 as libc::c_int != 0 {
+                                        if (if 1 as libc::c_int != 0 {
                                             0 as libc::c_int as libc::c_ulong
                                         } else {
                                             ulen
@@ -4932,23 +4933,23 @@ unsafe extern "C" fn create_fullname(
                                                     as libc::c_ulong)
                                                     < ulen.wrapping_sub(1 as libc::c_int as libc::c_ulong))
                                                 as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         ((0 as libc::c_int as libc::c_ulong)
                                             .wrapping_div(
                                                 ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong),
                                             ) < ulen) as libc::c_int
-                                    })
-                                })
+                                    }
+                                }
                             } else {
-                                (if ampersands
+                                if ampersands
                                     .wrapping_sub(1 as libc::c_int as libc::c_ulong)
                                     == 0 as libc::c_int as libc::c_ulong
                                 {
                                     0 as libc::c_int
                                 } else {
-                                    (if ulen < 0 as libc::c_int as libc::c_ulong {
-                                        (if (if (if (if 1 as libc::c_int != 0 {
+                                    if ulen < 0 as libc::c_int as libc::c_ulong {
+                                        if (if (if (if 1 as libc::c_int != 0 {
                                             0 as libc::c_int as libc::c_ulong
                                         } else {
                                             (if 1 as libc::c_int != 0 {
@@ -5055,7 +5056,7 @@ unsafe extern "C" fn create_fullname(
                                                 as libc::c_int
                                         }) != 0 && ulen == -(1 as libc::c_int) as libc::c_ulong
                                         {
-                                            (if (if 1 as libc::c_int != 0 {
+                                            if (if 1 as libc::c_int != 0 {
                                                 0 as libc::c_int as libc::c_ulong
                                             } else {
                                                 ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong)
@@ -5074,13 +5075,13 @@ unsafe extern "C" fn create_fullname(
                                                         .wrapping_sub(1 as libc::c_int as libc::c_ulong)
                                                         .wrapping_sub(1 as libc::c_int as libc::c_ulong))
                                                     as libc::c_int
-                                            })
+                                            }
                                         } else {
                                             ((0 as libc::c_int as libc::c_ulong).wrapping_div(ulen)
                                                 < ampersands
                                                     .wrapping_sub(1 as libc::c_int as libc::c_ulong))
                                                 as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         ((9223372036854775807 as libc::c_longlong
                                             as libc::c_ulonglong)
@@ -5090,8 +5091,8 @@ unsafe extern "C" fn create_fullname(
                                                 ampersands.wrapping_sub(1 as libc::c_int as libc::c_ulong)
                                                     as libc::c_ulonglong,
                                             ) < ulen as libc::c_ulonglong) as libc::c_int
-                                    })
-                                })
+                                    }
+                                }
                             }) != 0
                             {
                                 product = (ulen as libc::c_ulonglong)
@@ -5107,11 +5108,11 @@ unsafe extern "C" fn create_fullname(
                                             as libc::c_ulonglong,
                                     ) as size_t;
                                 0 as libc::c_int
-                            })
-                        })
-                    })
-                })
-            })
+                            }
+                        }
+                    }
+                }
+            }
         }) != 0
             || {
                 let (fresh3, fresh4) = rsize.overflowing_add(product);

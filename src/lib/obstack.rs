@@ -178,13 +178,13 @@ pub unsafe extern "C" fn _obstack_newchunk(mut h: *mut obstack, mut length: size
             ((((*new_chunk).contents)
                 .as_mut_ptr()
                 .offset_from(
-                    (if (::core::mem::size_of::<ptrdiff_t>() as libc::c_ulong)
+                    if (::core::mem::size_of::<ptrdiff_t>() as libc::c_ulong)
                         < ::core::mem::size_of::<*mut libc::c_void>() as libc::c_ulong
                     {
                         new_chunk as *mut libc::c_char
                     } else {
                         0 as *mut libc::c_char
-                    }),
+                    },
                 ) as libc::c_long as libc::c_ulong)
                 .wrapping_add((*h).alignment_mask) & !(*h).alignment_mask) as isize,
         );
@@ -206,14 +206,14 @@ pub unsafe extern "C" fn _obstack_newchunk(mut h: *mut obstack, mut length: size
                     ((((*old_chunk).contents)
                         .as_mut_ptr()
                         .offset_from(
-                            (if (::core::mem::size_of::<ptrdiff_t>() as libc::c_ulong)
+                            if (::core::mem::size_of::<ptrdiff_t>() as libc::c_ulong)
                                 < ::core::mem::size_of::<*mut libc::c_void>()
                                     as libc::c_ulong
                             {
                                 old_chunk as *mut libc::c_char
                             } else {
                                 0 as *mut libc::c_char
-                            }),
+                            },
                         ) as libc::c_long as libc::c_ulong)
                         .wrapping_add((*h).alignment_mask) & !(*h).alignment_mask)
                         as isize,
@@ -315,7 +315,7 @@ unsafe extern "C" fn _obstack_begin_worker(
     if size == 0 as libc::c_int as libc::c_ulong {
         let mut extra: libc::c_int = (((12 as libc::c_int as libc::c_ulong)
             .wrapping_add(
-                (if ::core::mem::size_of::<f128::f128>() as libc::c_ulong
+                if ::core::mem::size_of::<f128::f128>() as libc::c_ulong
                     > (if ::core::mem::size_of::<uintmax_t>() as libc::c_ulong
                         > ::core::mem::size_of::<*mut libc::c_void>() as libc::c_ulong
                     {
@@ -326,14 +326,14 @@ unsafe extern "C" fn _obstack_begin_worker(
                 {
                     ::core::mem::size_of::<f128::f128>() as libc::c_ulong
                 } else {
-                    (if ::core::mem::size_of::<uintmax_t>() as libc::c_ulong
+                    if ::core::mem::size_of::<uintmax_t>() as libc::c_ulong
                         > ::core::mem::size_of::<*mut libc::c_void>() as libc::c_ulong
                     {
                         ::core::mem::size_of::<uintmax_t>() as libc::c_ulong
                     } else {
                         ::core::mem::size_of::<*mut libc::c_void>() as libc::c_ulong
-                    })
-                }),
+                    }
+                },
             )
             .wrapping_sub(1 as libc::c_int as libc::c_ulong)
             & !(if ::core::mem::size_of::<f128::f128>() as libc::c_ulong
@@ -347,18 +347,18 @@ unsafe extern "C" fn _obstack_begin_worker(
             {
                 ::core::mem::size_of::<f128::f128>() as libc::c_ulong
             } else {
-                (if ::core::mem::size_of::<uintmax_t>() as libc::c_ulong
+                if ::core::mem::size_of::<uintmax_t>() as libc::c_ulong
                     > ::core::mem::size_of::<*mut libc::c_void>() as libc::c_ulong
                 {
                     ::core::mem::size_of::<uintmax_t>() as libc::c_ulong
                 } else {
                     ::core::mem::size_of::<*mut libc::c_void>() as libc::c_ulong
-                })
+                }
             })
                 .wrapping_sub(1 as libc::c_int as libc::c_ulong))
             .wrapping_add(4 as libc::c_int as libc::c_ulong)
             .wrapping_add(
-                (if ::core::mem::size_of::<f128::f128>() as libc::c_ulong
+                if ::core::mem::size_of::<f128::f128>() as libc::c_ulong
                     > (if ::core::mem::size_of::<uintmax_t>() as libc::c_ulong
                         > ::core::mem::size_of::<*mut libc::c_void>() as libc::c_ulong
                     {
@@ -369,14 +369,14 @@ unsafe extern "C" fn _obstack_begin_worker(
                 {
                     ::core::mem::size_of::<f128::f128>() as libc::c_ulong
                 } else {
-                    (if ::core::mem::size_of::<uintmax_t>() as libc::c_ulong
+                    if ::core::mem::size_of::<uintmax_t>() as libc::c_ulong
                         > ::core::mem::size_of::<*mut libc::c_void>() as libc::c_ulong
                     {
                         ::core::mem::size_of::<uintmax_t>() as libc::c_ulong
                     } else {
                         ::core::mem::size_of::<*mut libc::c_void>() as libc::c_ulong
-                    })
-                }),
+                    }
+                },
             )
             .wrapping_sub(1 as libc::c_int as libc::c_ulong)
             & !(if ::core::mem::size_of::<f128::f128>() as libc::c_ulong
@@ -390,13 +390,13 @@ unsafe extern "C" fn _obstack_begin_worker(
             {
                 ::core::mem::size_of::<f128::f128>() as libc::c_ulong
             } else {
-                (if ::core::mem::size_of::<uintmax_t>() as libc::c_ulong
+                if ::core::mem::size_of::<uintmax_t>() as libc::c_ulong
                     > ::core::mem::size_of::<*mut libc::c_void>() as libc::c_ulong
                 {
                     ::core::mem::size_of::<uintmax_t>() as libc::c_ulong
                 } else {
                     ::core::mem::size_of::<*mut libc::c_void>() as libc::c_ulong
-                })
+                }
             })
                 .wrapping_sub(1 as libc::c_int as libc::c_ulong)) as libc::c_int;
         size = (4096 as libc::c_int - extra) as size_t;
@@ -421,13 +421,13 @@ unsafe extern "C" fn _obstack_begin_worker(
             ((((*chunk).contents)
                 .as_mut_ptr()
                 .offset_from(
-                    (if (::core::mem::size_of::<ptrdiff_t>() as libc::c_ulong)
+                    if (::core::mem::size_of::<ptrdiff_t>() as libc::c_ulong)
                         < ::core::mem::size_of::<*mut libc::c_void>() as libc::c_ulong
                     {
                         chunk as *mut libc::c_char
                     } else {
                         0 as *mut libc::c_char
-                    }),
+                    },
                 ) as libc::c_long as libc::c_ulong)
                 .wrapping_add(alignment.wrapping_sub(1 as libc::c_int as libc::c_ulong))
                 & !alignment.wrapping_sub(1 as libc::c_int as libc::c_ulong)) as isize,

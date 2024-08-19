@@ -289,7 +289,7 @@ pub unsafe extern "C" fn parse_tab_stops(mut stops: *const libc::c_char) {
             }
             &mut tabval as *mut uintmax_t;
             if (if ::core::mem::size_of::<C2RustUnnamed_2>() as libc::c_ulong != 0 {
-                (if (-(1 as libc::c_int) as uintmax_t)
+                if (-(1 as libc::c_int) as uintmax_t)
                     .wrapping_div(10 as libc::c_int as libc::c_ulong) < tabval
                     || tabval
                         .wrapping_mul(10 as libc::c_int as libc::c_ulong)
@@ -305,9 +305,9 @@ pub unsafe extern "C" fn parse_tab_stops(mut stops: *const libc::c_char) {
                             (*stops as libc::c_int - '0' as i32) as libc::c_ulong,
                         );
                     1 as libc::c_int
-                })
+                }
             } else {
-                (if (-(1 as libc::c_int) as uintmax_t)
+                if (-(1 as libc::c_int) as uintmax_t)
                     .wrapping_div(10 as libc::c_int as libc::c_ulong) < tabval
                     || tabval
                         .wrapping_mul(10 as libc::c_int as libc::c_ulong)
@@ -323,7 +323,7 @@ pub unsafe extern "C" fn parse_tab_stops(mut stops: *const libc::c_char) {
                             (*stops as libc::c_int - '0' as i32) as libc::c_ulong,
                         );
                     1 as libc::c_int
-                })
+                }
             }) == 0
             {
                 let mut len: size_t = strspn(
@@ -366,9 +366,9 @@ pub unsafe extern "C" fn parse_tab_stops(mut stops: *const libc::c_char) {
     }
     if ok as libc::c_int != 0 && have_tabval as libc::c_int != 0 {
         if extend_tabval {
-            ok = (ok as libc::c_int & set_extend_size(tabval) as libc::c_int) as bool;
+            ok = (ok as libc::c_int & set_extend_size(tabval) as libc::c_int) != 0;
         } else if increment_tabval {
-            ok = (ok as libc::c_int & set_increment_size(tabval) as libc::c_int) as bool;
+            ok = (ok as libc::c_int & set_increment_size(tabval) as libc::c_int) != 0;
         } else {
             add_tab_stop(tabval);
         }

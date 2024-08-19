@@ -13,6 +13,7 @@
 
 extern crate f128;#[macro_use]
 extern crate num_traits;
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -866,11 +867,11 @@ unsafe extern "C" fn print_line(
         if include_exit as libc::c_int != 0 {
             (1 as libc::c_int as libc::c_ulong)
                 .wrapping_add(
-                    (if 12 as libc::c_int as libc::c_ulong > strlen(exitstr) {
+                    if 12 as libc::c_int as libc::c_ulong > strlen(exitstr) {
                         12 as libc::c_int as libc::c_ulong
                     } else {
                         strlen(exitstr)
-                    }),
+                    },
                 )
                 .wrapping_add(1 as libc::c_int as libc::c_ulong)
         } else {

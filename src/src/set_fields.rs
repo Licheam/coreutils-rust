@@ -235,7 +235,7 @@ pub unsafe extern "C" fn set_fields(
             }
             &mut value as *mut uintmax_t;
             if (if ::core::mem::size_of::<C2RustUnnamed_2>() as libc::c_ulong != 0 {
-                (if (-(1 as libc::c_int) as uintmax_t)
+                if (-(1 as libc::c_int) as uintmax_t)
                     .wrapping_div(10 as libc::c_int as libc::c_ulong) < value
                     || value
                         .wrapping_mul(10 as libc::c_int as libc::c_ulong)
@@ -251,9 +251,9 @@ pub unsafe extern "C" fn set_fields(
                             (*fieldstr as libc::c_int - '0' as i32) as libc::c_ulong,
                         );
                     1 as libc::c_int
-                })
+                }
             } else {
-                (if (-(1 as libc::c_int) as uintmax_t)
+                if (-(1 as libc::c_int) as uintmax_t)
                     .wrapping_div(10 as libc::c_int as libc::c_ulong) < value
                     || value
                         .wrapping_mul(10 as libc::c_int as libc::c_ulong)
@@ -269,7 +269,7 @@ pub unsafe extern "C" fn set_fields(
                             (*fieldstr as libc::c_int - '0' as i32) as libc::c_ulong,
                         );
                     1 as libc::c_int
-                })
+                }
             }) == 0 || value == 18446744073709551615 as libc::c_ulong
             {
                 let mut len: size_t = strspn(

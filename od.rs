@@ -13,6 +13,7 @@
 
 extern crate f128;#[macro_use]
 extern crate num_traits;
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -2204,27 +2205,27 @@ unsafe extern "C" fn decode_one_format(
                         .wrapping_add(decimal_point_len)
                         .wrapping_add(1 as libc::c_int as libc::c_ulong)
                         .wrapping_add(
-                            (if -(100 as libc::c_int) < -(37 as libc::c_int)
+                            if -(100 as libc::c_int) < -(37 as libc::c_int)
                                 && (38 as libc::c_int) < 100 as libc::c_int
                             {
                                 3 as libc::c_int as libc::c_ulong
                             } else {
-                                (if -(1000 as libc::c_int) < -(37 as libc::c_int)
+                                if -(1000 as libc::c_int) < -(37 as libc::c_int)
                                     && (38 as libc::c_int) < 1000 as libc::c_int
                                 {
                                     4 as libc::c_int as libc::c_ulong
                                 } else {
-                                    (if -(10000 as libc::c_int) < -(37 as libc::c_int)
+                                    if -(10000 as libc::c_int) < -(37 as libc::c_int)
                                         && (38 as libc::c_int) < 10000 as libc::c_int
                                     {
                                         5 as libc::c_int as libc::c_ulong
                                     } else {
-                                        (if -(100000 as libc::c_int) < -(37 as libc::c_int)
+                                        if -(100000 as libc::c_int) < -(37 as libc::c_int)
                                             && (38 as libc::c_int) < 100000 as libc::c_int
                                         {
                                             6 as libc::c_int as libc::c_ulong
                                         } else {
-                                            (if -(1000000 as libc::c_int) < -(37 as libc::c_int)
+                                            if -(1000000 as libc::c_int) < -(37 as libc::c_int)
                                                 && (38 as libc::c_int) < 1000000 as libc::c_int
                                             {
                                                 7 as libc::c_int as libc::c_ulong
@@ -2242,11 +2243,11 @@ unsafe extern "C" fn decode_one_format(
                                                         !((0 as libc::c_int) < -(1 as libc::c_int)) as libc::c_int
                                                             as libc::c_ulong,
                                                     )
-                                            })
-                                        })
-                                    })
-                                })
-                            }),
+                                            }
+                                        }
+                                    }
+                                }
+                            },
                         ) as libc::c_int;
                 }
                 7 => {
@@ -2268,27 +2269,27 @@ unsafe extern "C" fn decode_one_format(
                         .wrapping_add(decimal_point_len)
                         .wrapping_add(1 as libc::c_int as libc::c_ulong)
                         .wrapping_add(
-                            (if -(100 as libc::c_int) < -(307 as libc::c_int)
+                            if -(100 as libc::c_int) < -(307 as libc::c_int)
                                 && (308 as libc::c_int) < 100 as libc::c_int
                             {
                                 3 as libc::c_int as libc::c_ulong
                             } else {
-                                (if -(1000 as libc::c_int) < -(307 as libc::c_int)
+                                if -(1000 as libc::c_int) < -(307 as libc::c_int)
                                     && (308 as libc::c_int) < 1000 as libc::c_int
                                 {
                                     4 as libc::c_int as libc::c_ulong
                                 } else {
-                                    (if -(10000 as libc::c_int) < -(307 as libc::c_int)
+                                    if -(10000 as libc::c_int) < -(307 as libc::c_int)
                                         && (308 as libc::c_int) < 10000 as libc::c_int
                                     {
                                         5 as libc::c_int as libc::c_ulong
                                     } else {
-                                        (if -(100000 as libc::c_int) < -(307 as libc::c_int)
+                                        if -(100000 as libc::c_int) < -(307 as libc::c_int)
                                             && (308 as libc::c_int) < 100000 as libc::c_int
                                         {
                                             6 as libc::c_int as libc::c_ulong
                                         } else {
-                                            (if -(1000000 as libc::c_int) < -(307 as libc::c_int)
+                                            if -(1000000 as libc::c_int) < -(307 as libc::c_int)
                                                 && (308 as libc::c_int) < 1000000 as libc::c_int
                                             {
                                                 7 as libc::c_int as libc::c_ulong
@@ -2306,11 +2307,11 @@ unsafe extern "C" fn decode_one_format(
                                                         !((0 as libc::c_int) < -(1 as libc::c_int)) as libc::c_int
                                                             as libc::c_ulong,
                                                     )
-                                            })
-                                        })
-                                    })
-                                })
-                            }),
+                                            }
+                                        }
+                                    }
+                                }
+                            },
                         ) as libc::c_int;
                 }
                 8 => {
@@ -2332,27 +2333,27 @@ unsafe extern "C" fn decode_one_format(
                         .wrapping_add(decimal_point_len)
                         .wrapping_add(1 as libc::c_int as libc::c_ulong)
                         .wrapping_add(
-                            (if -(100 as libc::c_int) < -(4931 as libc::c_int)
+                            if -(100 as libc::c_int) < -(4931 as libc::c_int)
                                 && (4932 as libc::c_int) < 100 as libc::c_int
                             {
                                 3 as libc::c_int as libc::c_ulong
                             } else {
-                                (if -(1000 as libc::c_int) < -(4931 as libc::c_int)
+                                if -(1000 as libc::c_int) < -(4931 as libc::c_int)
                                     && (4932 as libc::c_int) < 1000 as libc::c_int
                                 {
                                     4 as libc::c_int as libc::c_ulong
                                 } else {
-                                    (if -(10000 as libc::c_int) < -(4931 as libc::c_int)
+                                    if -(10000 as libc::c_int) < -(4931 as libc::c_int)
                                         && (4932 as libc::c_int) < 10000 as libc::c_int
                                     {
                                         5 as libc::c_int as libc::c_ulong
                                     } else {
-                                        (if -(100000 as libc::c_int) < -(4931 as libc::c_int)
+                                        if -(100000 as libc::c_int) < -(4931 as libc::c_int)
                                             && (4932 as libc::c_int) < 100000 as libc::c_int
                                         {
                                             6 as libc::c_int as libc::c_ulong
                                         } else {
-                                            (if -(1000000 as libc::c_int) < -(4931 as libc::c_int)
+                                            if -(1000000 as libc::c_int) < -(4931 as libc::c_int)
                                                 && (4932 as libc::c_int) < 1000000 as libc::c_int
                                             {
                                                 7 as libc::c_int as libc::c_ulong
@@ -2370,11 +2371,11 @@ unsafe extern "C" fn decode_one_format(
                                                         !((0 as libc::c_int) < -(1 as libc::c_int)) as libc::c_int
                                                             as libc::c_ulong,
                                                     )
-                                            })
-                                        })
-                                    })
-                                })
-                            }),
+                                            }
+                                        }
+                                    }
+                                }
+                            },
                         ) as libc::c_int;
                 }
                 _ => {
@@ -2727,8 +2728,8 @@ unsafe extern "C" fn skip(mut n_skip: uintmax_t) -> bool {
             );
             ok = 0 as libc::c_int != 0;
         }
-        ok = (ok as libc::c_int & check_and_close(in_errno) as libc::c_int) as bool;
-        ok = (ok as libc::c_int & open_next_file() as libc::c_int) as bool;
+        ok = (ok as libc::c_int & check_and_close(in_errno) as libc::c_int) != 0;
+        ok = (ok as libc::c_int & open_next_file() as libc::c_int) != 0;
     }
     if n_skip != 0 as libc::c_int as libc::c_ulong {
         if ::core::mem::size_of::<C2RustUnnamed_14>() as libc::c_ulong != 0 {
@@ -2917,9 +2918,8 @@ unsafe extern "C" fn read_char(mut c: *mut libc::c_int) -> bool {
         if *c != -(1 as libc::c_int) {
             break;
         }
-        ok = (ok as libc::c_int & check_and_close(*__errno_location()) as libc::c_int)
-            as bool;
-        ok = (ok as libc::c_int & open_next_file() as libc::c_int) as bool;
+        ok = (ok as libc::c_int & check_and_close(*__errno_location()) as libc::c_int) != 0;
+        ok = (ok as libc::c_int & open_next_file() as libc::c_int) != 0;
     }
     return ok;
 }
@@ -2971,9 +2971,8 @@ unsafe extern "C" fn read_block(
         if n_read == n_needed {
             break;
         }
-        ok = (ok as libc::c_int & check_and_close(*__errno_location()) as libc::c_int)
-            as bool;
-        ok = (ok as libc::c_int & open_next_file() as libc::c_int) as bool;
+        ok = (ok as libc::c_int & check_and_close(*__errno_location()) as libc::c_int) != 0;
+        ok = (ok as libc::c_int & open_next_file() as libc::c_int) != 0;
     }
     return ok;
 }
@@ -3046,7 +3045,7 @@ unsafe extern "C" fn dump() -> bool {
                 };
                 ok = (ok as libc::c_int
                     & read_block(n_needed, block[idx as usize], &mut n_bytes_read)
-                        as libc::c_int) as bool;
+                        as libc::c_int) != 0;
                 if n_bytes_read < bytes_per_block {
                     break;
                 }
@@ -3093,7 +3092,7 @@ unsafe extern "C" fn dump() -> bool {
         loop {
             ok = (ok as libc::c_int
                 & read_block(bytes_per_block, block[idx as usize], &mut n_bytes_read)
-                    as libc::c_int) as bool;
+                    as libc::c_int) != 0;
             if n_bytes_read < bytes_per_block {
                 break;
             }
@@ -3166,8 +3165,7 @@ unsafe extern "C" fn dump() -> bool {
             "non-null function pointer",
         )(current_offset, '\n' as i32 as libc::c_char);
     if limit_bytes_to_format as libc::c_int != 0 && current_offset >= end_offset {
-        ok = (ok as libc::c_int & check_and_close(0 as libc::c_int) as libc::c_int)
-            as bool;
+        ok = (ok as libc::c_int & check_and_close(0 as libc::c_int) as libc::c_int) != 0;
     }
     free(block[0 as libc::c_int as usize] as *mut libc::c_void);
     return ok;
@@ -3193,7 +3191,7 @@ unsafe extern "C" fn dump_strings() -> bool {
             }
             i = 0 as libc::c_int as size_t;
             while i < string_min {
-                ok = (ok as libc::c_int & read_char(&mut c) as libc::c_int) as bool;
+                ok = (ok as libc::c_int & read_char(&mut c) as libc::c_int) != 0;
                 address = address.wrapping_add(1);
                 address;
                 if c < 0 as libc::c_int {
@@ -3222,7 +3220,7 @@ unsafe extern "C" fn dump_strings() -> bool {
                         x2realloc(buf as *mut libc::c_void, &mut bufsize)
                     }) as *mut libc::c_char;
                 }
-                ok = (ok as libc::c_int & read_char(&mut c) as libc::c_int) as bool;
+                ok = (ok as libc::c_int & read_char(&mut c) as libc::c_int) != 0;
                 address = address.wrapping_add(1);
                 address;
                 if c < 0 as libc::c_int {
@@ -3288,7 +3286,7 @@ unsafe extern "C" fn dump_strings() -> bool {
         putchar_unlocked('\n' as i32);
     }
     free(buf as *mut libc::c_void);
-    ok = (ok as libc::c_int & check_and_close(0 as libc::c_int) as libc::c_int) as bool;
+    ok = (ok as libc::c_int & check_and_close(0 as libc::c_int) as libc::c_int) != 0;
     return ok;
 }
 unsafe fn main_0(
@@ -3530,8 +3528,7 @@ unsafe fn main_0(
             }
             116 => {
                 modern = 1 as libc::c_int != 0;
-                ok = (ok as libc::c_int & decode_format_string(optarg) as libc::c_int)
-                    as bool;
+                ok = (ok as libc::c_int & decode_format_string(optarg) as libc::c_int) != 0;
             }
             118 => {
                 modern = 1 as libc::c_int != 0;
@@ -3562,72 +3559,72 @@ unsafe fn main_0(
             97 => {
                 ok = (ok as libc::c_int
                     & decode_format_string(b"a\0" as *const u8 as *const libc::c_char)
-                        as libc::c_int) as bool;
+                        as libc::c_int) != 0;
             }
             98 => {
                 ok = (ok as libc::c_int
                     & decode_format_string(b"o1\0" as *const u8 as *const libc::c_char)
-                        as libc::c_int) as bool;
+                        as libc::c_int) != 0;
             }
             99 => {
                 ok = (ok as libc::c_int
                     & decode_format_string(b"c\0" as *const u8 as *const libc::c_char)
-                        as libc::c_int) as bool;
+                        as libc::c_int) != 0;
             }
             68 => {
                 ok = (ok as libc::c_int
                     & decode_format_string(b"u4\0" as *const u8 as *const libc::c_char)
-                        as libc::c_int) as bool;
+                        as libc::c_int) != 0;
             }
             100 => {
                 ok = (ok as libc::c_int
                     & decode_format_string(b"u2\0" as *const u8 as *const libc::c_char)
-                        as libc::c_int) as bool;
+                        as libc::c_int) != 0;
             }
             70 | 101 => {
                 ok = (ok as libc::c_int
                     & decode_format_string(b"fD\0" as *const u8 as *const libc::c_char)
-                        as libc::c_int) as bool;
+                        as libc::c_int) != 0;
             }
             102 => {
                 ok = (ok as libc::c_int
                     & decode_format_string(b"fF\0" as *const u8 as *const libc::c_char)
-                        as libc::c_int) as bool;
+                        as libc::c_int) != 0;
             }
             88 | 72 => {
                 ok = (ok as libc::c_int
                     & decode_format_string(b"x4\0" as *const u8 as *const libc::c_char)
-                        as libc::c_int) as bool;
+                        as libc::c_int) != 0;
             }
             105 => {
                 ok = (ok as libc::c_int
                     & decode_format_string(b"dI\0" as *const u8 as *const libc::c_char)
-                        as libc::c_int) as bool;
+                        as libc::c_int) != 0;
             }
             73 | 76 | 108 => {
                 ok = (ok as libc::c_int
                     & decode_format_string(b"dL\0" as *const u8 as *const libc::c_char)
-                        as libc::c_int) as bool;
+                        as libc::c_int) != 0;
             }
             79 => {
                 ok = (ok as libc::c_int
                     & decode_format_string(b"o4\0" as *const u8 as *const libc::c_char)
-                        as libc::c_int) as bool;
+                        as libc::c_int) != 0;
             }
             66 | 111 => {
                 ok = (ok as libc::c_int
                     & decode_format_string(b"o2\0" as *const u8 as *const libc::c_char)
-                        as libc::c_int) as bool;
+                        as libc::c_int) != 0;
             }
             115 => {
                 ok = (ok as libc::c_int
                     & decode_format_string(b"d2\0" as *const u8 as *const libc::c_char)
-                        as libc::c_int) as bool;
+                        as libc::c_int) != 0;
             }
             104 | 120 => {
                 ok = (ok as libc::c_int
                     & decode_format_string(b"x2\0" as *const u8 as *const libc::c_char)
-                        as libc::c_int) as bool;
+                        as libc::c_int) != 0;
             }
             119 => {
                 modern = 1 as libc::c_int != 0;
@@ -3892,7 +3889,7 @@ unsafe fn main_0(
     }
     ok = open_next_file();
     if !in_stream.is_null() {
-        ok = (ok as libc::c_int & skip(n_bytes_to_skip) as libc::c_int) as bool;
+        ok = (ok as libc::c_int & skip(n_bytes_to_skip) as libc::c_int) != 0;
         if !in_stream.is_null() {
             pseudo_offset = if flag_pseudo_start as libc::c_int != 0 {
                 pseudo_start.wrapping_sub(n_bytes_to_skip)
@@ -3959,7 +3956,7 @@ unsafe fn main_0(
                     dump_strings() as libc::c_int
                 } else {
                     dump() as libc::c_int
-                }) as bool;
+                }) != 0;
         }
     }
     if have_read_stdin as libc::c_int != 0 && rpl_fclose(stdin) == -(1 as libc::c_int) {

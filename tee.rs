@@ -9,6 +9,7 @@
 #![feature(extern_types)]
 
 
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -391,8 +392,8 @@ pub unsafe extern "C" fn usage(mut status: libc::c_int) -> ! {
 }
 #[inline]
 unsafe extern "C" fn __gl_setmode(
-    mut fd: libc::c_int,
-    mut mode: libc::c_int,
+    mut _fd: libc::c_int,
+    mut _mode: libc::c_int,
 ) -> libc::c_int {
     return 0 as libc::c_int;
 }

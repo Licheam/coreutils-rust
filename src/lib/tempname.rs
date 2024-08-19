@@ -263,7 +263,7 @@ unsafe extern "C" fn try_file(
 }
 unsafe extern "C" fn try_dir(
     mut tmpl: *mut libc::c_char,
-    mut flags: *mut libc::c_void,
+    mut _flags: *mut libc::c_void,
 ) -> libc::c_int {
     return mkdir(
         tmpl,
@@ -272,7 +272,7 @@ unsafe extern "C" fn try_dir(
 }
 unsafe extern "C" fn try_nocreate(
     mut tmpl: *mut libc::c_char,
-    mut flags: *mut libc::c_void,
+    mut _flags: *mut libc::c_void,
 ) -> libc::c_int {
     let mut st: stat = stat {
         st_dev: 0,

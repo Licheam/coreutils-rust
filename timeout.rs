@@ -9,6 +9,7 @@
 #![feature(extern_types)]
 
 
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -746,7 +747,7 @@ unsafe extern "C" fn send_sig(mut where_0: pid_t, mut sig: libc::c_int) -> libc:
     }
     return kill(where_0, sig);
 }
-unsafe extern "C" fn chld(mut sig: libc::c_int) {}
+unsafe extern "C" fn chld(mut _sig: libc::c_int) {}
 unsafe extern "C" fn cleanup(mut sig: libc::c_int) {
     if sig == 14 as libc::c_int {
         timed_out = 1 as libc::c_int;

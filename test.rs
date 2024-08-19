@@ -13,6 +13,7 @@
 
 extern crate f128;#[macro_use]
 extern crate num_traits;
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -1132,7 +1133,7 @@ unsafe extern "C" fn term() -> bool {
 unsafe extern "C" fn and() -> bool {
     let mut value: bool = 1 as libc::c_int != 0;
     loop {
-        value = (value as libc::c_int & term() as libc::c_int) as bool;
+        value = (value as libc::c_int & term() as libc::c_int) != 0;
         if !(pos < argc
             && strcmp(
                 *argv.offset(pos as isize),
@@ -1147,7 +1148,7 @@ unsafe extern "C" fn and() -> bool {
 unsafe extern "C" fn or() -> bool {
     let mut value: bool = 0 as libc::c_int != 0;
     loop {
-        value = (value as libc::c_int | and() as libc::c_int) as bool;
+        value = (value as libc::c_int | and() as libc::c_int) != 0;
         if !(pos < argc
             && strcmp(
                 *argv.offset(pos as isize),

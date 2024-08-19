@@ -343,7 +343,7 @@ pub unsafe extern "C" fn chown_files(
                     required_uid,
                     required_gid,
                     chopt,
-                ) as libc::c_int) as bool;
+                ) as libc::c_int) != 0;
         }
     }
     if rpl_fts_close(fts) != 0 as libc::c_int {

@@ -13,6 +13,7 @@
 
 extern crate f128;#[macro_use]
 extern crate num_traits;
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -732,7 +733,7 @@ unsafe fn main_0(
                 ok = 0 as libc::c_int != 0;
             }
         } else if remove_empty_parents {
-            ok = (ok as libc::c_int & remove_parents(dir) as libc::c_int) as bool;
+            ok = (ok as libc::c_int & remove_parents(dir) as libc::c_int) != 0;
         }
         optind += 1;
         optind;

@@ -12,6 +12,7 @@
 
 #[macro_use]
 extern crate c2rust_bitfields;
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -772,13 +773,13 @@ unsafe extern "C" fn copy_unescaped_string(
                             {
                                 *string as libc::c_int - 'a' as i32 + 10 as libc::c_int
                             } else {
-                                (if *string as libc::c_int >= 'A' as i32
+                                if *string as libc::c_int >= 'A' as i32
                                     && *string as libc::c_int <= 'F' as i32
                                 {
                                     *string as libc::c_int - 'A' as i32 + 10 as libc::c_int
                                 } else {
                                     *string as libc::c_int - '0' as i32
-                                })
+                                }
                             });
                         length += 1;
                         length;
@@ -1005,11 +1006,11 @@ unsafe extern "C" fn swallow_file_in_memory(
                 quotearg_n_style_colon(
                     0 as libc::c_int,
                     shell_escape_quoting_style,
-                    (if using_stdin as libc::c_int != 0 {
+                    if using_stdin as libc::c_int != 0 {
                         b"-\0" as *const u8 as *const libc::c_char
                     } else {
                         file_name
-                    }),
+                    },
                 ),
             );
             unreachable!();
@@ -1021,11 +1022,11 @@ unsafe extern "C" fn swallow_file_in_memory(
                 quotearg_n_style_colon(
                     0 as libc::c_int,
                     shell_escape_quoting_style,
-                    (if using_stdin as libc::c_int != 0 {
+                    if using_stdin as libc::c_int != 0 {
                         b"-\0" as *const u8 as *const libc::c_char
                     } else {
                         file_name
-                    }),
+                    },
                 ),
             );
             unreachable!();

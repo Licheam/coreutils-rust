@@ -12,6 +12,7 @@
 
 #[macro_use]
 extern crate c2rust_bitfields;
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -1479,11 +1480,11 @@ unsafe extern "C" fn docolon(mut sv: *mut VALUE, mut pv: *mut VALUE) -> *mut VAL
         if ::core::mem::size_of::<C2RustUnnamed_10>() as libc::c_ulong != 0 {
             error(
                 EXPR_FAILURE as libc::c_int,
-                (if matchlen == -(2 as libc::c_int) as libc::c_long {
+                if matchlen == -(2 as libc::c_int) as libc::c_long {
                     *__errno_location()
                 } else {
                     75 as libc::c_int
-                }),
+                },
                 gettext(
                     b"error in regular expression matcher\0" as *const u8
                         as *const libc::c_char,
@@ -1495,11 +1496,11 @@ unsafe extern "C" fn docolon(mut sv: *mut VALUE, mut pv: *mut VALUE) -> *mut VAL
         } else {
             error(
                 EXPR_FAILURE as libc::c_int,
-                (if matchlen == -(2 as libc::c_int) as libc::c_long {
+                if matchlen == -(2 as libc::c_int) as libc::c_long {
                     *__errno_location()
                 } else {
                     75 as libc::c_int
-                }),
+                },
                 gettext(
                     b"error in regular expression matcher\0" as *const u8
                         as *const libc::c_char,

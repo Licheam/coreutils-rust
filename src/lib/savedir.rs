@@ -110,13 +110,13 @@ pub unsafe extern "C" fn streamsavedir(
                 {
                     0 as libc::c_int
                 } else {
-                    (if *entry.offset(1 as libc::c_int as isize) as libc::c_int
+                    if *entry.offset(1 as libc::c_int as isize) as libc::c_int
                         != '.' as i32
                     {
                         1 as libc::c_int
                     } else {
                         2 as libc::c_int
-                    })
+                    }
                 }) as isize,
             ) as libc::c_int != '\0' as i32
         {

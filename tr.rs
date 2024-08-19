@@ -10,6 +10,7 @@
 #![feature(label_break_value)]
 
 
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -545,8 +546,8 @@ unsafe extern "C" fn emit_ancillary_info(mut program: *const libc::c_char) {
 }
 #[inline]
 unsafe extern "C" fn __gl_setmode(
-    mut fd: libc::c_int,
-    mut mode: libc::c_int,
+    mut _fd: libc::c_int,
+    mut _mode: libc::c_int,
 ) -> libc::c_int {
     return 0 as libc::c_int;
 }
@@ -1289,11 +1290,11 @@ unsafe extern "C" fn find_bracketed_repeat(
                 if xstrtoumax(
                     digit_str,
                     &mut d_end,
-                    (if *digit_str as libc::c_int == '0' as i32 {
+                    if *digit_str as libc::c_int == '0' as i32 {
                         8 as libc::c_int
                     } else {
                         10 as libc::c_int
-                    }),
+                    },
                     repeat_count,
                     0 as *const libc::c_char,
                 ) as libc::c_uint != LONGINT_OK as libc::c_int as libc::c_uint

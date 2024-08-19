@@ -13,6 +13,7 @@
 
 extern crate f128;#[macro_use]
 extern crate num_traits;
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -583,13 +584,13 @@ unsafe extern "C" fn print_esc(
                 {
                     *p as libc::c_int - 'a' as i32 + 10 as libc::c_int
                 } else {
-                    (if *p as libc::c_int >= 'A' as i32
+                    if *p as libc::c_int >= 'A' as i32
                         && *p as libc::c_int <= 'F' as i32
                     {
                         *p as libc::c_int - 'A' as i32 + 10 as libc::c_int
                     } else {
                         *p as libc::c_int - '0' as i32
-                    })
+                    }
                 });
             esc_length += 1;
             esc_length;
@@ -655,11 +656,11 @@ unsafe extern "C" fn print_esc(
         let mut esc_char: libc::c_char = *p;
         let mut uni_value: libc::c_uint = 0;
         uni_value = 0 as libc::c_int as libc::c_uint;
-        esc_length = (if esc_char as libc::c_int == 'u' as i32 {
+        esc_length = if esc_char as libc::c_int == 'u' as i32 {
             4 as libc::c_int
         } else {
             8 as libc::c_int
-        });
+        };
         p = p.offset(1);
         p;
         while esc_length > 0 as libc::c_int {
@@ -701,13 +702,13 @@ unsafe extern "C" fn print_esc(
                     {
                         *p as libc::c_int - 'a' as i32 + 10 as libc::c_int
                     } else {
-                        (if *p as libc::c_int >= 'A' as i32
+                        if *p as libc::c_int >= 'A' as i32
                             && *p as libc::c_int <= 'F' as i32
                         {
                             *p as libc::c_int - 'A' as i32 + 10 as libc::c_int
                         } else {
                             *p as libc::c_int - '0' as i32
-                        })
+                        }
                     }) as libc::c_uint,
                 );
             esc_length -= 1;
@@ -731,11 +732,11 @@ unsafe extern "C" fn print_esc(
                             as *const libc::c_char,
                     ),
                     esc_char as libc::c_int,
-                    (if esc_char as libc::c_int == 'u' as i32 {
+                    if esc_char as libc::c_int == 'u' as i32 {
                         4 as libc::c_int
                     } else {
                         8 as libc::c_int
-                    }),
+                    },
                     uni_value,
                 );
                 if 0 as libc::c_int != 0 {} else {
@@ -750,11 +751,11 @@ unsafe extern "C" fn print_esc(
                             as *const libc::c_char,
                     ),
                     esc_char as libc::c_int,
-                    (if esc_char as libc::c_int == 'u' as i32 {
+                    if esc_char as libc::c_int == 'u' as i32 {
                         4 as libc::c_int
                     } else {
                         8 as libc::c_int
-                    }),
+                    },
                     uni_value,
                 );
                 if 0 as libc::c_int != 0 {} else {

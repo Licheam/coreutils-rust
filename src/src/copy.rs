@@ -1273,7 +1273,7 @@ unsafe extern "C" fn copy_internal(
                             (*x).backup_type,
                         );
                         if !tmp_backup.is_null() {
-                            dst_backup = ({
+                            dst_backup = {
                                 let mut __old: *const libc::c_char = tmp_backup;
                                 let mut __len: size_t = (strlen(__old))
                                     .wrapping_add(1 as libc::c_int as libc::c_ulong);
@@ -1285,7 +1285,7 @@ unsafe extern "C" fn copy_internal(
                                     __old as *const libc::c_void,
                                     __len,
                                 ) as *mut libc::c_char
-                            });
+                            };
                             free(tmp_backup as *mut libc::c_void);
                         } else if *__errno_location() != 2 as libc::c_int {
                             error(
@@ -1663,7 +1663,7 @@ unsafe extern "C" fn copy_internal(
                                     | 0o100 as libc::c_int) >> 3 as libc::c_int
                                     >> 3 as libc::c_int
                         } else {
-                            (if src_mode & 0o170000 as libc::c_int as libc::c_uint
+                            if src_mode & 0o170000 as libc::c_int as libc::c_uint
                                 == 0o40000 as libc::c_int as libc::c_uint
                             {
                                 0o200 as libc::c_int >> 3 as libc::c_int
@@ -1671,7 +1671,7 @@ unsafe extern "C" fn copy_internal(
                                         >> 3 as libc::c_int
                             } else {
                                 0 as libc::c_int
-                            })
+                            }
                         }) as libc::c_uint;
                     delayed_ok = 1 as libc::c_int != 0;
                     if !set_process_security_ctx(
@@ -2770,7 +2770,7 @@ unsafe extern "C" fn sparse_copy(
                         }
                     }
                 } else {
-                    let (fresh3, fresh4) = psize.overflowing_add(csize);
+                    let (fresh3, fresh4) = psize.overflowing_add(csize.try_into().unwrap());
                     *(&mut psize as *mut off_t) = fresh3;
                     if fresh4 {
                         error(
@@ -3103,16 +3103,16 @@ unsafe extern "C" fn copy_dir(
                 &mut first_dir_created,
                 &mut local_copy_into_self,
                 0 as *mut bool,
-            ) as libc::c_int) as bool;
+            ) as libc::c_int) != 0;
         *copy_into_self = (*copy_into_self as libc::c_int
-            | local_copy_into_self as libc::c_int) as bool;
+            | local_copy_into_self as libc::c_int) != 0;
         free(dst_name as *mut libc::c_void);
         free(src_name as *mut libc::c_void);
         if local_copy_into_self {
             break;
         }
         new_first_dir_created = (new_first_dir_created as libc::c_int
-            | first_dir_created as libc::c_int) as bool;
+            | first_dir_created as libc::c_int) != 0;
         namep = namep
             .offset(
                 (strlen(namep)).wrapping_add(1 as libc::c_int as libc::c_ulong) as isize,

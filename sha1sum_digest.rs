@@ -12,6 +12,7 @@
 
 extern crate f128;#[macro_use]
 extern crate num_traits;
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -1455,7 +1456,7 @@ unsafe fn main_0(
     while operandp < operand_lim {
         let mut file: *mut libc::c_char = *operandp;
         if do_check {
-            ok = (ok as libc::c_int & digest_check(file) as libc::c_int) as bool;
+            ok = (ok as libc::c_int & digest_check(file) as libc::c_int) != 0;
         } else {
             let mut binary_file: libc::c_int = binary;
             let mut missing: bool = false;

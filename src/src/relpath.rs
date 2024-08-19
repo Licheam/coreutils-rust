@@ -84,7 +84,7 @@ pub unsafe extern "C" fn relpath(
                 b"..\0" as *const u8 as *const libc::c_char,
                 &mut buf,
                 &mut len,
-            ) as libc::c_int) as bool;
+            ) as libc::c_int) != 0;
         while *relto_suffix != 0 {
             if *relto_suffix as libc::c_int == '/' as i32 {
                 buf_err = (buf_err as libc::c_int
@@ -92,7 +92,7 @@ pub unsafe extern "C" fn relpath(
                         b"/..\0" as *const u8 as *const libc::c_char,
                         &mut buf,
                         &mut len,
-                    ) as libc::c_int) as bool;
+                    ) as libc::c_int) != 0;
             }
             relto_suffix = relto_suffix.offset(1);
             relto_suffix;
@@ -103,10 +103,9 @@ pub unsafe extern "C" fn relpath(
                     b"/\0" as *const u8 as *const libc::c_char,
                     &mut buf,
                     &mut len,
-                ) as libc::c_int) as bool;
+                ) as libc::c_int) != 0;
             buf_err = (buf_err as libc::c_int
-                | buffer_or_output(fname_suffix, &mut buf, &mut len) as libc::c_int)
-                as bool;
+                | buffer_or_output(fname_suffix, &mut buf, &mut len) as libc::c_int) != 0;
         }
     } else {
         buf_err = (buf_err as libc::c_int
@@ -118,7 +117,7 @@ pub unsafe extern "C" fn relpath(
                 },
                 &mut buf,
                 &mut len,
-            ) as libc::c_int) as bool;
+            ) as libc::c_int) != 0;
     }
     if buf_err {
         error(

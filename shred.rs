@@ -12,6 +12,7 @@
 
 extern crate f128;#[macro_use]
 extern crate num_traits;
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -1559,7 +1560,7 @@ unsafe extern "C" fn do_wipefd(
                 512 as libc::c_int as libc::c_long
             }) < size
             {
-                (if (0 as libc::c_int as libc::c_long) < st.st_blksize
+                if (0 as libc::c_int as libc::c_long) < st.st_blksize
                     && st.st_blksize as libc::c_ulong
                         <= (-(1 as libc::c_int) as size_t)
                             .wrapping_div(8 as libc::c_int as libc::c_ulong)
@@ -1568,7 +1569,7 @@ unsafe extern "C" fn do_wipefd(
                     st.st_blksize
                 } else {
                     512 as libc::c_int as libc::c_long
-                })
+                }
             } else {
                 size
             })
@@ -2098,11 +2099,11 @@ unsafe fn main_0(
                 quotearg_n_style_colon(
                     0 as libc::c_int,
                     shell_escape_quoting_style,
-                    (if !random_source.is_null() {
+                    if !random_source.is_null() {
                         random_source
                     } else {
                         b"getrandom\0" as *const u8 as *const libc::c_char
-                    }),
+                    },
                 ),
             );
             if 0 as libc::c_int != 0 {} else {
@@ -2116,11 +2117,11 @@ unsafe fn main_0(
                 quotearg_n_style_colon(
                     0 as libc::c_int,
                     shell_escape_quoting_style,
-                    (if !random_source.is_null() {
+                    if !random_source.is_null() {
                         random_source
                     } else {
                         b"getrandom\0" as *const u8 as *const libc::c_char
-                    }),
+                    },
                 ),
             );
             if 0 as libc::c_int != 0 {} else {
@@ -2143,11 +2144,11 @@ unsafe fn main_0(
         {
             ok = (ok as libc::c_int
                 & wipefd(1 as libc::c_int, qname, randint_source, &mut flags)
-                    as libc::c_int) as bool;
+                    as libc::c_int) != 0;
         } else {
             ok = (ok as libc::c_int
                 & wipefile(*file.offset(i as isize), qname, randint_source, &mut flags)
-                    as libc::c_int) as bool;
+                    as libc::c_int) != 0;
         }
         free(qname as *mut libc::c_void);
         i += 1;

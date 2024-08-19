@@ -184,11 +184,11 @@ pub unsafe extern "C" fn readtokens0(mut in_0: *mut FILE, mut t: *mut Tokens) ->
     loop {
         let mut c: libc::c_int = fgetc(in_0);
         if c == -(1 as libc::c_int) {
-            let mut len: size_t = ({
+            let mut len: size_t = {
                 let mut __o: *const obstack = &mut (*t).o_data;
                 ((*__o).next_free).offset_from((*__o).object_base) as libc::c_long
                     as size_t
-            });
+            };
             if len != 0 {
                 let mut __o: *mut obstack = &mut (*t).o_data;
                 if ({
@@ -259,14 +259,14 @@ pub unsafe extern "C" fn readtokens0(mut in_0: *mut FILE, mut t: *mut Tokens) ->
             .offset(
                 ((((*__o1_0).next_free)
                     .offset_from(
-                        (if (::core::mem::size_of::<ptrdiff_t>() as libc::c_ulong)
+                        if (::core::mem::size_of::<ptrdiff_t>() as libc::c_ulong)
                             < ::core::mem::size_of::<*mut libc::c_void>()
                                 as libc::c_ulong
                         {
                             (*__o1_0).object_base
                         } else {
                             0 as *mut libc::c_char
-                        }),
+                        },
                     ) as libc::c_long as libc::c_ulong)
                     .wrapping_add((*__o1_0).alignment_mask) & !(*__o1_0).alignment_mask)
                     as isize,
@@ -299,14 +299,14 @@ pub unsafe extern "C" fn readtokens0(mut in_0: *mut FILE, mut t: *mut Tokens) ->
             .offset(
                 ((((*__o1_0).next_free)
                     .offset_from(
-                        (if (::core::mem::size_of::<ptrdiff_t>() as libc::c_ulong)
+                        if (::core::mem::size_of::<ptrdiff_t>() as libc::c_ulong)
                             < ::core::mem::size_of::<*mut libc::c_void>()
                                 as libc::c_ulong
                         {
                             (*__o1_0).object_base
                         } else {
                             0 as *mut libc::c_char
-                        }),
+                        },
                     ) as libc::c_long as libc::c_ulong)
                     .wrapping_add((*__o1_0).alignment_mask) & !(*__o1_0).alignment_mask)
                     as isize,
@@ -346,14 +346,14 @@ unsafe extern "C" fn save_token(mut t: *mut Tokens) {
             .offset(
                 ((((*__o1).next_free)
                     .offset_from(
-                        (if (::core::mem::size_of::<ptrdiff_t>() as libc::c_ulong)
+                        if (::core::mem::size_of::<ptrdiff_t>() as libc::c_ulong)
                             < ::core::mem::size_of::<*mut libc::c_void>()
                                 as libc::c_ulong
                         {
                             (*__o1).object_base
                         } else {
                             0 as *mut libc::c_char
-                        }),
+                        },
                     ) as libc::c_long as libc::c_ulong)
                     .wrapping_add((*__o1).alignment_mask) & !(*__o1).alignment_mask)
                     as isize,

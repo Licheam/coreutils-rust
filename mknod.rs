@@ -10,6 +10,7 @@
 #![feature(label_break_value)]
 
 
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -492,7 +493,7 @@ unsafe extern "C" fn emit_mandatory_arg_note() {
 }
 #[inline]
 unsafe extern "C" fn smack_set_label_for_self(
-    mut label: *const libc::c_char,
+    mut _label: *const libc::c_char,
 ) -> libc::c_int {
     return -(1 as libc::c_int);
 }

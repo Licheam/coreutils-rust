@@ -587,7 +587,7 @@ pub unsafe extern "C" fn rpl_fts_open(
 }
 #[no_mangle]
 pub unsafe extern "C" fn rpl_fts_set(
-    mut sp: *mut FTS,
+    mut _sp: *mut FTS,
     mut p: *mut FTSENT,
     mut instr: libc::c_int,
 ) -> libc::c_int {
@@ -1816,21 +1816,21 @@ unsafe extern "C" fn restore_initial_cwd(mut sp: *mut FTS) -> libc::c_int {
         && (if (*sp).fts_options & 0x200 as libc::c_int != 0 {
             cwd_advance_fd(
                 sp,
-                (if (*sp).fts_options & 0x200 as libc::c_int != 0 {
+                if (*sp).fts_options & 0x200 as libc::c_int != 0 {
                     -(100 as libc::c_int)
                 } else {
                     (*sp).fts_rfd
-                }),
+                },
                 1 as libc::c_int != 0,
             );
             0 as libc::c_int
         } else {
             fchdir(
-                (if (*sp).fts_options & 0x200 as libc::c_int != 0 {
+                if (*sp).fts_options & 0x200 as libc::c_int != 0 {
                     -(100 as libc::c_int)
                 } else {
                     (*sp).fts_rfd
-                }),
+                },
             )
         }) != 0) as libc::c_int;
     fd_ring_clear(&mut (*sp).fts_fd_ring);

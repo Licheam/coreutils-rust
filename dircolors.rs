@@ -10,6 +10,7 @@
 
 #[macro_use]
 extern crate c2rust_bitfields;
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -5564,11 +5565,11 @@ unsafe fn main_0(
             ok = dc_parse_file(*argv.offset(0 as libc::c_int as isize));
         }
         if ok {
-            let mut len: size_t = ({
+            let mut len: size_t = {
                 let mut __o: *const obstack = &mut lsc_obstack;
                 ((*__o).next_free).offset_from((*__o).object_base) as libc::c_long
                     as size_t
-            });
+            };
             let mut s: *mut libc::c_char = ({
                 let mut __o1: *mut obstack = &mut lsc_obstack as *mut obstack;
                 let mut __value: *mut libc::c_void = (*__o1).object_base
@@ -5588,14 +5589,14 @@ unsafe fn main_0(
                     .offset(
                         ((((*__o1).next_free)
                             .offset_from(
-                                (if (::core::mem::size_of::<ptrdiff_t>() as libc::c_ulong)
+                                if (::core::mem::size_of::<ptrdiff_t>() as libc::c_ulong)
                                     < ::core::mem::size_of::<*mut libc::c_void>()
                                         as libc::c_ulong
                                 {
                                     (*__o1).object_base
                                 } else {
                                     0 as *mut libc::c_char
-                                }),
+                                },
                             ) as libc::c_long as libc::c_ulong)
                             .wrapping_add((*__o1).alignment_mask)
                             & !(*__o1).alignment_mask) as isize,

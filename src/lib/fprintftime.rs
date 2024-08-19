@@ -258,10 +258,10 @@ unsafe extern "C" fn __strftime_internal(
                     if (if ::core::mem::size_of::<libc::c_int>() as libc::c_ulong
                         == ::core::mem::size_of::<libc::c_schar>() as libc::c_ulong
                     {
-                        (if !((0 as libc::c_int) < -(1 as libc::c_int)) {
-                            (if (if (10 as libc::c_int) < 0 as libc::c_int {
-                                (if width < 0 as libc::c_int {
-                                    (if ((if 1 as libc::c_int != 0 {
+                        if !((0 as libc::c_int) < -(1 as libc::c_int)) {
+                            if (if (10 as libc::c_int) < 0 as libc::c_int {
+                                if width < 0 as libc::c_int {
+                                    if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int
                                     } else {
                                         (if 1 as libc::c_int != 0 {
@@ -335,9 +335,9 @@ unsafe extern "C" fn __strftime_internal(
                                         } else {
                                             127 as libc::c_int / -(10 as libc::c_int)
                                         }) <= -(1 as libc::c_int) - width) as libc::c_int
-                                    })
+                                    }
                                 } else {
-                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                    if (if (if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int
                                     } else {
                                         (if 1 as libc::c_int != 0 {
@@ -421,7 +421,7 @@ unsafe extern "C" fn __strftime_internal(
                                             as libc::c_int
                                     }) != 0 && 10 as libc::c_int == -(1 as libc::c_int)
                                     {
-                                        (if ((if 1 as libc::c_int != 0 {
+                                        if ((if 1 as libc::c_int != 0 {
                                             0 as libc::c_int
                                         } else {
                                             width
@@ -435,18 +435,18 @@ unsafe extern "C" fn __strftime_internal(
                                                 && -(1 as libc::c_int)
                                                     - (-(127 as libc::c_int) - 1 as libc::c_int)
                                                     < width - 1 as libc::c_int) as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         (((-(127 as libc::c_int) - 1 as libc::c_int)
                                             / 10 as libc::c_int) < width) as libc::c_int
-                                    })
-                                })
+                                    }
+                                }
                             } else {
-                                (if 10 as libc::c_int == 0 as libc::c_int {
+                                if 10 as libc::c_int == 0 as libc::c_int {
                                     0 as libc::c_int
                                 } else {
-                                    (if width < 0 as libc::c_int {
-                                        (if (if (if ((if 1 as libc::c_int != 0 {
+                                    if width < 0 as libc::c_int {
+                                        if (if (if ((if 1 as libc::c_int != 0 {
                                             0 as libc::c_int
                                         } else {
                                             (if 1 as libc::c_int != 0 {
@@ -530,7 +530,7 @@ unsafe extern "C" fn __strftime_internal(
                                                 as libc::c_int
                                         }) != 0 && width == -(1 as libc::c_int)
                                         {
-                                            (if ((if 1 as libc::c_int != 0 {
+                                            if ((if 1 as libc::c_int != 0 {
                                                 0 as libc::c_int
                                             } else {
                                                 10 as libc::c_int
@@ -543,16 +543,16 @@ unsafe extern "C" fn __strftime_internal(
                                                 (-(1 as libc::c_int)
                                                     - (-(127 as libc::c_int) - 1 as libc::c_int)
                                                     < 10 as libc::c_int - 1 as libc::c_int) as libc::c_int
-                                            })
+                                            }
                                         } else {
                                             ((-(127 as libc::c_int) - 1 as libc::c_int) / width
                                                 < 10 as libc::c_int) as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         ((127 as libc::c_int / 10 as libc::c_int) < width)
                                             as libc::c_int
-                                    })
-                                })
+                                    }
+                                }
                             }) != 0
                             {
                                 width = (width as libc::c_uint)
@@ -564,11 +564,11 @@ unsafe extern "C" fn __strftime_internal(
                                     .wrapping_mul(10 as libc::c_int as libc::c_uint)
                                     as libc::c_schar as libc::c_int;
                                 0 as libc::c_int
-                            })
+                            }
                         } else {
-                            (if (if (10 as libc::c_int) < 0 as libc::c_int {
-                                (if width < 0 as libc::c_int {
-                                    (if ((if 1 as libc::c_int != 0 {
+                            if (if (10 as libc::c_int) < 0 as libc::c_int {
+                                if width < 0 as libc::c_int {
+                                    if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int
                                     } else {
                                         (if 1 as libc::c_int != 0 {
@@ -645,9 +645,9 @@ unsafe extern "C" fn __strftime_internal(
                                             (127 as libc::c_int * 2 as libc::c_int + 1 as libc::c_int)
                                                 / -(10 as libc::c_int)
                                         }) <= -(1 as libc::c_int) - width) as libc::c_int
-                                    })
+                                    }
                                 } else {
-                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                    if (if (if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int
                                     } else {
                                         (if 1 as libc::c_int != 0 {
@@ -730,7 +730,7 @@ unsafe extern "C" fn __strftime_internal(
                                             }) + 0 as libc::c_int) as libc::c_int
                                     }) != 0 && 10 as libc::c_int == -(1 as libc::c_int)
                                     {
-                                        (if ((if 1 as libc::c_int != 0 {
+                                        if ((if 1 as libc::c_int != 0 {
                                             0 as libc::c_int
                                         } else {
                                             width
@@ -742,18 +742,18 @@ unsafe extern "C" fn __strftime_internal(
                                             ((0 as libc::c_int) < width
                                                 && (-(1 as libc::c_int) - 0 as libc::c_int)
                                                     < width - 1 as libc::c_int) as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         ((0 as libc::c_int / 10 as libc::c_int) < width)
                                             as libc::c_int
-                                    })
-                                })
+                                    }
+                                }
                             } else {
-                                (if 10 as libc::c_int == 0 as libc::c_int {
+                                if 10 as libc::c_int == 0 as libc::c_int {
                                     0 as libc::c_int
                                 } else {
-                                    (if width < 0 as libc::c_int {
-                                        (if (if (if ((if 1 as libc::c_int != 0 {
+                                    if width < 0 as libc::c_int {
+                                        if (if (if ((if 1 as libc::c_int != 0 {
                                             0 as libc::c_int
                                         } else {
                                             (if 1 as libc::c_int != 0 {
@@ -836,7 +836,7 @@ unsafe extern "C" fn __strftime_internal(
                                                 }) + 0 as libc::c_int) as libc::c_int
                                         }) != 0 && width == -(1 as libc::c_int)
                                         {
-                                            (if ((if 1 as libc::c_int != 0 {
+                                            if ((if 1 as libc::c_int != 0 {
                                                 0 as libc::c_int
                                             } else {
                                                 10 as libc::c_int
@@ -847,16 +847,16 @@ unsafe extern "C" fn __strftime_internal(
                                             } else {
                                                 ((-(1 as libc::c_int) - 0 as libc::c_int)
                                                     < 10 as libc::c_int - 1 as libc::c_int) as libc::c_int
-                                            })
+                                            }
                                         } else {
                                             (0 as libc::c_int / width < 10 as libc::c_int)
                                                 as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         (((127 as libc::c_int * 2 as libc::c_int + 1 as libc::c_int)
                                             / 10 as libc::c_int) < width) as libc::c_int
-                                    })
-                                })
+                                    }
+                                }
                             }) != 0
                             {
                                 width = (width as libc::c_uint)
@@ -868,16 +868,16 @@ unsafe extern "C" fn __strftime_internal(
                                     .wrapping_mul(10 as libc::c_int as libc::c_uint)
                                     as libc::c_uchar as libc::c_int;
                                 0 as libc::c_int
-                            })
-                        })
+                            }
+                        }
                     } else {
-                        (if ::core::mem::size_of::<libc::c_int>() as libc::c_ulong
+                        if ::core::mem::size_of::<libc::c_int>() as libc::c_ulong
                             == ::core::mem::size_of::<libc::c_short>() as libc::c_ulong
                         {
-                            (if !((0 as libc::c_int) < -(1 as libc::c_int)) {
-                                (if (if (10 as libc::c_int) < 0 as libc::c_int {
-                                    (if width < 0 as libc::c_int {
-                                        (if ((if 1 as libc::c_int != 0 {
+                            if !((0 as libc::c_int) < -(1 as libc::c_int)) {
+                                if (if (10 as libc::c_int) < 0 as libc::c_int {
+                                    if width < 0 as libc::c_int {
+                                        if ((if 1 as libc::c_int != 0 {
                                             0 as libc::c_int
                                         } else {
                                             (if 1 as libc::c_int != 0 {
@@ -951,9 +951,9 @@ unsafe extern "C" fn __strftime_internal(
                                             } else {
                                                 32767 as libc::c_int / -(10 as libc::c_int)
                                             }) <= -(1 as libc::c_int) - width) as libc::c_int
-                                        })
+                                        }
                                     } else {
-                                        (if (if (if ((if 1 as libc::c_int != 0 {
+                                        if (if (if ((if 1 as libc::c_int != 0 {
                                             0 as libc::c_int
                                         } else {
                                             (if 1 as libc::c_int != 0 {
@@ -1037,7 +1037,7 @@ unsafe extern "C" fn __strftime_internal(
                                                 as libc::c_int
                                         }) != 0 && 10 as libc::c_int == -(1 as libc::c_int)
                                         {
-                                            (if ((if 1 as libc::c_int != 0 {
+                                            if ((if 1 as libc::c_int != 0 {
                                                 0 as libc::c_int
                                             } else {
                                                 width
@@ -1051,18 +1051,18 @@ unsafe extern "C" fn __strftime_internal(
                                                     && -(1 as libc::c_int)
                                                         - (-(32767 as libc::c_int) - 1 as libc::c_int)
                                                         < width - 1 as libc::c_int) as libc::c_int
-                                            })
+                                            }
                                         } else {
                                             (((-(32767 as libc::c_int) - 1 as libc::c_int)
                                                 / 10 as libc::c_int) < width) as libc::c_int
-                                        })
-                                    })
+                                        }
+                                    }
                                 } else {
-                                    (if 10 as libc::c_int == 0 as libc::c_int {
+                                    if 10 as libc::c_int == 0 as libc::c_int {
                                         0 as libc::c_int
                                     } else {
-                                        (if width < 0 as libc::c_int {
-                                            (if (if (if ((if 1 as libc::c_int != 0 {
+                                        if width < 0 as libc::c_int {
+                                            if (if (if ((if 1 as libc::c_int != 0 {
                                                 0 as libc::c_int
                                             } else {
                                                 (if 1 as libc::c_int != 0 {
@@ -1146,7 +1146,7 @@ unsafe extern "C" fn __strftime_internal(
                                                     as libc::c_int
                                             }) != 0 && width == -(1 as libc::c_int)
                                             {
-                                                (if ((if 1 as libc::c_int != 0 {
+                                                if ((if 1 as libc::c_int != 0 {
                                                     0 as libc::c_int
                                                 } else {
                                                     10 as libc::c_int
@@ -1160,16 +1160,16 @@ unsafe extern "C" fn __strftime_internal(
                                                     (-(1 as libc::c_int)
                                                         - (-(32767 as libc::c_int) - 1 as libc::c_int)
                                                         < 10 as libc::c_int - 1 as libc::c_int) as libc::c_int
-                                                })
+                                                }
                                             } else {
                                                 ((-(32767 as libc::c_int) - 1 as libc::c_int) / width
                                                     < 10 as libc::c_int) as libc::c_int
-                                            })
+                                            }
                                         } else {
                                             ((32767 as libc::c_int / 10 as libc::c_int) < width)
                                                 as libc::c_int
-                                        })
-                                    })
+                                        }
+                                    }
                                 }) != 0
                                 {
                                     width = (width as libc::c_uint)
@@ -1181,11 +1181,11 @@ unsafe extern "C" fn __strftime_internal(
                                         .wrapping_mul(10 as libc::c_int as libc::c_uint)
                                         as libc::c_short as libc::c_int;
                                     0 as libc::c_int
-                                })
+                                }
                             } else {
-                                (if (if (10 as libc::c_int) < 0 as libc::c_int {
-                                    (if width < 0 as libc::c_int {
-                                        (if ((if 1 as libc::c_int != 0 {
+                                if (if (10 as libc::c_int) < 0 as libc::c_int {
+                                    if width < 0 as libc::c_int {
+                                        if ((if 1 as libc::c_int != 0 {
                                             0 as libc::c_int
                                         } else {
                                             (if 1 as libc::c_int != 0 {
@@ -1263,9 +1263,9 @@ unsafe extern "C" fn __strftime_internal(
                                                 (32767 as libc::c_int * 2 as libc::c_int + 1 as libc::c_int)
                                                     / -(10 as libc::c_int)
                                             }) <= -(1 as libc::c_int) - width) as libc::c_int
-                                        })
+                                        }
                                     } else {
-                                        (if (if (if ((if 1 as libc::c_int != 0 {
+                                        if (if (if ((if 1 as libc::c_int != 0 {
                                             0 as libc::c_int
                                         } else {
                                             (if 1 as libc::c_int != 0 {
@@ -1348,7 +1348,7 @@ unsafe extern "C" fn __strftime_internal(
                                                 }) + 0 as libc::c_int) as libc::c_int
                                         }) != 0 && 10 as libc::c_int == -(1 as libc::c_int)
                                         {
-                                            (if ((if 1 as libc::c_int != 0 {
+                                            if ((if 1 as libc::c_int != 0 {
                                                 0 as libc::c_int
                                             } else {
                                                 width
@@ -1360,18 +1360,18 @@ unsafe extern "C" fn __strftime_internal(
                                                 ((0 as libc::c_int) < width
                                                     && (-(1 as libc::c_int) - 0 as libc::c_int)
                                                         < width - 1 as libc::c_int) as libc::c_int
-                                            })
+                                            }
                                         } else {
                                             ((0 as libc::c_int / 10 as libc::c_int) < width)
                                                 as libc::c_int
-                                        })
-                                    })
+                                        }
+                                    }
                                 } else {
-                                    (if 10 as libc::c_int == 0 as libc::c_int {
+                                    if 10 as libc::c_int == 0 as libc::c_int {
                                         0 as libc::c_int
                                     } else {
-                                        (if width < 0 as libc::c_int {
-                                            (if (if (if ((if 1 as libc::c_int != 0 {
+                                        if width < 0 as libc::c_int {
+                                            if (if (if ((if 1 as libc::c_int != 0 {
                                                 0 as libc::c_int
                                             } else {
                                                 (if 1 as libc::c_int != 0 {
@@ -1454,7 +1454,7 @@ unsafe extern "C" fn __strftime_internal(
                                                     }) + 0 as libc::c_int) as libc::c_int
                                             }) != 0 && width == -(1 as libc::c_int)
                                             {
-                                                (if ((if 1 as libc::c_int != 0 {
+                                                if ((if 1 as libc::c_int != 0 {
                                                     0 as libc::c_int
                                                 } else {
                                                     10 as libc::c_int
@@ -1465,17 +1465,17 @@ unsafe extern "C" fn __strftime_internal(
                                                 } else {
                                                     ((-(1 as libc::c_int) - 0 as libc::c_int)
                                                         < 10 as libc::c_int - 1 as libc::c_int) as libc::c_int
-                                                })
+                                                }
                                             } else {
                                                 (0 as libc::c_int / width < 10 as libc::c_int)
                                                     as libc::c_int
-                                            })
+                                            }
                                         } else {
                                             (((32767 as libc::c_int * 2 as libc::c_int
                                                 + 1 as libc::c_int) / 10 as libc::c_int) < width)
                                                 as libc::c_int
-                                        })
-                                    })
+                                        }
+                                    }
                                 }) != 0
                                 {
                                     width = (width as libc::c_uint)
@@ -1487,21 +1487,21 @@ unsafe extern "C" fn __strftime_internal(
                                         .wrapping_mul(10 as libc::c_int as libc::c_uint)
                                         as libc::c_ushort as libc::c_int;
                                     0 as libc::c_int
-                                })
-                            })
+                                }
+                            }
                         } else {
-                            (if ::core::mem::size_of::<libc::c_int>() as libc::c_ulong
+                            if ::core::mem::size_of::<libc::c_int>() as libc::c_ulong
                                 == ::core::mem::size_of::<libc::c_int>() as libc::c_ulong
                             {
-                                (if ((if 1 as libc::c_int != 0 {
+                                if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int
                                 } else {
                                     width
                                 }) - 1 as libc::c_int) < 0 as libc::c_int
                                 {
-                                    (if (if (10 as libc::c_int) < 0 as libc::c_int {
-                                        (if width < 0 as libc::c_int {
-                                            (if ((if 1 as libc::c_int != 0 {
+                                    if (if (10 as libc::c_int) < 0 as libc::c_int {
+                                        if width < 0 as libc::c_int {
+                                            if ((if 1 as libc::c_int != 0 {
                                                 0 as libc::c_int
                                             } else {
                                                 (if 1 as libc::c_int != 0 {
@@ -1575,9 +1575,9 @@ unsafe extern "C" fn __strftime_internal(
                                                 } else {
                                                     2147483647 as libc::c_int / -(10 as libc::c_int)
                                                 }) <= -(1 as libc::c_int) - width) as libc::c_int
-                                            })
+                                            }
                                         } else {
-                                            (if (if (if ((if 1 as libc::c_int != 0 {
+                                            if (if (if ((if 1 as libc::c_int != 0 {
                                                 0 as libc::c_int
                                             } else {
                                                 (if 1 as libc::c_int != 0 {
@@ -1661,7 +1661,7 @@ unsafe extern "C" fn __strftime_internal(
                                                     as libc::c_int
                                             }) != 0 && 10 as libc::c_int == -(1 as libc::c_int)
                                             {
-                                                (if ((if 1 as libc::c_int != 0 {
+                                                if ((if 1 as libc::c_int != 0 {
                                                     0 as libc::c_int
                                                 } else {
                                                     width
@@ -1675,18 +1675,18 @@ unsafe extern "C" fn __strftime_internal(
                                                         && -(1 as libc::c_int)
                                                             - (-(2147483647 as libc::c_int) - 1 as libc::c_int)
                                                             < width - 1 as libc::c_int) as libc::c_int
-                                                })
+                                                }
                                             } else {
                                                 (((-(2147483647 as libc::c_int) - 1 as libc::c_int)
                                                     / 10 as libc::c_int) < width) as libc::c_int
-                                            })
-                                        })
+                                            }
+                                        }
                                     } else {
-                                        (if 10 as libc::c_int == 0 as libc::c_int {
+                                        if 10 as libc::c_int == 0 as libc::c_int {
                                             0 as libc::c_int
                                         } else {
-                                            (if width < 0 as libc::c_int {
-                                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                            if width < 0 as libc::c_int {
+                                                if (if (if ((if 1 as libc::c_int != 0 {
                                                     0 as libc::c_int
                                                 } else {
                                                     (if 1 as libc::c_int != 0 {
@@ -1770,7 +1770,7 @@ unsafe extern "C" fn __strftime_internal(
                                                         as libc::c_int
                                                 }) != 0 && width == -(1 as libc::c_int)
                                                 {
-                                                    (if ((if 1 as libc::c_int != 0 {
+                                                    if ((if 1 as libc::c_int != 0 {
                                                         0 as libc::c_int
                                                     } else {
                                                         10 as libc::c_int
@@ -1784,16 +1784,16 @@ unsafe extern "C" fn __strftime_internal(
                                                         (-(1 as libc::c_int)
                                                             - (-(2147483647 as libc::c_int) - 1 as libc::c_int)
                                                             < 10 as libc::c_int - 1 as libc::c_int) as libc::c_int
-                                                    })
+                                                    }
                                                 } else {
                                                     ((-(2147483647 as libc::c_int) - 1 as libc::c_int) / width
                                                         < 10 as libc::c_int) as libc::c_int
-                                                })
+                                                }
                                             } else {
                                                 ((2147483647 as libc::c_int / 10 as libc::c_int) < width)
                                                     as libc::c_int
-                                            })
-                                        })
+                                            }
+                                        }
                                     }) != 0
                                     {
                                         width = (width as libc::c_uint)
@@ -1805,11 +1805,11 @@ unsafe extern "C" fn __strftime_internal(
                                             .wrapping_mul(10 as libc::c_int as libc::c_uint)
                                             as libc::c_int;
                                         0 as libc::c_int
-                                    })
+                                    }
                                 } else {
-                                    (if (if (10 as libc::c_int) < 0 as libc::c_int {
-                                        (if width < 0 as libc::c_int {
-                                            (if (if 1 as libc::c_int != 0 {
+                                    if (if (10 as libc::c_int) < 0 as libc::c_int {
+                                        if width < 0 as libc::c_int {
+                                            if (if 1 as libc::c_int != 0 {
                                                 0 as libc::c_int as libc::c_uint
                                             } else {
                                                 (if 1 as libc::c_int != 0 {
@@ -1901,9 +1901,9 @@ unsafe extern "C" fn __strftime_internal(
                                                         .wrapping_div(-(10 as libc::c_int) as libc::c_uint)
                                                 }) <= (-(1 as libc::c_int) - width) as libc::c_uint)
                                                     as libc::c_int
-                                            })
+                                            }
                                         } else {
-                                            (if (if (if ((if 1 as libc::c_int != 0 {
+                                            if (if (if ((if 1 as libc::c_int != 0 {
                                                 0 as libc::c_int
                                             } else {
                                                 (if 1 as libc::c_int != 0 {
@@ -1986,7 +1986,7 @@ unsafe extern "C" fn __strftime_internal(
                                                     }) + 0 as libc::c_int) as libc::c_int
                                             }) != 0 && 10 as libc::c_int == -(1 as libc::c_int)
                                             {
-                                                (if ((if 1 as libc::c_int != 0 {
+                                                if ((if 1 as libc::c_int != 0 {
                                                     0 as libc::c_int
                                                 } else {
                                                     width
@@ -1998,18 +1998,18 @@ unsafe extern "C" fn __strftime_internal(
                                                     ((0 as libc::c_int) < width
                                                         && (-(1 as libc::c_int) - 0 as libc::c_int)
                                                             < width - 1 as libc::c_int) as libc::c_int
-                                                })
+                                                }
                                             } else {
                                                 ((0 as libc::c_int / 10 as libc::c_int) < width)
                                                     as libc::c_int
-                                            })
-                                        })
+                                            }
+                                        }
                                     } else {
-                                        (if 10 as libc::c_int == 0 as libc::c_int {
+                                        if 10 as libc::c_int == 0 as libc::c_int {
                                             0 as libc::c_int
                                         } else {
-                                            (if width < 0 as libc::c_int {
-                                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                            if width < 0 as libc::c_int {
+                                                if (if (if ((if 1 as libc::c_int != 0 {
                                                     0 as libc::c_int
                                                 } else {
                                                     (if 1 as libc::c_int != 0 {
@@ -2092,7 +2092,7 @@ unsafe extern "C" fn __strftime_internal(
                                                         }) + 0 as libc::c_int) as libc::c_int
                                                 }) != 0 && width == -(1 as libc::c_int)
                                                 {
-                                                    (if ((if 1 as libc::c_int != 0 {
+                                                    if ((if 1 as libc::c_int != 0 {
                                                         0 as libc::c_int
                                                     } else {
                                                         10 as libc::c_int
@@ -2103,19 +2103,19 @@ unsafe extern "C" fn __strftime_internal(
                                                     } else {
                                                         ((-(1 as libc::c_int) - 0 as libc::c_int)
                                                             < 10 as libc::c_int - 1 as libc::c_int) as libc::c_int
-                                                    })
+                                                    }
                                                 } else {
                                                     (0 as libc::c_int / width < 10 as libc::c_int)
                                                         as libc::c_int
-                                                })
+                                                }
                                             } else {
                                                 ((2147483647 as libc::c_int as libc::c_uint)
                                                     .wrapping_mul(2 as libc::c_uint)
                                                     .wrapping_add(1 as libc::c_uint)
                                                     .wrapping_div(10 as libc::c_int as libc::c_uint)
                                                     < width as libc::c_uint) as libc::c_int
-                                            })
-                                        })
+                                            }
+                                        }
                                     }) != 0
                                     {
                                         width = (width as libc::c_uint)
@@ -2127,21 +2127,21 @@ unsafe extern "C" fn __strftime_internal(
                                             .wrapping_mul(10 as libc::c_int as libc::c_uint)
                                             as libc::c_int;
                                         0 as libc::c_int
-                                    })
-                                })
+                                    }
+                                }
                             } else {
-                                (if ::core::mem::size_of::<libc::c_int>() as libc::c_ulong
+                                if ::core::mem::size_of::<libc::c_int>() as libc::c_ulong
                                     == ::core::mem::size_of::<libc::c_long>() as libc::c_ulong
                                 {
-                                    (if ((if 1 as libc::c_int != 0 {
+                                    if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int
                                     } else {
                                         width
                                     }) - 1 as libc::c_int) < 0 as libc::c_int
                                     {
-                                        (if (if (10 as libc::c_int) < 0 as libc::c_int {
-                                            (if width < 0 as libc::c_int {
-                                                (if ((if 1 as libc::c_int != 0 {
+                                        if (if (10 as libc::c_int) < 0 as libc::c_int {
+                                            if width < 0 as libc::c_int {
+                                                if ((if 1 as libc::c_int != 0 {
                                                     0 as libc::c_int as libc::c_long
                                                 } else {
                                                     (if 1 as libc::c_int != 0 {
@@ -2219,9 +2219,9 @@ unsafe extern "C" fn __strftime_internal(
                                                             / -(10 as libc::c_int) as libc::c_long
                                                     }) <= (-(1 as libc::c_int) - width) as libc::c_long)
                                                         as libc::c_int
-                                                })
+                                                }
                                             } else {
-                                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                                if (if (if ((if 1 as libc::c_int != 0 {
                                                     0 as libc::c_int as libc::c_long
                                                 } else {
                                                     (if 1 as libc::c_int != 0 {
@@ -2326,7 +2326,7 @@ unsafe extern "C" fn __strftime_internal(
                                                                 - 1 as libc::c_long)) as libc::c_int
                                                 }) != 0 && 10 as libc::c_int == -(1 as libc::c_int)
                                                 {
-                                                    (if ((if 1 as libc::c_int != 0 {
+                                                    if ((if 1 as libc::c_int != 0 {
                                                         0 as libc::c_int
                                                     } else {
                                                         width
@@ -2342,19 +2342,19 @@ unsafe extern "C" fn __strftime_internal(
                                                                 - (-(9223372036854775807 as libc::c_long)
                                                                     - 1 as libc::c_long)
                                                                 < (width - 1 as libc::c_int) as libc::c_long) as libc::c_int
-                                                    })
+                                                    }
                                                 } else {
                                                     (((-(9223372036854775807 as libc::c_long)
                                                         - 1 as libc::c_long) / 10 as libc::c_int as libc::c_long)
                                                         < width as libc::c_long) as libc::c_int
-                                                })
-                                            })
+                                                }
+                                            }
                                         } else {
-                                            (if 10 as libc::c_int == 0 as libc::c_int {
+                                            if 10 as libc::c_int == 0 as libc::c_int {
                                                 0 as libc::c_int
                                             } else {
-                                                (if width < 0 as libc::c_int {
-                                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                                if width < 0 as libc::c_int {
+                                                    if (if (if ((if 1 as libc::c_int != 0 {
                                                         0 as libc::c_int as libc::c_long
                                                     } else {
                                                         (if 1 as libc::c_int != 0 {
@@ -2459,7 +2459,7 @@ unsafe extern "C" fn __strftime_internal(
                                                                     - 1 as libc::c_long)) as libc::c_int
                                                     }) != 0 && width == -(1 as libc::c_int)
                                                     {
-                                                        (if ((if 1 as libc::c_int != 0 {
+                                                        if ((if 1 as libc::c_int != 0 {
                                                             0 as libc::c_int
                                                         } else {
                                                             10 as libc::c_int
@@ -2475,18 +2475,18 @@ unsafe extern "C" fn __strftime_internal(
                                                                     - 1 as libc::c_long)
                                                                 < (10 as libc::c_int - 1 as libc::c_int) as libc::c_long)
                                                                 as libc::c_int
-                                                        })
+                                                        }
                                                     } else {
                                                         (((-(9223372036854775807 as libc::c_long)
                                                             - 1 as libc::c_long) / width as libc::c_long)
                                                             < 10 as libc::c_int as libc::c_long) as libc::c_int
-                                                    })
+                                                    }
                                                 } else {
                                                     ((9223372036854775807 as libc::c_long
                                                         / 10 as libc::c_int as libc::c_long)
                                                         < width as libc::c_long) as libc::c_int
-                                                })
-                                            })
+                                                }
+                                            }
                                         }) != 0
                                         {
                                             width = (width as libc::c_ulong)
@@ -2498,11 +2498,11 @@ unsafe extern "C" fn __strftime_internal(
                                                 .wrapping_mul(10 as libc::c_int as libc::c_ulong)
                                                 as libc::c_long as libc::c_int;
                                             0 as libc::c_int
-                                        })
+                                        }
                                     } else {
-                                        (if (if (10 as libc::c_int) < 0 as libc::c_int {
-                                            (if width < 0 as libc::c_int {
-                                                (if (if 1 as libc::c_int != 0 {
+                                        if (if (10 as libc::c_int) < 0 as libc::c_int {
+                                            if width < 0 as libc::c_int {
+                                                if (if 1 as libc::c_int != 0 {
                                                     0 as libc::c_int as libc::c_ulong
                                                 } else {
                                                     (if 1 as libc::c_int != 0 {
@@ -2594,9 +2594,9 @@ unsafe extern "C" fn __strftime_internal(
                                                             .wrapping_div(-(10 as libc::c_int) as libc::c_ulong)
                                                     }) <= (-(1 as libc::c_int) - width) as libc::c_ulong)
                                                         as libc::c_int
-                                                })
+                                                }
                                             } else {
-                                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                                if (if (if ((if 1 as libc::c_int != 0 {
                                                     0 as libc::c_int
                                                 } else {
                                                     (if 1 as libc::c_int != 0 {
@@ -2679,7 +2679,7 @@ unsafe extern "C" fn __strftime_internal(
                                                         }) + 0 as libc::c_int) as libc::c_int
                                                 }) != 0 && 10 as libc::c_int == -(1 as libc::c_int)
                                                 {
-                                                    (if ((if 1 as libc::c_int != 0 {
+                                                    if ((if 1 as libc::c_int != 0 {
                                                         0 as libc::c_int
                                                     } else {
                                                         width
@@ -2691,18 +2691,18 @@ unsafe extern "C" fn __strftime_internal(
                                                         ((0 as libc::c_int) < width
                                                             && (-(1 as libc::c_int) - 0 as libc::c_int)
                                                                 < width - 1 as libc::c_int) as libc::c_int
-                                                    })
+                                                    }
                                                 } else {
                                                     ((0 as libc::c_int / 10 as libc::c_int) < width)
                                                         as libc::c_int
-                                                })
-                                            })
+                                                }
+                                            }
                                         } else {
-                                            (if 10 as libc::c_int == 0 as libc::c_int {
+                                            if 10 as libc::c_int == 0 as libc::c_int {
                                                 0 as libc::c_int
                                             } else {
-                                                (if width < 0 as libc::c_int {
-                                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                                if width < 0 as libc::c_int {
+                                                    if (if (if ((if 1 as libc::c_int != 0 {
                                                         0 as libc::c_int
                                                     } else {
                                                         (if 1 as libc::c_int != 0 {
@@ -2785,7 +2785,7 @@ unsafe extern "C" fn __strftime_internal(
                                                             }) + 0 as libc::c_int) as libc::c_int
                                                     }) != 0 && width == -(1 as libc::c_int)
                                                     {
-                                                        (if ((if 1 as libc::c_int != 0 {
+                                                        if ((if 1 as libc::c_int != 0 {
                                                             0 as libc::c_int
                                                         } else {
                                                             10 as libc::c_int
@@ -2796,19 +2796,19 @@ unsafe extern "C" fn __strftime_internal(
                                                         } else {
                                                             ((-(1 as libc::c_int) - 0 as libc::c_int)
                                                                 < 10 as libc::c_int - 1 as libc::c_int) as libc::c_int
-                                                        })
+                                                        }
                                                     } else {
                                                         (0 as libc::c_int / width < 10 as libc::c_int)
                                                             as libc::c_int
-                                                    })
+                                                    }
                                                 } else {
                                                     ((9223372036854775807 as libc::c_long as libc::c_ulong)
                                                         .wrapping_mul(2 as libc::c_ulong)
                                                         .wrapping_add(1 as libc::c_ulong)
                                                         .wrapping_div(10 as libc::c_int as libc::c_ulong)
                                                         < width as libc::c_ulong) as libc::c_int
-                                                })
-                                            })
+                                                }
+                                            }
                                         }) != 0
                                         {
                                             width = (width as libc::c_ulong)
@@ -2820,18 +2820,18 @@ unsafe extern "C" fn __strftime_internal(
                                                 .wrapping_mul(10 as libc::c_int as libc::c_ulong)
                                                 as libc::c_int;
                                             0 as libc::c_int
-                                        })
-                                    })
+                                        }
+                                    }
                                 } else {
-                                    (if ((if 1 as libc::c_int != 0 {
+                                    if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int
                                     } else {
                                         width
                                     }) - 1 as libc::c_int) < 0 as libc::c_int
                                     {
-                                        (if (if (10 as libc::c_int) < 0 as libc::c_int {
-                                            (if width < 0 as libc::c_int {
-                                                (if ((if 1 as libc::c_int != 0 {
+                                        if (if (10 as libc::c_int) < 0 as libc::c_int {
+                                            if width < 0 as libc::c_int {
+                                                if ((if 1 as libc::c_int != 0 {
                                                     0 as libc::c_int as libc::c_longlong
                                                 } else {
                                                     (if 1 as libc::c_int != 0 {
@@ -2910,9 +2910,9 @@ unsafe extern "C" fn __strftime_internal(
                                                             / -(10 as libc::c_int) as libc::c_longlong
                                                     }) <= (-(1 as libc::c_int) - width) as libc::c_longlong)
                                                         as libc::c_int
-                                                })
+                                                }
                                             } else {
-                                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                                if (if (if ((if 1 as libc::c_int != 0 {
                                                     0 as libc::c_int as libc::c_longlong
                                                 } else {
                                                     (if 1 as libc::c_int != 0 {
@@ -3019,7 +3019,7 @@ unsafe extern "C" fn __strftime_internal(
                                                                 - 1 as libc::c_longlong)) as libc::c_int
                                                 }) != 0 && 10 as libc::c_int == -(1 as libc::c_int)
                                                 {
-                                                    (if ((if 1 as libc::c_int != 0 {
+                                                    if ((if 1 as libc::c_int != 0 {
                                                         0 as libc::c_int
                                                     } else {
                                                         width
@@ -3036,20 +3036,20 @@ unsafe extern "C" fn __strftime_internal(
                                                                     - 1 as libc::c_longlong)
                                                                 < (width - 1 as libc::c_int) as libc::c_longlong)
                                                             as libc::c_int
-                                                    })
+                                                    }
                                                 } else {
                                                     (((-(9223372036854775807 as libc::c_longlong)
                                                         - 1 as libc::c_longlong)
                                                         / 10 as libc::c_int as libc::c_longlong)
                                                         < width as libc::c_longlong) as libc::c_int
-                                                })
-                                            })
+                                                }
+                                            }
                                         } else {
-                                            (if 10 as libc::c_int == 0 as libc::c_int {
+                                            if 10 as libc::c_int == 0 as libc::c_int {
                                                 0 as libc::c_int
                                             } else {
-                                                (if width < 0 as libc::c_int {
-                                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                                if width < 0 as libc::c_int {
+                                                    if (if (if ((if 1 as libc::c_int != 0 {
                                                         0 as libc::c_int as libc::c_longlong
                                                     } else {
                                                         (if 1 as libc::c_int != 0 {
@@ -3156,7 +3156,7 @@ unsafe extern "C" fn __strftime_internal(
                                                                     - 1 as libc::c_longlong)) as libc::c_int
                                                     }) != 0 && width == -(1 as libc::c_int)
                                                     {
-                                                        (if ((if 1 as libc::c_int != 0 {
+                                                        if ((if 1 as libc::c_int != 0 {
                                                             0 as libc::c_int
                                                         } else {
                                                             10 as libc::c_int
@@ -3172,18 +3172,18 @@ unsafe extern "C" fn __strftime_internal(
                                                                     - 1 as libc::c_longlong)
                                                                 < (10 as libc::c_int - 1 as libc::c_int)
                                                                     as libc::c_longlong) as libc::c_int
-                                                        })
+                                                        }
                                                     } else {
                                                         (((-(9223372036854775807 as libc::c_longlong)
                                                             - 1 as libc::c_longlong) / width as libc::c_longlong)
                                                             < 10 as libc::c_int as libc::c_longlong) as libc::c_int
-                                                    })
+                                                    }
                                                 } else {
                                                     ((9223372036854775807 as libc::c_longlong
                                                         / 10 as libc::c_int as libc::c_longlong)
                                                         < width as libc::c_longlong) as libc::c_int
-                                                })
-                                            })
+                                                }
+                                            }
                                         }) != 0
                                         {
                                             width = (width as libc::c_ulonglong)
@@ -3195,11 +3195,11 @@ unsafe extern "C" fn __strftime_internal(
                                                 .wrapping_mul(10 as libc::c_int as libc::c_ulonglong)
                                                 as libc::c_longlong as libc::c_int;
                                             0 as libc::c_int
-                                        })
+                                        }
                                     } else {
-                                        (if (if (10 as libc::c_int) < 0 as libc::c_int {
-                                            (if width < 0 as libc::c_int {
-                                                (if (if 1 as libc::c_int != 0 {
+                                        if (if (10 as libc::c_int) < 0 as libc::c_int {
+                                            if width < 0 as libc::c_int {
+                                                if (if 1 as libc::c_int != 0 {
                                                     0 as libc::c_int as libc::c_ulonglong
                                                 } else {
                                                     (if 1 as libc::c_int != 0 {
@@ -3295,9 +3295,9 @@ unsafe extern "C" fn __strftime_internal(
                                                             .wrapping_div(-(10 as libc::c_int) as libc::c_ulonglong)
                                                     }) <= (-(1 as libc::c_int) - width) as libc::c_ulonglong)
                                                         as libc::c_int
-                                                })
+                                                }
                                             } else {
-                                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                                if (if (if ((if 1 as libc::c_int != 0 {
                                                     0 as libc::c_int
                                                 } else {
                                                     (if 1 as libc::c_int != 0 {
@@ -3380,7 +3380,7 @@ unsafe extern "C" fn __strftime_internal(
                                                         }) + 0 as libc::c_int) as libc::c_int
                                                 }) != 0 && 10 as libc::c_int == -(1 as libc::c_int)
                                                 {
-                                                    (if ((if 1 as libc::c_int != 0 {
+                                                    if ((if 1 as libc::c_int != 0 {
                                                         0 as libc::c_int
                                                     } else {
                                                         width
@@ -3392,18 +3392,18 @@ unsafe extern "C" fn __strftime_internal(
                                                         ((0 as libc::c_int) < width
                                                             && (-(1 as libc::c_int) - 0 as libc::c_int)
                                                                 < width - 1 as libc::c_int) as libc::c_int
-                                                    })
+                                                    }
                                                 } else {
                                                     ((0 as libc::c_int / 10 as libc::c_int) < width)
                                                         as libc::c_int
-                                                })
-                                            })
+                                                }
+                                            }
                                         } else {
-                                            (if 10 as libc::c_int == 0 as libc::c_int {
+                                            if 10 as libc::c_int == 0 as libc::c_int {
                                                 0 as libc::c_int
                                             } else {
-                                                (if width < 0 as libc::c_int {
-                                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                                if width < 0 as libc::c_int {
+                                                    if (if (if ((if 1 as libc::c_int != 0 {
                                                         0 as libc::c_int
                                                     } else {
                                                         (if 1 as libc::c_int != 0 {
@@ -3486,7 +3486,7 @@ unsafe extern "C" fn __strftime_internal(
                                                             }) + 0 as libc::c_int) as libc::c_int
                                                     }) != 0 && width == -(1 as libc::c_int)
                                                     {
-                                                        (if ((if 1 as libc::c_int != 0 {
+                                                        if ((if 1 as libc::c_int != 0 {
                                                             0 as libc::c_int
                                                         } else {
                                                             10 as libc::c_int
@@ -3497,11 +3497,11 @@ unsafe extern "C" fn __strftime_internal(
                                                         } else {
                                                             ((-(1 as libc::c_int) - 0 as libc::c_int)
                                                                 < 10 as libc::c_int - 1 as libc::c_int) as libc::c_int
-                                                        })
+                                                        }
                                                     } else {
                                                         (0 as libc::c_int / width < 10 as libc::c_int)
                                                             as libc::c_int
-                                                    })
+                                                    }
                                                 } else {
                                                     ((9223372036854775807 as libc::c_longlong
                                                         as libc::c_ulonglong)
@@ -3509,8 +3509,8 @@ unsafe extern "C" fn __strftime_internal(
                                                         .wrapping_add(1 as libc::c_ulonglong)
                                                         .wrapping_div(10 as libc::c_int as libc::c_ulonglong)
                                                         < width as libc::c_ulonglong) as libc::c_int
-                                                })
-                                            })
+                                                }
+                                            }
                                         }) != 0
                                         {
                                             width = (width as libc::c_ulonglong)
@@ -3522,11 +3522,11 @@ unsafe extern "C" fn __strftime_internal(
                                                 .wrapping_mul(10 as libc::c_int as libc::c_ulonglong)
                                                 as libc::c_int;
                                             0 as libc::c_int
-                                        })
-                                    })
-                                })
-                            })
-                        })
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }) != 0
                         || {
                             let (fresh2, fresh3) = width

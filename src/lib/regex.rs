@@ -1282,7 +1282,7 @@ pub unsafe extern "C" fn rpl_regexec(
 #[no_mangle]
 pub unsafe extern "C" fn rpl_regerror(
     mut errcode: libc::c_int,
-    mut preg: *const regex_t,
+    mut _preg: *const regex_t,
     mut errbuf: *mut libc::c_char,
     mut errbuf_size: size_t,
 ) -> size_t {
@@ -1357,8 +1357,8 @@ unsafe extern "C" fn bitset_contain(mut set: *const bitset_word_t, mut i: Idx) -
         != 0;
 }
 unsafe extern "C" fn re_string_elem_size_at(
-    mut pstr: *const re_string_t,
-    mut idx: Idx,
+    mut _pstr: *const re_string_t,
+    mut _idx: Idx,
 ) -> libc::c_int {
     return 1 as libc::c_int;
 }
@@ -2060,11 +2060,11 @@ unsafe extern "C" fn build_wcs_upper_buffer(
                                             (byte_idx as libc::c_ulong).wrapping_add(i_0) as isize,
                                         ) = (src_idx as libc::c_ulong)
                                         .wrapping_add(
-                                            (if i_0 < mbclen {
+                                            if i_0 < mbclen {
                                                 i_0
                                             } else {
                                                 mbclen.wrapping_sub(1 as libc::c_int as libc::c_ulong)
-                                            }),
+                                            },
                                         ) as Idx;
                                     *((*pstr).wcs)
                                         .offset(
@@ -4120,18 +4120,18 @@ unsafe extern "C" fn init_dfa(
                     ::core::mem::size_of::<regmatch_t>() as libc::c_ulong
                 })
             {
-                (if (::core::mem::size_of::<regmatch_t>() as libc::c_ulong)
+                if (::core::mem::size_of::<regmatch_t>() as libc::c_ulong)
                     < max_i18n_object_size
                 {
                     max_i18n_object_size
                 } else {
                     ::core::mem::size_of::<regmatch_t>() as libc::c_ulong
-                })
+                }
             } else {
                 ::core::mem::size_of::<re_node_set>() as libc::c_ulong
             })
         {
-            (if (::core::mem::size_of::<re_node_set>() as libc::c_ulong)
+            if (::core::mem::size_of::<re_node_set>() as libc::c_ulong)
                 < (if (::core::mem::size_of::<regmatch_t>() as libc::c_ulong)
                     < max_i18n_object_size
                 {
@@ -4140,16 +4140,16 @@ unsafe extern "C" fn init_dfa(
                     ::core::mem::size_of::<regmatch_t>() as libc::c_ulong
                 })
             {
-                (if (::core::mem::size_of::<regmatch_t>() as libc::c_ulong)
+                if (::core::mem::size_of::<regmatch_t>() as libc::c_ulong)
                     < max_i18n_object_size
                 {
                     max_i18n_object_size
                 } else {
                     ::core::mem::size_of::<regmatch_t>() as libc::c_ulong
-                })
+                }
             } else {
                 ::core::mem::size_of::<re_node_set>() as libc::c_ulong
-            })
+            }
         } else {
             ::core::mem::size_of::<re_token_t>() as libc::c_ulong
         })
@@ -4164,13 +4164,13 @@ unsafe extern "C" fn init_dfa(
                     ::core::mem::size_of::<regmatch_t>() as libc::c_ulong
                 })
             {
-                (if (::core::mem::size_of::<regmatch_t>() as libc::c_ulong)
+                if (::core::mem::size_of::<regmatch_t>() as libc::c_ulong)
                     < max_i18n_object_size
                 {
                     max_i18n_object_size
                 } else {
                     ::core::mem::size_of::<regmatch_t>() as libc::c_ulong
-                })
+                }
             } else {
                 ::core::mem::size_of::<re_node_set>() as libc::c_ulong
             })
@@ -4874,7 +4874,7 @@ unsafe extern "C" fn calc_first(
     return _REG_NOERROR;
 }
 unsafe extern "C" fn calc_next(
-    mut extra: *mut libc::c_void,
+    mut _extra: *mut libc::c_void,
     mut node: *mut bin_tree_t,
 ) -> reg_errcode_t {
     match ((*node).token).type_0() as libc::c_int {
@@ -7063,7 +7063,7 @@ unsafe extern "C" fn parse_bracket_element(
     mut regexp: *mut re_string_t,
     mut token: *mut re_token_t,
     mut token_len: libc::c_int,
-    mut dfa: *mut re_dfa_t,
+    mut _dfa: *mut re_dfa_t,
     mut syntax: reg_syntax_t,
     mut accept_hyphen: bool,
 ) -> reg_errcode_t {
@@ -7153,8 +7153,8 @@ unsafe extern "C" fn parse_bracket_symbol(
 }
 unsafe extern "C" fn build_equiv_class(
     mut sbcset: *mut bitset_word_t,
-    mut mbcset: *mut re_charset_t,
-    mut equiv_class_alloc: *mut Idx,
+    mut _mbcset: *mut re_charset_t,
+    mut _equiv_class_alloc: *mut Idx,
     mut name: *const libc::c_uchar,
 ) -> reg_errcode_t {
     if (strlen(name as *const libc::c_char) != 1 as libc::c_int as libc::c_ulong)
@@ -7861,7 +7861,7 @@ unsafe extern "C" fn free_token(mut node: *mut re_token_t) {
     }
 }
 unsafe extern "C" fn free_tree(
-    mut extra: *mut libc::c_void,
+    mut _extra: *mut libc::c_void,
     mut node: *mut bin_tree_t,
 ) -> reg_errcode_t {
     free_token(&mut (*node).token);
@@ -8403,8 +8403,8 @@ unsafe extern "C" fn build_range_exp(
 }
 unsafe extern "C" fn build_collating_symbol(
     mut sbcset: *mut bitset_word_t,
-    mut mbcset: *mut re_charset_t,
-    mut coll_sym_alloc: *mut Idx,
+    mut _mbcset: *mut re_charset_t,
+    mut _coll_sym_alloc: *mut Idx,
     mut name: *const libc::c_uchar,
 ) -> reg_errcode_t {
     let mut name_len: size_t = strlen(name as *const libc::c_char);

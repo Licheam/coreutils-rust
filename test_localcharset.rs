@@ -7,6 +7,7 @@
 #![allow(unused_mut)]
 
 
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {

@@ -11,6 +11,7 @@
 
 #[macro_use]
 extern crate c2rust_bitfields;
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -1305,8 +1306,7 @@ unsafe fn main_0(
     ok = 1 as libc::c_int != 0;
     let mut i: size_t = 0 as libc::c_int as size_t;
     while !(*file.offset(i as isize)).is_null() {
-        ok = (ok as libc::c_int & tac_file(*file.offset(i as isize)) as libc::c_int)
-            as bool;
+        ok = (ok as libc::c_int & tac_file(*file.offset(i as isize)) as libc::c_int) != 0;
         i = i.wrapping_add(1);
         i;
     }

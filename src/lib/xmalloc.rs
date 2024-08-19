@@ -3476,10 +3476,10 @@ pub unsafe extern "C" fn xpalloc(
                 || (if ::core::mem::size_of::<idx_t>() as libc::c_ulong
                     == ::core::mem::size_of::<libc::c_schar>() as libc::c_ulong
                 {
-                    (if !((0 as libc::c_int as idx_t) < -(1 as libc::c_int) as idx_t) {
-                        (if (if s < 0 as libc::c_int as libc::c_long {
-                            (if n < 0 as libc::c_int as libc::c_long {
-                                (if ((if 1 as libc::c_int != 0 {
+                    if !((0 as libc::c_int as idx_t) < -(1 as libc::c_int) as idx_t) {
+                        if (if s < 0 as libc::c_int as libc::c_long {
+                            if n < 0 as libc::c_int as libc::c_long {
+                                if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int as libc::c_long
                                 } else {
                                     (if 1 as libc::c_int != 0 {
@@ -3560,9 +3560,9 @@ pub unsafe extern "C" fn xpalloc(
                                         127 as libc::c_int as libc::c_long / -s
                                     }) <= -(1 as libc::c_int) as libc::c_long - n)
                                         as libc::c_int
-                                })
+                                }
                             } else {
-                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                if (if (if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int as libc::c_long
                                 } else {
                                     (if 1 as libc::c_int != 0 {
@@ -3661,7 +3661,7 @@ pub unsafe extern "C" fn xpalloc(
                                                 as libc::c_long) as libc::c_int
                                 }) != 0 && s == -(1 as libc::c_int) as libc::c_long
                                 {
-                                    (if ((if 1 as libc::c_int != 0 {
+                                    if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_long
                                     } else {
                                         n
@@ -3678,18 +3678,18 @@ pub unsafe extern "C" fn xpalloc(
                                                 - (-(127 as libc::c_int) - 1 as libc::c_int))
                                                 as libc::c_long) < n - 1 as libc::c_int as libc::c_long)
                                             as libc::c_int
-                                    })
+                                    }
                                 } else {
                                     ((-(127 as libc::c_int) - 1 as libc::c_int) as libc::c_long
                                         / s < n) as libc::c_int
-                                })
-                            })
+                                }
+                            }
                         } else {
-                            (if s == 0 as libc::c_int as libc::c_long {
+                            if s == 0 as libc::c_int as libc::c_long {
                                 0 as libc::c_int
                             } else {
-                                (if n < 0 as libc::c_int as libc::c_long {
-                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                if n < 0 as libc::c_int as libc::c_long {
+                                    if (if (if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_long
                                     } else {
                                         (if 1 as libc::c_int != 0 {
@@ -3788,7 +3788,7 @@ pub unsafe extern "C" fn xpalloc(
                                                     as libc::c_long) as libc::c_int
                                     }) != 0 && n == -(1 as libc::c_int) as libc::c_long
                                     {
-                                        (if ((if 1 as libc::c_int != 0 {
+                                        if ((if 1 as libc::c_int != 0 {
                                             0 as libc::c_int as libc::c_long
                                         } else {
                                             s
@@ -3804,15 +3804,15 @@ pub unsafe extern "C" fn xpalloc(
                                                 - (-(127 as libc::c_int) - 1 as libc::c_int))
                                                 as libc::c_long) < s - 1 as libc::c_int as libc::c_long)
                                                 as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         ((-(127 as libc::c_int) - 1 as libc::c_int) as libc::c_long
                                             / n < s) as libc::c_int
-                                    })
+                                    }
                                 } else {
                                     (127 as libc::c_int as libc::c_long / s < n) as libc::c_int
-                                })
-                            })
+                                }
+                            }
                         }) != 0
                         {
                             nbytes = (n as libc::c_uint).wrapping_mul(s as libc::c_uint)
@@ -3822,11 +3822,11 @@ pub unsafe extern "C" fn xpalloc(
                             nbytes = (n as libc::c_uint).wrapping_mul(s as libc::c_uint)
                                 as libc::c_schar as idx_t;
                             0 as libc::c_int
-                        })
+                        }
                     } else {
-                        (if (if s < 0 as libc::c_int as libc::c_long {
-                            (if n < 0 as libc::c_int as libc::c_long {
-                                (if ((if 1 as libc::c_int != 0 {
+                        if (if s < 0 as libc::c_int as libc::c_long {
+                            if n < 0 as libc::c_int as libc::c_long {
+                                if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int as libc::c_long
                                 } else {
                                     (if 1 as libc::c_int != 0 {
@@ -3912,9 +3912,9 @@ pub unsafe extern "C" fn xpalloc(
                                             as libc::c_long / -s
                                     }) <= -(1 as libc::c_int) as libc::c_long - n)
                                         as libc::c_int
-                                })
+                                }
                             } else {
-                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                if (if (if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int as libc::c_long
                                 } else {
                                     (if 1 as libc::c_int != 0 {
@@ -4003,7 +4003,7 @@ pub unsafe extern "C" fn xpalloc(
                                         }) + 0 as libc::c_int as libc::c_long) as libc::c_int
                                 }) != 0 && s == -(1 as libc::c_int) as libc::c_long
                                 {
-                                    (if ((if 1 as libc::c_int != 0 {
+                                    if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_long
                                     } else {
                                         n
@@ -4017,17 +4017,17 @@ pub unsafe extern "C" fn xpalloc(
                                             && ((-(1 as libc::c_int) - 0 as libc::c_int)
                                                 as libc::c_long) < n - 1 as libc::c_int as libc::c_long)
                                             as libc::c_int
-                                    })
+                                    }
                                 } else {
                                     (0 as libc::c_int as libc::c_long / s < n) as libc::c_int
-                                })
-                            })
+                                }
+                            }
                         } else {
-                            (if s == 0 as libc::c_int as libc::c_long {
+                            if s == 0 as libc::c_int as libc::c_long {
                                 0 as libc::c_int
                             } else {
-                                (if n < 0 as libc::c_int as libc::c_long {
-                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                if n < 0 as libc::c_int as libc::c_long {
+                                    if (if (if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_long
                                     } else {
                                         (if 1 as libc::c_int != 0 {
@@ -4116,7 +4116,7 @@ pub unsafe extern "C" fn xpalloc(
                                             }) + 0 as libc::c_int as libc::c_long) as libc::c_int
                                     }) != 0 && n == -(1 as libc::c_int) as libc::c_long
                                     {
-                                        (if ((if 1 as libc::c_int != 0 {
+                                        if ((if 1 as libc::c_int != 0 {
                                             0 as libc::c_int as libc::c_long
                                         } else {
                                             s
@@ -4128,15 +4128,15 @@ pub unsafe extern "C" fn xpalloc(
                                         } else {
                                             (((-(1 as libc::c_int) - 0 as libc::c_int) as libc::c_long)
                                                 < s - 1 as libc::c_int as libc::c_long) as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         (0 as libc::c_int as libc::c_long / n < s) as libc::c_int
-                                    })
+                                    }
                                 } else {
                                     ((127 as libc::c_int * 2 as libc::c_int + 1 as libc::c_int)
                                         as libc::c_long / s < n) as libc::c_int
-                                })
-                            })
+                                }
+                            }
                         }) != 0
                         {
                             nbytes = (n as libc::c_uint).wrapping_mul(s as libc::c_uint)
@@ -4146,17 +4146,17 @@ pub unsafe extern "C" fn xpalloc(
                             nbytes = (n as libc::c_uint).wrapping_mul(s as libc::c_uint)
                                 as libc::c_uchar as idx_t;
                             0 as libc::c_int
-                        })
-                    })
+                        }
+                    }
                 } else {
-                    (if ::core::mem::size_of::<idx_t>() as libc::c_ulong
+                    if ::core::mem::size_of::<idx_t>() as libc::c_ulong
                         == ::core::mem::size_of::<libc::c_short>() as libc::c_ulong
                     {
-                        (if !((0 as libc::c_int as idx_t) < -(1 as libc::c_int) as idx_t)
+                        if !((0 as libc::c_int as idx_t) < -(1 as libc::c_int) as idx_t)
                         {
-                            (if (if s < 0 as libc::c_int as libc::c_long {
-                                (if n < 0 as libc::c_int as libc::c_long {
-                                    (if ((if 1 as libc::c_int != 0 {
+                            if (if s < 0 as libc::c_int as libc::c_long {
+                                if n < 0 as libc::c_int as libc::c_long {
+                                    if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_long
                                     } else {
                                         (if 1 as libc::c_int != 0 {
@@ -4238,9 +4238,9 @@ pub unsafe extern "C" fn xpalloc(
                                             32767 as libc::c_int as libc::c_long / -s
                                         }) <= -(1 as libc::c_int) as libc::c_long - n)
                                             as libc::c_int
-                                    })
+                                    }
                                 } else {
-                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                    if (if (if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_long
                                     } else {
                                         (if 1 as libc::c_int != 0 {
@@ -4345,7 +4345,7 @@ pub unsafe extern "C" fn xpalloc(
                                                     as libc::c_long) as libc::c_int
                                     }) != 0 && s == -(1 as libc::c_int) as libc::c_long
                                     {
-                                        (if ((if 1 as libc::c_int != 0 {
+                                        if ((if 1 as libc::c_int != 0 {
                                             0 as libc::c_int as libc::c_long
                                         } else {
                                             n
@@ -4362,18 +4362,18 @@ pub unsafe extern "C" fn xpalloc(
                                                     - (-(32767 as libc::c_int) - 1 as libc::c_int))
                                                     as libc::c_long) < n - 1 as libc::c_int as libc::c_long)
                                                 as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         ((-(32767 as libc::c_int) - 1 as libc::c_int)
                                             as libc::c_long / s < n) as libc::c_int
-                                    })
-                                })
+                                    }
+                                }
                             } else {
-                                (if s == 0 as libc::c_int as libc::c_long {
+                                if s == 0 as libc::c_int as libc::c_long {
                                     0 as libc::c_int
                                 } else {
-                                    (if n < 0 as libc::c_int as libc::c_long {
-                                        (if (if (if ((if 1 as libc::c_int != 0 {
+                                    if n < 0 as libc::c_int as libc::c_long {
+                                        if (if (if ((if 1 as libc::c_int != 0 {
                                             0 as libc::c_int as libc::c_long
                                         } else {
                                             (if 1 as libc::c_int != 0 {
@@ -4478,7 +4478,7 @@ pub unsafe extern "C" fn xpalloc(
                                                         as libc::c_long) as libc::c_int
                                         }) != 0 && n == -(1 as libc::c_int) as libc::c_long
                                         {
-                                            (if ((if 1 as libc::c_int != 0 {
+                                            if ((if 1 as libc::c_int != 0 {
                                                 0 as libc::c_int as libc::c_long
                                             } else {
                                                 s
@@ -4494,16 +4494,16 @@ pub unsafe extern "C" fn xpalloc(
                                                     - (-(32767 as libc::c_int) - 1 as libc::c_int))
                                                     as libc::c_long) < s - 1 as libc::c_int as libc::c_long)
                                                     as libc::c_int
-                                            })
+                                            }
                                         } else {
                                             ((-(32767 as libc::c_int) - 1 as libc::c_int)
                                                 as libc::c_long / n < s) as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         (32767 as libc::c_int as libc::c_long / s < n)
                                             as libc::c_int
-                                    })
-                                })
+                                    }
+                                }
                             }) != 0
                             {
                                 nbytes = (n as libc::c_uint).wrapping_mul(s as libc::c_uint)
@@ -4513,11 +4513,11 @@ pub unsafe extern "C" fn xpalloc(
                                 nbytes = (n as libc::c_uint).wrapping_mul(s as libc::c_uint)
                                     as libc::c_short as idx_t;
                                 0 as libc::c_int
-                            })
+                            }
                         } else {
-                            (if (if s < 0 as libc::c_int as libc::c_long {
-                                (if n < 0 as libc::c_int as libc::c_long {
-                                    (if ((if 1 as libc::c_int != 0 {
+                            if (if s < 0 as libc::c_int as libc::c_long {
+                                if n < 0 as libc::c_int as libc::c_long {
+                                    if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_long
                                     } else {
                                         (if 1 as libc::c_int != 0 {
@@ -4603,9 +4603,9 @@ pub unsafe extern "C" fn xpalloc(
                                                 as libc::c_long / -s
                                         }) <= -(1 as libc::c_int) as libc::c_long - n)
                                             as libc::c_int
-                                    })
+                                    }
                                 } else {
-                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                    if (if (if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_long
                                     } else {
                                         (if 1 as libc::c_int != 0 {
@@ -4694,7 +4694,7 @@ pub unsafe extern "C" fn xpalloc(
                                             }) + 0 as libc::c_int as libc::c_long) as libc::c_int
                                     }) != 0 && s == -(1 as libc::c_int) as libc::c_long
                                     {
-                                        (if ((if 1 as libc::c_int != 0 {
+                                        if ((if 1 as libc::c_int != 0 {
                                             0 as libc::c_int as libc::c_long
                                         } else {
                                             n
@@ -4708,17 +4708,17 @@ pub unsafe extern "C" fn xpalloc(
                                                 && ((-(1 as libc::c_int) - 0 as libc::c_int)
                                                     as libc::c_long) < n - 1 as libc::c_int as libc::c_long)
                                                 as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         (0 as libc::c_int as libc::c_long / s < n) as libc::c_int
-                                    })
-                                })
+                                    }
+                                }
                             } else {
-                                (if s == 0 as libc::c_int as libc::c_long {
+                                if s == 0 as libc::c_int as libc::c_long {
                                     0 as libc::c_int
                                 } else {
-                                    (if n < 0 as libc::c_int as libc::c_long {
-                                        (if (if (if ((if 1 as libc::c_int != 0 {
+                                    if n < 0 as libc::c_int as libc::c_long {
+                                        if (if (if ((if 1 as libc::c_int != 0 {
                                             0 as libc::c_int as libc::c_long
                                         } else {
                                             (if 1 as libc::c_int != 0 {
@@ -4807,7 +4807,7 @@ pub unsafe extern "C" fn xpalloc(
                                                 }) + 0 as libc::c_int as libc::c_long) as libc::c_int
                                         }) != 0 && n == -(1 as libc::c_int) as libc::c_long
                                         {
-                                            (if ((if 1 as libc::c_int != 0 {
+                                            if ((if 1 as libc::c_int != 0 {
                                                 0 as libc::c_int as libc::c_long
                                             } else {
                                                 s
@@ -4819,15 +4819,15 @@ pub unsafe extern "C" fn xpalloc(
                                             } else {
                                                 (((-(1 as libc::c_int) - 0 as libc::c_int) as libc::c_long)
                                                     < s - 1 as libc::c_int as libc::c_long) as libc::c_int
-                                            })
+                                            }
                                         } else {
                                             (0 as libc::c_int as libc::c_long / n < s) as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         ((32767 as libc::c_int * 2 as libc::c_int
                                             + 1 as libc::c_int) as libc::c_long / s < n) as libc::c_int
-                                    })
-                                })
+                                    }
+                                }
                             }) != 0
                             {
                                 nbytes = (n as libc::c_uint).wrapping_mul(s as libc::c_uint)
@@ -4837,22 +4837,22 @@ pub unsafe extern "C" fn xpalloc(
                                 nbytes = (n as libc::c_uint).wrapping_mul(s as libc::c_uint)
                                     as libc::c_ushort as idx_t;
                                 0 as libc::c_int
-                            })
-                        })
+                            }
+                        }
                     } else {
-                        (if ::core::mem::size_of::<idx_t>() as libc::c_ulong
+                        if ::core::mem::size_of::<idx_t>() as libc::c_ulong
                             == ::core::mem::size_of::<libc::c_int>() as libc::c_ulong
                         {
-                            (if ((if 1 as libc::c_int != 0 {
+                            if ((if 1 as libc::c_int != 0 {
                                 0 as libc::c_int as libc::c_long
                             } else {
                                 nbytes
                             }) - 1 as libc::c_int as libc::c_long)
                                 < 0 as libc::c_int as libc::c_long
                             {
-                                (if (if s < 0 as libc::c_int as libc::c_long {
-                                    (if n < 0 as libc::c_int as libc::c_long {
-                                        (if ((if 1 as libc::c_int != 0 {
+                                if (if s < 0 as libc::c_int as libc::c_long {
+                                    if n < 0 as libc::c_int as libc::c_long {
+                                        if ((if 1 as libc::c_int != 0 {
                                             0 as libc::c_int as libc::c_long
                                         } else {
                                             (if 1 as libc::c_int != 0 {
@@ -4934,9 +4934,9 @@ pub unsafe extern "C" fn xpalloc(
                                                 2147483647 as libc::c_int as libc::c_long / -s
                                             }) <= -(1 as libc::c_int) as libc::c_long - n)
                                                 as libc::c_int
-                                        })
+                                        }
                                     } else {
-                                        (if (if (if ((if 1 as libc::c_int != 0 {
+                                        if (if (if ((if 1 as libc::c_int != 0 {
                                             0 as libc::c_int as libc::c_long
                                         } else {
                                             (if 1 as libc::c_int != 0 {
@@ -5041,7 +5041,7 @@ pub unsafe extern "C" fn xpalloc(
                                                         as libc::c_long) as libc::c_int
                                         }) != 0 && s == -(1 as libc::c_int) as libc::c_long
                                         {
-                                            (if ((if 1 as libc::c_int != 0 {
+                                            if ((if 1 as libc::c_int != 0 {
                                                 0 as libc::c_int as libc::c_long
                                             } else {
                                                 n
@@ -5058,18 +5058,18 @@ pub unsafe extern "C" fn xpalloc(
                                                         - (-(2147483647 as libc::c_int) - 1 as libc::c_int))
                                                         as libc::c_long) < n - 1 as libc::c_int as libc::c_long)
                                                     as libc::c_int
-                                            })
+                                            }
                                         } else {
                                             ((-(2147483647 as libc::c_int) - 1 as libc::c_int)
                                                 as libc::c_long / s < n) as libc::c_int
-                                        })
-                                    })
+                                        }
+                                    }
                                 } else {
-                                    (if s == 0 as libc::c_int as libc::c_long {
+                                    if s == 0 as libc::c_int as libc::c_long {
                                         0 as libc::c_int
                                     } else {
-                                        (if n < 0 as libc::c_int as libc::c_long {
-                                            (if (if (if ((if 1 as libc::c_int != 0 {
+                                        if n < 0 as libc::c_int as libc::c_long {
+                                            if (if (if ((if 1 as libc::c_int != 0 {
                                                 0 as libc::c_int as libc::c_long
                                             } else {
                                                 (if 1 as libc::c_int != 0 {
@@ -5174,7 +5174,7 @@ pub unsafe extern "C" fn xpalloc(
                                                             as libc::c_long) as libc::c_int
                                             }) != 0 && n == -(1 as libc::c_int) as libc::c_long
                                             {
-                                                (if ((if 1 as libc::c_int != 0 {
+                                                if ((if 1 as libc::c_int != 0 {
                                                     0 as libc::c_int as libc::c_long
                                                 } else {
                                                     s
@@ -5190,16 +5190,16 @@ pub unsafe extern "C" fn xpalloc(
                                                         - (-(2147483647 as libc::c_int) - 1 as libc::c_int))
                                                         as libc::c_long) < s - 1 as libc::c_int as libc::c_long)
                                                         as libc::c_int
-                                                })
+                                                }
                                             } else {
                                                 ((-(2147483647 as libc::c_int) - 1 as libc::c_int)
                                                     as libc::c_long / n < s) as libc::c_int
-                                            })
+                                            }
                                         } else {
                                             (2147483647 as libc::c_int as libc::c_long / s < n)
                                                 as libc::c_int
-                                        })
-                                    })
+                                        }
+                                    }
                                 }) != 0
                                 {
                                     nbytes = (n as libc::c_uint).wrapping_mul(s as libc::c_uint)
@@ -5209,11 +5209,11 @@ pub unsafe extern "C" fn xpalloc(
                                     nbytes = (n as libc::c_uint).wrapping_mul(s as libc::c_uint)
                                         as libc::c_int as idx_t;
                                     0 as libc::c_int
-                                })
+                                }
                             } else {
-                                (if (if s < 0 as libc::c_int as libc::c_long {
-                                    (if n < 0 as libc::c_int as libc::c_long {
-                                        (if ((if 1 as libc::c_int != 0 {
+                                if (if s < 0 as libc::c_int as libc::c_long {
+                                    if n < 0 as libc::c_int as libc::c_long {
+                                        if ((if 1 as libc::c_int != 0 {
                                             0 as libc::c_int as libc::c_long
                                         } else {
                                             (if 1 as libc::c_int != 0 {
@@ -5305,9 +5305,9 @@ pub unsafe extern "C" fn xpalloc(
                                                     .wrapping_add(1 as libc::c_uint) as libc::c_long / -s
                                             }) <= -(1 as libc::c_int) as libc::c_long - n)
                                                 as libc::c_int
-                                        })
+                                        }
                                     } else {
-                                        (if (if (if ((if 1 as libc::c_int != 0 {
+                                        if (if (if ((if 1 as libc::c_int != 0 {
                                             0 as libc::c_int as libc::c_long
                                         } else {
                                             (if 1 as libc::c_int != 0 {
@@ -5396,7 +5396,7 @@ pub unsafe extern "C" fn xpalloc(
                                                 }) + 0 as libc::c_int as libc::c_long) as libc::c_int
                                         }) != 0 && s == -(1 as libc::c_int) as libc::c_long
                                         {
-                                            (if ((if 1 as libc::c_int != 0 {
+                                            if ((if 1 as libc::c_int != 0 {
                                                 0 as libc::c_int as libc::c_long
                                             } else {
                                                 n
@@ -5410,17 +5410,17 @@ pub unsafe extern "C" fn xpalloc(
                                                     && ((-(1 as libc::c_int) - 0 as libc::c_int)
                                                         as libc::c_long) < n - 1 as libc::c_int as libc::c_long)
                                                     as libc::c_int
-                                            })
+                                            }
                                         } else {
                                             (0 as libc::c_int as libc::c_long / s < n) as libc::c_int
-                                        })
-                                    })
+                                        }
+                                    }
                                 } else {
-                                    (if s == 0 as libc::c_int as libc::c_long {
+                                    if s == 0 as libc::c_int as libc::c_long {
                                         0 as libc::c_int
                                     } else {
-                                        (if n < 0 as libc::c_int as libc::c_long {
-                                            (if (if (if ((if 1 as libc::c_int != 0 {
+                                        if n < 0 as libc::c_int as libc::c_long {
+                                            if (if (if ((if 1 as libc::c_int != 0 {
                                                 0 as libc::c_int as libc::c_long
                                             } else {
                                                 (if 1 as libc::c_int != 0 {
@@ -5509,7 +5509,7 @@ pub unsafe extern "C" fn xpalloc(
                                                     }) + 0 as libc::c_int as libc::c_long) as libc::c_int
                                             }) != 0 && n == -(1 as libc::c_int) as libc::c_long
                                             {
-                                                (if ((if 1 as libc::c_int != 0 {
+                                                if ((if 1 as libc::c_int != 0 {
                                                     0 as libc::c_int as libc::c_long
                                                 } else {
                                                     s
@@ -5521,17 +5521,17 @@ pub unsafe extern "C" fn xpalloc(
                                                 } else {
                                                     (((-(1 as libc::c_int) - 0 as libc::c_int) as libc::c_long)
                                                         < s - 1 as libc::c_int as libc::c_long) as libc::c_int
-                                                })
+                                                }
                                             } else {
                                                 (0 as libc::c_int as libc::c_long / n < s) as libc::c_int
-                                            })
+                                            }
                                         } else {
                                             ((2147483647 as libc::c_int as libc::c_uint)
                                                 .wrapping_mul(2 as libc::c_uint)
                                                 .wrapping_add(1 as libc::c_uint) as libc::c_long / s < n)
                                                 as libc::c_int
-                                        })
-                                    })
+                                        }
+                                    }
                                 }) != 0
                                 {
                                     nbytes = (n as libc::c_uint).wrapping_mul(s as libc::c_uint)
@@ -5541,22 +5541,22 @@ pub unsafe extern "C" fn xpalloc(
                                     nbytes = (n as libc::c_uint).wrapping_mul(s as libc::c_uint)
                                         as idx_t;
                                     0 as libc::c_int
-                                })
-                            })
+                                }
+                            }
                         } else {
-                            (if ::core::mem::size_of::<idx_t>() as libc::c_ulong
+                            if ::core::mem::size_of::<idx_t>() as libc::c_ulong
                                 == ::core::mem::size_of::<libc::c_long>() as libc::c_ulong
                             {
-                                (if ((if 1 as libc::c_int != 0 {
+                                if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int as libc::c_long
                                 } else {
                                     nbytes
                                 }) - 1 as libc::c_int as libc::c_long)
                                     < 0 as libc::c_int as libc::c_long
                                 {
-                                    (if (if s < 0 as libc::c_int as libc::c_long {
-                                        (if n < 0 as libc::c_int as libc::c_long {
-                                            (if ((if 1 as libc::c_int != 0 {
+                                    if (if s < 0 as libc::c_int as libc::c_long {
+                                        if n < 0 as libc::c_int as libc::c_long {
+                                            if ((if 1 as libc::c_int != 0 {
                                                 0 as libc::c_int as libc::c_long
                                             } else {
                                                 (if 1 as libc::c_int != 0 {
@@ -5637,9 +5637,9 @@ pub unsafe extern "C" fn xpalloc(
                                                     9223372036854775807 as libc::c_long / -s
                                                 }) <= -(1 as libc::c_int) as libc::c_long - n)
                                                     as libc::c_int
-                                            })
+                                            }
                                         } else {
-                                            (if (if (if ((if 1 as libc::c_int != 0 {
+                                            if (if (if ((if 1 as libc::c_int != 0 {
                                                 0 as libc::c_int as libc::c_long
                                             } else {
                                                 (if 1 as libc::c_int != 0 {
@@ -5744,7 +5744,7 @@ pub unsafe extern "C" fn xpalloc(
                                                             - 1 as libc::c_long)) as libc::c_int
                                             }) != 0 && s == -(1 as libc::c_int) as libc::c_long
                                             {
-                                                (if ((if 1 as libc::c_int != 0 {
+                                                if ((if 1 as libc::c_int != 0 {
                                                     0 as libc::c_int as libc::c_long
                                                 } else {
                                                     n
@@ -5761,18 +5761,18 @@ pub unsafe extern "C" fn xpalloc(
                                                             - (-(9223372036854775807 as libc::c_long)
                                                                 - 1 as libc::c_long) < n - 1 as libc::c_int as libc::c_long)
                                                         as libc::c_int
-                                                })
+                                                }
                                             } else {
                                                 ((-(9223372036854775807 as libc::c_long)
                                                     - 1 as libc::c_long) / s < n) as libc::c_int
-                                            })
-                                        })
+                                            }
+                                        }
                                     } else {
-                                        (if s == 0 as libc::c_int as libc::c_long {
+                                        if s == 0 as libc::c_int as libc::c_long {
                                             0 as libc::c_int
                                         } else {
-                                            (if n < 0 as libc::c_int as libc::c_long {
-                                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                            if n < 0 as libc::c_int as libc::c_long {
+                                                if (if (if ((if 1 as libc::c_int != 0 {
                                                     0 as libc::c_int as libc::c_long
                                                 } else {
                                                     (if 1 as libc::c_int != 0 {
@@ -5877,7 +5877,7 @@ pub unsafe extern "C" fn xpalloc(
                                                                 - 1 as libc::c_long)) as libc::c_int
                                                 }) != 0 && n == -(1 as libc::c_int) as libc::c_long
                                                 {
-                                                    (if ((if 1 as libc::c_int != 0 {
+                                                    if ((if 1 as libc::c_int != 0 {
                                                         0 as libc::c_int as libc::c_long
                                                     } else {
                                                         s
@@ -5893,15 +5893,15 @@ pub unsafe extern "C" fn xpalloc(
                                                             - (-(9223372036854775807 as libc::c_long)
                                                                 - 1 as libc::c_long) < s - 1 as libc::c_int as libc::c_long)
                                                             as libc::c_int
-                                                    })
+                                                    }
                                                 } else {
                                                     ((-(9223372036854775807 as libc::c_long)
                                                         - 1 as libc::c_long) / n < s) as libc::c_int
-                                                })
+                                                }
                                             } else {
                                                 (9223372036854775807 as libc::c_long / s < n) as libc::c_int
-                                            })
-                                        })
+                                            }
+                                        }
                                     }) != 0
                                     {
                                         nbytes = (n as libc::c_ulong)
@@ -5911,11 +5911,11 @@ pub unsafe extern "C" fn xpalloc(
                                         nbytes = (n as libc::c_ulong)
                                             .wrapping_mul(s as libc::c_ulong) as libc::c_long;
                                         0 as libc::c_int
-                                    })
+                                    }
                                 } else {
-                                    (if (if s < 0 as libc::c_int as libc::c_long {
-                                        (if n < 0 as libc::c_int as libc::c_long {
-                                            (if (if 1 as libc::c_int != 0 {
+                                    if (if s < 0 as libc::c_int as libc::c_long {
+                                        if n < 0 as libc::c_int as libc::c_long {
+                                            if (if 1 as libc::c_int != 0 {
                                                 0 as libc::c_int as libc::c_ulong
                                             } else {
                                                 (if 1 as libc::c_int != 0 {
@@ -6013,9 +6013,9 @@ pub unsafe extern "C" fn xpalloc(
                                                 })
                                                     <= (-(1 as libc::c_int) as libc::c_long - n)
                                                         as libc::c_ulong) as libc::c_int
-                                            })
+                                            }
                                         } else {
-                                            (if (if (if ((if 1 as libc::c_int != 0 {
+                                            if (if (if ((if 1 as libc::c_int != 0 {
                                                 0 as libc::c_int as libc::c_long
                                             } else {
                                                 (if 1 as libc::c_int != 0 {
@@ -6104,7 +6104,7 @@ pub unsafe extern "C" fn xpalloc(
                                                     }) + 0 as libc::c_int as libc::c_long) as libc::c_int
                                             }) != 0 && s == -(1 as libc::c_int) as libc::c_long
                                             {
-                                                (if ((if 1 as libc::c_int != 0 {
+                                                if ((if 1 as libc::c_int != 0 {
                                                     0 as libc::c_int as libc::c_long
                                                 } else {
                                                     n
@@ -6118,17 +6118,17 @@ pub unsafe extern "C" fn xpalloc(
                                                         && ((-(1 as libc::c_int) - 0 as libc::c_int)
                                                             as libc::c_long) < n - 1 as libc::c_int as libc::c_long)
                                                         as libc::c_int
-                                                })
+                                                }
                                             } else {
                                                 (0 as libc::c_int as libc::c_long / s < n) as libc::c_int
-                                            })
-                                        })
+                                            }
+                                        }
                                     } else {
-                                        (if s == 0 as libc::c_int as libc::c_long {
+                                        if s == 0 as libc::c_int as libc::c_long {
                                             0 as libc::c_int
                                         } else {
-                                            (if n < 0 as libc::c_int as libc::c_long {
-                                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                            if n < 0 as libc::c_int as libc::c_long {
+                                                if (if (if ((if 1 as libc::c_int != 0 {
                                                     0 as libc::c_int as libc::c_long
                                                 } else {
                                                     (if 1 as libc::c_int != 0 {
@@ -6217,7 +6217,7 @@ pub unsafe extern "C" fn xpalloc(
                                                         }) + 0 as libc::c_int as libc::c_long) as libc::c_int
                                                 }) != 0 && n == -(1 as libc::c_int) as libc::c_long
                                                 {
-                                                    (if ((if 1 as libc::c_int != 0 {
+                                                    if ((if 1 as libc::c_int != 0 {
                                                         0 as libc::c_int as libc::c_long
                                                     } else {
                                                         s
@@ -6229,18 +6229,18 @@ pub unsafe extern "C" fn xpalloc(
                                                     } else {
                                                         (((-(1 as libc::c_int) - 0 as libc::c_int) as libc::c_long)
                                                             < s - 1 as libc::c_int as libc::c_long) as libc::c_int
-                                                    })
+                                                    }
                                                 } else {
                                                     (0 as libc::c_int as libc::c_long / n < s) as libc::c_int
-                                                })
+                                                }
                                             } else {
                                                 ((9223372036854775807 as libc::c_long as libc::c_ulong)
                                                     .wrapping_mul(2 as libc::c_ulong)
                                                     .wrapping_add(1 as libc::c_ulong)
                                                     .wrapping_div(s as libc::c_ulong) < n as libc::c_ulong)
                                                     as libc::c_int
-                                            })
-                                        })
+                                            }
+                                        }
                                     }) != 0
                                     {
                                         nbytes = (n as libc::c_ulong)
@@ -6250,19 +6250,19 @@ pub unsafe extern "C" fn xpalloc(
                                         nbytes = (n as libc::c_ulong)
                                             .wrapping_mul(s as libc::c_ulong) as idx_t;
                                         0 as libc::c_int
-                                    })
-                                })
+                                    }
+                                }
                             } else {
-                                (if ((if 1 as libc::c_int != 0 {
+                                if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int as libc::c_long
                                 } else {
                                     nbytes
                                 }) - 1 as libc::c_int as libc::c_long)
                                     < 0 as libc::c_int as libc::c_long
                                 {
-                                    (if (if s < 0 as libc::c_int as libc::c_long {
-                                        (if n < 0 as libc::c_int as libc::c_long {
-                                            (if ((if 1 as libc::c_int != 0 {
+                                    if (if s < 0 as libc::c_int as libc::c_long {
+                                        if n < 0 as libc::c_int as libc::c_long {
+                                            if ((if 1 as libc::c_int != 0 {
                                                 0 as libc::c_int as libc::c_longlong
                                             } else {
                                                 (if 1 as libc::c_int != 0 {
@@ -6348,9 +6348,9 @@ pub unsafe extern "C" fn xpalloc(
                                                 })
                                                     <= (-(1 as libc::c_int) as libc::c_long - n)
                                                         as libc::c_longlong) as libc::c_int
-                                            })
+                                            }
                                         } else {
-                                            (if (if (if ((if 1 as libc::c_int != 0 {
+                                            if (if (if ((if 1 as libc::c_int != 0 {
                                                 0 as libc::c_int as libc::c_longlong
                                             } else {
                                                 (if 1 as libc::c_int != 0 {
@@ -6457,7 +6457,7 @@ pub unsafe extern "C" fn xpalloc(
                                                             - 1 as libc::c_longlong)) as libc::c_int
                                             }) != 0 && s == -(1 as libc::c_int) as libc::c_long
                                             {
-                                                (if ((if 1 as libc::c_int != 0 {
+                                                if ((if 1 as libc::c_int != 0 {
                                                     0 as libc::c_int as libc::c_long
                                                 } else {
                                                     n
@@ -6475,19 +6475,19 @@ pub unsafe extern "C" fn xpalloc(
                                                                 - 1 as libc::c_longlong)
                                                             < (n - 1 as libc::c_int as libc::c_long)
                                                                 as libc::c_longlong) as libc::c_int
-                                                })
+                                                }
                                             } else {
                                                 (((-(9223372036854775807 as libc::c_longlong)
                                                     - 1 as libc::c_longlong) / s as libc::c_longlong)
                                                     < n as libc::c_longlong) as libc::c_int
-                                            })
-                                        })
+                                            }
+                                        }
                                     } else {
-                                        (if s == 0 as libc::c_int as libc::c_long {
+                                        if s == 0 as libc::c_int as libc::c_long {
                                             0 as libc::c_int
                                         } else {
-                                            (if n < 0 as libc::c_int as libc::c_long {
-                                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                            if n < 0 as libc::c_int as libc::c_long {
+                                                if (if (if ((if 1 as libc::c_int != 0 {
                                                     0 as libc::c_int as libc::c_longlong
                                                 } else {
                                                     (if 1 as libc::c_int != 0 {
@@ -6594,7 +6594,7 @@ pub unsafe extern "C" fn xpalloc(
                                                                 - 1 as libc::c_longlong)) as libc::c_int
                                                 }) != 0 && n == -(1 as libc::c_int) as libc::c_long
                                                 {
-                                                    (if ((if 1 as libc::c_int != 0 {
+                                                    if ((if 1 as libc::c_int != 0 {
                                                         0 as libc::c_int as libc::c_long
                                                     } else {
                                                         s
@@ -6611,18 +6611,18 @@ pub unsafe extern "C" fn xpalloc(
                                                                 - 1 as libc::c_longlong)
                                                             < (s - 1 as libc::c_int as libc::c_long)
                                                                 as libc::c_longlong) as libc::c_int
-                                                    })
+                                                    }
                                                 } else {
                                                     (((-(9223372036854775807 as libc::c_longlong)
                                                         - 1 as libc::c_longlong) / n as libc::c_longlong)
                                                         < s as libc::c_longlong) as libc::c_int
-                                                })
+                                                }
                                             } else {
                                                 ((9223372036854775807 as libc::c_longlong
                                                     / s as libc::c_longlong) < n as libc::c_longlong)
                                                     as libc::c_int
-                                            })
-                                        })
+                                            }
+                                        }
                                     }) != 0
                                     {
                                         nbytes = (n as libc::c_ulonglong)
@@ -6634,11 +6634,11 @@ pub unsafe extern "C" fn xpalloc(
                                             .wrapping_mul(s as libc::c_ulonglong) as libc::c_longlong
                                             as idx_t;
                                         0 as libc::c_int
-                                    })
+                                    }
                                 } else {
-                                    (if (if s < 0 as libc::c_int as libc::c_long {
-                                        (if n < 0 as libc::c_int as libc::c_long {
-                                            (if (if 1 as libc::c_int != 0 {
+                                    if (if s < 0 as libc::c_int as libc::c_long {
+                                        if n < 0 as libc::c_int as libc::c_long {
+                                            if (if 1 as libc::c_int != 0 {
                                                 0 as libc::c_int as libc::c_ulonglong
                                             } else {
                                                 (if 1 as libc::c_int != 0 {
@@ -6740,9 +6740,9 @@ pub unsafe extern "C" fn xpalloc(
                                                 })
                                                     <= (-(1 as libc::c_int) as libc::c_long - n)
                                                         as libc::c_ulonglong) as libc::c_int
-                                            })
+                                            }
                                         } else {
-                                            (if (if (if ((if 1 as libc::c_int != 0 {
+                                            if (if (if ((if 1 as libc::c_int != 0 {
                                                 0 as libc::c_int as libc::c_long
                                             } else {
                                                 (if 1 as libc::c_int != 0 {
@@ -6831,7 +6831,7 @@ pub unsafe extern "C" fn xpalloc(
                                                     }) + 0 as libc::c_int as libc::c_long) as libc::c_int
                                             }) != 0 && s == -(1 as libc::c_int) as libc::c_long
                                             {
-                                                (if ((if 1 as libc::c_int != 0 {
+                                                if ((if 1 as libc::c_int != 0 {
                                                     0 as libc::c_int as libc::c_long
                                                 } else {
                                                     n
@@ -6845,17 +6845,17 @@ pub unsafe extern "C" fn xpalloc(
                                                         && ((-(1 as libc::c_int) - 0 as libc::c_int)
                                                             as libc::c_long) < n - 1 as libc::c_int as libc::c_long)
                                                         as libc::c_int
-                                                })
+                                                }
                                             } else {
                                                 (0 as libc::c_int as libc::c_long / s < n) as libc::c_int
-                                            })
-                                        })
+                                            }
+                                        }
                                     } else {
-                                        (if s == 0 as libc::c_int as libc::c_long {
+                                        if s == 0 as libc::c_int as libc::c_long {
                                             0 as libc::c_int
                                         } else {
-                                            (if n < 0 as libc::c_int as libc::c_long {
-                                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                            if n < 0 as libc::c_int as libc::c_long {
+                                                if (if (if ((if 1 as libc::c_int != 0 {
                                                     0 as libc::c_int as libc::c_long
                                                 } else {
                                                     (if 1 as libc::c_int != 0 {
@@ -6944,7 +6944,7 @@ pub unsafe extern "C" fn xpalloc(
                                                         }) + 0 as libc::c_int as libc::c_long) as libc::c_int
                                                 }) != 0 && n == -(1 as libc::c_int) as libc::c_long
                                                 {
-                                                    (if ((if 1 as libc::c_int != 0 {
+                                                    if ((if 1 as libc::c_int != 0 {
                                                         0 as libc::c_int as libc::c_long
                                                     } else {
                                                         s
@@ -6956,10 +6956,10 @@ pub unsafe extern "C" fn xpalloc(
                                                     } else {
                                                         (((-(1 as libc::c_int) - 0 as libc::c_int) as libc::c_long)
                                                             < s - 1 as libc::c_int as libc::c_long) as libc::c_int
-                                                    })
+                                                    }
                                                 } else {
                                                     (0 as libc::c_int as libc::c_long / n < s) as libc::c_int
-                                                })
+                                                }
                                             } else {
                                                 ((9223372036854775807 as libc::c_longlong
                                                     as libc::c_ulonglong)
@@ -6967,8 +6967,8 @@ pub unsafe extern "C" fn xpalloc(
                                                     .wrapping_add(1 as libc::c_ulonglong)
                                                     .wrapping_div(s as libc::c_ulonglong)
                                                     < n as libc::c_ulonglong) as libc::c_int
-                                            })
-                                        })
+                                            }
+                                        }
                                     }) != 0
                                     {
                                         nbytes = (n as libc::c_ulonglong)
@@ -6978,11 +6978,11 @@ pub unsafe extern "C" fn xpalloc(
                                         nbytes = (n as libc::c_ulonglong)
                                             .wrapping_mul(s as libc::c_ulonglong) as idx_t;
                                         0 as libc::c_int
-                                    })
-                                })
-                            })
-                        })
-                    })
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }) != 0
         }
     {

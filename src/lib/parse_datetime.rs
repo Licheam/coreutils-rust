@@ -3771,9 +3771,9 @@ unsafe extern "C" fn yylex(
                 let (fresh0, fresh1) = value
                     .overflowing_add(
                         if sign < 0 as libc::c_int {
-                            '0' as i32 - c as libc::c_int
+                            ('0' as i32 - c as libc::c_int).into()
                         } else {
-                            c as libc::c_int - '0' as i32
+                            (c as libc::c_int - '0' as i32).into()
                         },
                     );
                 *(&mut value as *mut time_t) = fresh0;
@@ -3825,7 +3825,7 @@ unsafe extern "C" fn yylex(
                     p;
                 }
                 if sign < 0 as libc::c_int && ns != 0 {
-                    let (fresh4, fresh5) = s.overflowing_sub(1 as libc::c_int);
+                    let (fresh4, fresh5) = s.overflowing_sub((1 as libc::c_int).into());
                     *(&mut s as *mut time_t) = fresh4;
                     if fresh5 {
                         return '?' as i32;
@@ -7263,7 +7263,7 @@ unsafe extern "C" fn time_zone_hhmm(
                 n_minutes = (s.value as libc::c_ulonglong)
                     .wrapping_mul(60 as libc::c_int as libc::c_ulonglong) as intmax_t;
                 0 as libc::c_int
-            }) as bool;
+            }) != 0;
         overflow = (overflow as libc::c_int
             | if s.negative as libc::c_int != 0 {
                 let (fresh9, fresh10) = n_minutes.overflowing_sub(mm);
@@ -7273,7 +7273,7 @@ unsafe extern "C" fn time_zone_hhmm(
                 let (fresh11, fresh12) = n_minutes.overflowing_add(mm);
                 *&mut n_minutes = fresh11;
                 fresh12 as libc::c_int
-            }) as bool;
+            }) != 0;
     }
     if overflow as libc::c_int != 0
         || !((-(24 as libc::c_int) * 60 as libc::c_int) as libc::c_long <= n_minutes
@@ -8187,7 +8187,7 @@ pub unsafe extern "C" fn yyparse(mut pc: *mut parser_control) -> libc::c_int {
                             }
                             let (fresh47, fresh48) = ((*pc).time_zone)
                                 .overflowing_add(
-                                    (*yyvsp.offset(-(2 as libc::c_int) as isize)).intval,
+                                    (*yyvsp.offset(-(2 as libc::c_int) as isize)).intval.try_into().unwrap(),
                                 );
                             *(&mut (*pc).time_zone as *mut libc::c_int) = fresh47;
                             if fresh48 {
@@ -8318,7 +8318,7 @@ pub unsafe extern "C" fn yyparse(mut pc: *mut parser_control) -> libc::c_int {
                                 .intval;
                             let (fresh49, fresh50) = (0 as libc::c_int)
                                 .overflowing_sub(
-                                    (*yyvsp.offset(0 as libc::c_int as isize)).textintval.value,
+                                    (*yyvsp.offset(0 as libc::c_int as isize)).textintval.value.try_into().unwrap(),
                                 );
                             *(&mut (*pc).year.value as *mut intmax_t) = fresh49;
                             if fresh50 {
@@ -8339,7 +8339,7 @@ pub unsafe extern "C" fn yyparse(mut pc: *mut parser_control) -> libc::c_int {
                                 .overflowing_sub(
                                     (*yyvsp.offset(-(1 as libc::c_int) as isize))
                                         .textintval
-                                        .value,
+                                        .value.try_into().unwrap(),
                                 );
                             *(&mut (*pc).day as *mut intmax_t) = fresh51;
                             if fresh52 {
@@ -8348,7 +8348,7 @@ pub unsafe extern "C" fn yyparse(mut pc: *mut parser_control) -> libc::c_int {
                             }
                             let (fresh53, fresh54) = (0 as libc::c_int)
                                 .overflowing_sub(
-                                    (*yyvsp.offset(0 as libc::c_int as isize)).textintval.value,
+                                    (*yyvsp.offset(0 as libc::c_int as isize)).textintval.value.try_into().unwrap(),
                                 );
                             *(&mut (*pc).year.value as *mut intmax_t) = fresh53;
                             if fresh54 {
@@ -8410,7 +8410,7 @@ pub unsafe extern "C" fn yyparse(mut pc: *mut parser_control) -> libc::c_int {
                                 .overflowing_sub(
                                     (*yyvsp.offset(-(1 as libc::c_int) as isize))
                                         .textintval
-                                        .value,
+                                        .value.try_into().unwrap(),
                                 );
                             *(&mut (*pc).month as *mut intmax_t) = fresh55;
                             if fresh56 {
@@ -8419,7 +8419,7 @@ pub unsafe extern "C" fn yyparse(mut pc: *mut parser_control) -> libc::c_int {
                             }
                             let (fresh57, fresh58) = (0 as libc::c_int)
                                 .overflowing_sub(
-                                    (*yyvsp.offset(0 as libc::c_int as isize)).textintval.value,
+                                    (*yyvsp.offset(0 as libc::c_int as isize)).textintval.value.try_into().unwrap(),
                                 );
                             *(&mut (*pc).day as *mut intmax_t) = fresh57;
                             if fresh58 {
@@ -23715,11 +23715,11 @@ unsafe extern "C" fn to_tm_year(
         }
     }
     if if year < 0 as libc::c_int as libc::c_long {
-        let (fresh59, fresh60) = (-(TM_YEAR_BASE as libc::c_int)).overflowing_sub(year);
+        let (fresh59, fresh60) = (-(TM_YEAR_BASE as libc::c_int)).overflowing_sub(year.try_into().unwrap());
         *tm_year = fresh59;
         fresh60 as libc::c_int
     } else {
-        let (fresh61, fresh62) = year.overflowing_sub(TM_YEAR_BASE as libc::c_int);
+        let (fresh61, fresh62) = year.overflowing_sub((TM_YEAR_BASE as libc::c_int).into());
         *tm_year = fresh61;
         fresh62 as libc::c_int
     } != 0
@@ -24530,9 +24530,9 @@ unsafe extern "C" fn parse_datetime_body(
                         let mut probe: time_t = 0;
                         let (fresh66, fresh67) = Start
                             .overflowing_add(
-                                quarter
+                                (quarter
                                     * (90 as libc::c_int * 24 as libc::c_int * 60 as libc::c_int
-                                        * 60 as libc::c_int),
+                                        * 60 as libc::c_int)).into(),
                             );
                         *(&mut probe as *mut time_t) = fresh66;
                         if fresh67 {
@@ -24736,13 +24736,13 @@ unsafe extern "C" fn parse_datetime_body(
                         )
                             || {
                                 let (fresh68, fresh69) = (pc.month)
-                                    .overflowing_add(-(1 as libc::c_int));
+                                    .overflowing_add((-(1 as libc::c_int)).into());
                                 *(&mut tm.tm_mon as *mut libc::c_int) = fresh68;
                                 fresh69 as libc::c_int != 0
                             }
                             || {
                                 let (fresh70, fresh71) = (pc.day)
-                                    .overflowing_add(0 as libc::c_int);
+                                    .overflowing_add((0 as libc::c_int).into());
                                 *(&mut tm.tm_mday as *mut libc::c_int) = fresh70;
                                 fresh71 as libc::c_int != 0
                             }
@@ -24913,16 +24913,16 @@ unsafe extern "C" fn parse_datetime_body(
                                                 if (if ::core::mem::size_of::<intmax_t>() as libc::c_ulong
                                                     == ::core::mem::size_of::<libc::c_schar>() as libc::c_ulong
                                                 {
-                                                    (if !((0 as libc::c_int as intmax_t)
+                                                    if !((0 as libc::c_int as intmax_t)
                                                         < -(1 as libc::c_int) as intmax_t)
                                                     {
-                                                        (if (if (7 as libc::c_int) < 0 as libc::c_int {
-                                                            (if (pc.day_ordinal
+                                                        if (if (7 as libc::c_int) < 0 as libc::c_int {
+                                                            if (pc.day_ordinal
                                                                 - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                     && tm.tm_wday != pc.day_number) as libc::c_int
                                                                     as libc::c_long) < 0 as libc::c_int as libc::c_long
                                                             {
-                                                                (if ((if 1 as libc::c_int != 0 {
+                                                                if ((if 1 as libc::c_int != 0 {
                                                                     0 as libc::c_int
                                                                 } else {
                                                                     (if 1 as libc::c_int != 0 {
@@ -25005,9 +25005,9 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                 - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                     && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                     as libc::c_long)) as libc::c_int
-                                                                })
+                                                                }
                                                             } else {
-                                                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                if (if (if ((if 1 as libc::c_int != 0 {
                                                                     0 as libc::c_int
                                                                 } else {
                                                                     (if 1 as libc::c_int != 0 {
@@ -25091,7 +25091,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                         as libc::c_int
                                                                 }) != 0 && 7 as libc::c_int == -(1 as libc::c_int)
                                                                 {
-                                                                    (if ((if 1 as libc::c_int != 0 {
+                                                                    if ((if 1 as libc::c_int != 0 {
                                                                         0 as libc::c_int as libc::c_long
                                                                     } else {
                                                                         pc.day_ordinal
@@ -25122,7 +25122,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                         && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                         as libc::c_long - 1 as libc::c_int as libc::c_long)
                                                                             as libc::c_int
-                                                                    })
+                                                                    }
                                                                 } else {
                                                                     ((((-(127 as libc::c_int) - 1 as libc::c_int)
                                                                         / 7 as libc::c_int) as libc::c_long)
@@ -25130,18 +25130,18 @@ unsafe extern "C" fn parse_datetime_body(
                                                                             - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                 && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                 as libc::c_long) as libc::c_int
-                                                                })
-                                                            })
+                                                                }
+                                                            }
                                                         } else {
-                                                            (if 7 as libc::c_int == 0 as libc::c_int {
+                                                            if 7 as libc::c_int == 0 as libc::c_int {
                                                                 0 as libc::c_int
                                                             } else {
-                                                                (if (pc.day_ordinal
+                                                                if (pc.day_ordinal
                                                                     - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                         && tm.tm_wday != pc.day_number) as libc::c_int
                                                                         as libc::c_long) < 0 as libc::c_int as libc::c_long
                                                                 {
-                                                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                    if (if (if ((if 1 as libc::c_int != 0 {
                                                                         0 as libc::c_int as libc::c_long
                                                                     } else {
                                                                         (if 1 as libc::c_int != 0 {
@@ -25268,7 +25268,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                 && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                 as libc::c_long == -(1 as libc::c_int) as libc::c_long
                                                                     {
-                                                                        (if ((if 1 as libc::c_int != 0 {
+                                                                        if ((if 1 as libc::c_int != 0 {
                                                                             0 as libc::c_int
                                                                         } else {
                                                                             7 as libc::c_int
@@ -25281,7 +25281,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                             (-(1 as libc::c_int)
                                                                                 - (-(127 as libc::c_int) - 1 as libc::c_int)
                                                                                 < 7 as libc::c_int - 1 as libc::c_int) as libc::c_int
-                                                                        })
+                                                                        }
                                                                     } else {
                                                                         ((-(127 as libc::c_int) - 1 as libc::c_int) as libc::c_long
                                                                             / (pc.day_ordinal
@@ -25289,15 +25289,15 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                     && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                     as libc::c_long) < 7 as libc::c_int as libc::c_long)
                                                                             as libc::c_int
-                                                                    })
+                                                                    }
                                                                 } else {
                                                                     (((127 as libc::c_int / 7 as libc::c_int) as libc::c_long)
                                                                         < pc.day_ordinal
                                                                             - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                 && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                 as libc::c_long) as libc::c_int
-                                                                })
-                                                            })
+                                                                }
+                                                            }
                                                         }) != 0
                                                         {
                                                             dayincr = ((pc.day_ordinal
@@ -25315,15 +25315,15 @@ unsafe extern "C" fn parse_datetime_body(
                                                                 .wrapping_mul(7 as libc::c_int as libc::c_uint)
                                                                 as libc::c_schar as intmax_t;
                                                             0 as libc::c_int
-                                                        })
+                                                        }
                                                     } else {
-                                                        (if (if (7 as libc::c_int) < 0 as libc::c_int {
-                                                            (if (pc.day_ordinal
+                                                        if (if (7 as libc::c_int) < 0 as libc::c_int {
+                                                            if (pc.day_ordinal
                                                                 - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                     && tm.tm_wday != pc.day_number) as libc::c_int
                                                                     as libc::c_long) < 0 as libc::c_int as libc::c_long
                                                             {
-                                                                (if ((if 1 as libc::c_int != 0 {
+                                                                if ((if 1 as libc::c_int != 0 {
                                                                     0 as libc::c_int
                                                                 } else {
                                                                     (if 1 as libc::c_int != 0 {
@@ -25409,9 +25409,9 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                 - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                     && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                     as libc::c_long)) as libc::c_int
-                                                                })
+                                                                }
                                                             } else {
-                                                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                if (if (if ((if 1 as libc::c_int != 0 {
                                                                     0 as libc::c_int
                                                                 } else {
                                                                     (if 1 as libc::c_int != 0 {
@@ -25494,7 +25494,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                         }) + 0 as libc::c_int) as libc::c_int
                                                                 }) != 0 && 7 as libc::c_int == -(1 as libc::c_int)
                                                                 {
-                                                                    (if ((if 1 as libc::c_int != 0 {
+                                                                    if ((if 1 as libc::c_int != 0 {
                                                                         0 as libc::c_int as libc::c_long
                                                                     } else {
                                                                         pc.day_ordinal
@@ -25523,25 +25523,25 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                         && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                         as libc::c_long - 1 as libc::c_int as libc::c_long)
                                                                             as libc::c_int
-                                                                    })
+                                                                    }
                                                                 } else {
                                                                     (((0 as libc::c_int / 7 as libc::c_int) as libc::c_long)
                                                                         < pc.day_ordinal
                                                                             - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                 && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                 as libc::c_long) as libc::c_int
-                                                                })
-                                                            })
+                                                                }
+                                                            }
                                                         } else {
-                                                            (if 7 as libc::c_int == 0 as libc::c_int {
+                                                            if 7 as libc::c_int == 0 as libc::c_int {
                                                                 0 as libc::c_int
                                                             } else {
-                                                                (if (pc.day_ordinal
+                                                                if (pc.day_ordinal
                                                                     - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                         && tm.tm_wday != pc.day_number) as libc::c_int
                                                                         as libc::c_long) < 0 as libc::c_int as libc::c_long
                                                                 {
-                                                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                    if (if (if ((if 1 as libc::c_int != 0 {
                                                                         0 as libc::c_int as libc::c_long
                                                                     } else {
                                                                         (if 1 as libc::c_int != 0 {
@@ -25658,7 +25658,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                 && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                 as libc::c_long == -(1 as libc::c_int) as libc::c_long
                                                                     {
-                                                                        (if ((if 1 as libc::c_int != 0 {
+                                                                        if ((if 1 as libc::c_int != 0 {
                                                                             0 as libc::c_int
                                                                         } else {
                                                                             7 as libc::c_int
@@ -25669,7 +25669,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                         } else {
                                                                             ((-(1 as libc::c_int) - 0 as libc::c_int)
                                                                                 < 7 as libc::c_int - 1 as libc::c_int) as libc::c_int
-                                                                        })
+                                                                        }
                                                                     } else {
                                                                         (0 as libc::c_int as libc::c_long
                                                                             / (pc.day_ordinal
@@ -25677,7 +25677,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                     && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                     as libc::c_long) < 7 as libc::c_int as libc::c_long)
                                                                             as libc::c_int
-                                                                    })
+                                                                    }
                                                                 } else {
                                                                     ((((127 as libc::c_int * 2 as libc::c_int
                                                                         + 1 as libc::c_int) / 7 as libc::c_int) as libc::c_long)
@@ -25685,8 +25685,8 @@ unsafe extern "C" fn parse_datetime_body(
                                                                             - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                 && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                 as libc::c_long) as libc::c_int
-                                                                })
-                                                            })
+                                                                }
+                                                            }
                                                         }) != 0
                                                         {
                                                             dayincr = ((pc.day_ordinal
@@ -25704,22 +25704,22 @@ unsafe extern "C" fn parse_datetime_body(
                                                                 .wrapping_mul(7 as libc::c_int as libc::c_uint)
                                                                 as libc::c_uchar as intmax_t;
                                                             0 as libc::c_int
-                                                        })
-                                                    })
+                                                        }
+                                                    }
                                                 } else {
-                                                    (if ::core::mem::size_of::<intmax_t>() as libc::c_ulong
+                                                    if ::core::mem::size_of::<intmax_t>() as libc::c_ulong
                                                         == ::core::mem::size_of::<libc::c_short>() as libc::c_ulong
                                                     {
-                                                        (if !((0 as libc::c_int as intmax_t)
+                                                        if !((0 as libc::c_int as intmax_t)
                                                             < -(1 as libc::c_int) as intmax_t)
                                                         {
-                                                            (if (if (7 as libc::c_int) < 0 as libc::c_int {
-                                                                (if (pc.day_ordinal
+                                                            if (if (7 as libc::c_int) < 0 as libc::c_int {
+                                                                if (pc.day_ordinal
                                                                     - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                         && tm.tm_wday != pc.day_number) as libc::c_int
                                                                         as libc::c_long) < 0 as libc::c_int as libc::c_long
                                                                 {
-                                                                    (if ((if 1 as libc::c_int != 0 {
+                                                                    if ((if 1 as libc::c_int != 0 {
                                                                         0 as libc::c_int
                                                                     } else {
                                                                         (if 1 as libc::c_int != 0 {
@@ -25802,9 +25802,9 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                     - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                         && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                         as libc::c_long)) as libc::c_int
-                                                                    })
+                                                                    }
                                                                 } else {
-                                                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                    if (if (if ((if 1 as libc::c_int != 0 {
                                                                         0 as libc::c_int
                                                                     } else {
                                                                         (if 1 as libc::c_int != 0 {
@@ -25888,7 +25888,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                             as libc::c_int
                                                                     }) != 0 && 7 as libc::c_int == -(1 as libc::c_int)
                                                                     {
-                                                                        (if ((if 1 as libc::c_int != 0 {
+                                                                        if ((if 1 as libc::c_int != 0 {
                                                                             0 as libc::c_int as libc::c_long
                                                                         } else {
                                                                             pc.day_ordinal
@@ -25919,7 +25919,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                             && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                             as libc::c_long - 1 as libc::c_int as libc::c_long)
                                                                                 as libc::c_int
-                                                                        })
+                                                                        }
                                                                     } else {
                                                                         ((((-(32767 as libc::c_int) - 1 as libc::c_int)
                                                                             / 7 as libc::c_int) as libc::c_long)
@@ -25927,18 +25927,18 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                 - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                     && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                     as libc::c_long) as libc::c_int
-                                                                    })
-                                                                })
+                                                                    }
+                                                                }
                                                             } else {
-                                                                (if 7 as libc::c_int == 0 as libc::c_int {
+                                                                if 7 as libc::c_int == 0 as libc::c_int {
                                                                     0 as libc::c_int
                                                                 } else {
-                                                                    (if (pc.day_ordinal
+                                                                    if (pc.day_ordinal
                                                                         - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                             && tm.tm_wday != pc.day_number) as libc::c_int
                                                                             as libc::c_long) < 0 as libc::c_int as libc::c_long
                                                                     {
-                                                                        (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                        if (if (if ((if 1 as libc::c_int != 0 {
                                                                             0 as libc::c_int as libc::c_long
                                                                         } else {
                                                                             (if 1 as libc::c_int != 0 {
@@ -26071,7 +26071,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                     && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                     as libc::c_long == -(1 as libc::c_int) as libc::c_long
                                                                         {
-                                                                            (if ((if 1 as libc::c_int != 0 {
+                                                                            if ((if 1 as libc::c_int != 0 {
                                                                                 0 as libc::c_int
                                                                             } else {
                                                                                 7 as libc::c_int
@@ -26085,7 +26085,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                 (-(1 as libc::c_int)
                                                                                     - (-(32767 as libc::c_int) - 1 as libc::c_int)
                                                                                     < 7 as libc::c_int - 1 as libc::c_int) as libc::c_int
-                                                                            })
+                                                                            }
                                                                         } else {
                                                                             ((-(32767 as libc::c_int) - 1 as libc::c_int)
                                                                                 as libc::c_long
@@ -26094,15 +26094,15 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                         && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                         as libc::c_long) < 7 as libc::c_int as libc::c_long)
                                                                                 as libc::c_int
-                                                                        })
+                                                                        }
                                                                     } else {
                                                                         (((32767 as libc::c_int / 7 as libc::c_int) as libc::c_long)
                                                                             < pc.day_ordinal
                                                                                 - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                     && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                     as libc::c_long) as libc::c_int
-                                                                    })
-                                                                })
+                                                                    }
+                                                                }
                                                             }) != 0
                                                             {
                                                                 dayincr = ((pc.day_ordinal
@@ -26120,15 +26120,15 @@ unsafe extern "C" fn parse_datetime_body(
                                                                     .wrapping_mul(7 as libc::c_int as libc::c_uint)
                                                                     as libc::c_short as intmax_t;
                                                                 0 as libc::c_int
-                                                            })
+                                                            }
                                                         } else {
-                                                            (if (if (7 as libc::c_int) < 0 as libc::c_int {
-                                                                (if (pc.day_ordinal
+                                                            if (if (7 as libc::c_int) < 0 as libc::c_int {
+                                                                if (pc.day_ordinal
                                                                     - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                         && tm.tm_wday != pc.day_number) as libc::c_int
                                                                         as libc::c_long) < 0 as libc::c_int as libc::c_long
                                                                 {
-                                                                    (if ((if 1 as libc::c_int != 0 {
+                                                                    if ((if 1 as libc::c_int != 0 {
                                                                         0 as libc::c_int
                                                                     } else {
                                                                         (if 1 as libc::c_int != 0 {
@@ -26215,9 +26215,9 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                     - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                         && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                         as libc::c_long)) as libc::c_int
-                                                                    })
+                                                                    }
                                                                 } else {
-                                                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                    if (if (if ((if 1 as libc::c_int != 0 {
                                                                         0 as libc::c_int
                                                                     } else {
                                                                         (if 1 as libc::c_int != 0 {
@@ -26300,7 +26300,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                             }) + 0 as libc::c_int) as libc::c_int
                                                                     }) != 0 && 7 as libc::c_int == -(1 as libc::c_int)
                                                                     {
-                                                                        (if ((if 1 as libc::c_int != 0 {
+                                                                        if ((if 1 as libc::c_int != 0 {
                                                                             0 as libc::c_int as libc::c_long
                                                                         } else {
                                                                             pc.day_ordinal
@@ -26329,25 +26329,25 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                             && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                             as libc::c_long - 1 as libc::c_int as libc::c_long)
                                                                                 as libc::c_int
-                                                                        })
+                                                                        }
                                                                     } else {
                                                                         (((0 as libc::c_int / 7 as libc::c_int) as libc::c_long)
                                                                             < pc.day_ordinal
                                                                                 - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                     && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                     as libc::c_long) as libc::c_int
-                                                                    })
-                                                                })
+                                                                    }
+                                                                }
                                                             } else {
-                                                                (if 7 as libc::c_int == 0 as libc::c_int {
+                                                                if 7 as libc::c_int == 0 as libc::c_int {
                                                                     0 as libc::c_int
                                                                 } else {
-                                                                    (if (pc.day_ordinal
+                                                                    if (pc.day_ordinal
                                                                         - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                             && tm.tm_wday != pc.day_number) as libc::c_int
                                                                             as libc::c_long) < 0 as libc::c_int as libc::c_long
                                                                     {
-                                                                        (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                        if (if (if ((if 1 as libc::c_int != 0 {
                                                                             0 as libc::c_int as libc::c_long
                                                                         } else {
                                                                             (if 1 as libc::c_int != 0 {
@@ -26464,7 +26464,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                     && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                     as libc::c_long == -(1 as libc::c_int) as libc::c_long
                                                                         {
-                                                                            (if ((if 1 as libc::c_int != 0 {
+                                                                            if ((if 1 as libc::c_int != 0 {
                                                                                 0 as libc::c_int
                                                                             } else {
                                                                                 7 as libc::c_int
@@ -26475,7 +26475,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                             } else {
                                                                                 ((-(1 as libc::c_int) - 0 as libc::c_int)
                                                                                     < 7 as libc::c_int - 1 as libc::c_int) as libc::c_int
-                                                                            })
+                                                                            }
                                                                         } else {
                                                                             (0 as libc::c_int as libc::c_long
                                                                                 / (pc.day_ordinal
@@ -26483,7 +26483,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                         && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                         as libc::c_long) < 7 as libc::c_int as libc::c_long)
                                                                                 as libc::c_int
-                                                                        })
+                                                                        }
                                                                     } else {
                                                                         ((((32767 as libc::c_int * 2 as libc::c_int
                                                                             + 1 as libc::c_int) / 7 as libc::c_int) as libc::c_long)
@@ -26491,8 +26491,8 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                 - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                     && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                     as libc::c_long) as libc::c_int
-                                                                    })
-                                                                })
+                                                                    }
+                                                                }
                                                             }) != 0
                                                             {
                                                                 dayincr = ((pc.day_ordinal
@@ -26510,26 +26510,26 @@ unsafe extern "C" fn parse_datetime_body(
                                                                     .wrapping_mul(7 as libc::c_int as libc::c_uint)
                                                                     as libc::c_ushort as intmax_t;
                                                                 0 as libc::c_int
-                                                            })
-                                                        })
+                                                            }
+                                                        }
                                                     } else {
-                                                        (if ::core::mem::size_of::<intmax_t>() as libc::c_ulong
+                                                        if ::core::mem::size_of::<intmax_t>() as libc::c_ulong
                                                             == ::core::mem::size_of::<libc::c_int>() as libc::c_ulong
                                                         {
-                                                            (if ((if 1 as libc::c_int != 0 {
+                                                            if ((if 1 as libc::c_int != 0 {
                                                                 0 as libc::c_int as libc::c_long
                                                             } else {
                                                                 dayincr
                                                             }) - 1 as libc::c_int as libc::c_long)
                                                                 < 0 as libc::c_int as libc::c_long
                                                             {
-                                                                (if (if (7 as libc::c_int) < 0 as libc::c_int {
-                                                                    (if (pc.day_ordinal
+                                                                if (if (7 as libc::c_int) < 0 as libc::c_int {
+                                                                    if (pc.day_ordinal
                                                                         - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                             && tm.tm_wday != pc.day_number) as libc::c_int
                                                                             as libc::c_long) < 0 as libc::c_int as libc::c_long
                                                                     {
-                                                                        (if ((if 1 as libc::c_int != 0 {
+                                                                        if ((if 1 as libc::c_int != 0 {
                                                                             0 as libc::c_int
                                                                         } else {
                                                                             (if 1 as libc::c_int != 0 {
@@ -26612,9 +26612,9 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                         - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                             && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                             as libc::c_long)) as libc::c_int
-                                                                        })
+                                                                        }
                                                                     } else {
-                                                                        (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                        if (if (if ((if 1 as libc::c_int != 0 {
                                                                             0 as libc::c_int
                                                                         } else {
                                                                             (if 1 as libc::c_int != 0 {
@@ -26698,7 +26698,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                 as libc::c_int
                                                                         }) != 0 && 7 as libc::c_int == -(1 as libc::c_int)
                                                                         {
-                                                                            (if ((if 1 as libc::c_int != 0 {
+                                                                            if ((if 1 as libc::c_int != 0 {
                                                                                 0 as libc::c_int as libc::c_long
                                                                             } else {
                                                                                 pc.day_ordinal
@@ -26729,7 +26729,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                 && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                                 as libc::c_long - 1 as libc::c_int as libc::c_long)
                                                                                     as libc::c_int
-                                                                            })
+                                                                            }
                                                                         } else {
                                                                             ((((-(2147483647 as libc::c_int) - 1 as libc::c_int)
                                                                                 / 7 as libc::c_int) as libc::c_long)
@@ -26737,18 +26737,18 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                     - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                         && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                         as libc::c_long) as libc::c_int
-                                                                        })
-                                                                    })
+                                                                        }
+                                                                    }
                                                                 } else {
-                                                                    (if 7 as libc::c_int == 0 as libc::c_int {
+                                                                    if 7 as libc::c_int == 0 as libc::c_int {
                                                                         0 as libc::c_int
                                                                     } else {
-                                                                        (if (pc.day_ordinal
+                                                                        if (pc.day_ordinal
                                                                             - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                 && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                 as libc::c_long) < 0 as libc::c_int as libc::c_long
                                                                         {
-                                                                            (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                            if (if (if ((if 1 as libc::c_int != 0 {
                                                                                 0 as libc::c_int as libc::c_long
                                                                             } else {
                                                                                 (if 1 as libc::c_int != 0 {
@@ -26881,7 +26881,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                         && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                         as libc::c_long == -(1 as libc::c_int) as libc::c_long
                                                                             {
-                                                                                (if ((if 1 as libc::c_int != 0 {
+                                                                                if ((if 1 as libc::c_int != 0 {
                                                                                     0 as libc::c_int
                                                                                 } else {
                                                                                     7 as libc::c_int
@@ -26895,7 +26895,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                     (-(1 as libc::c_int)
                                                                                         - (-(2147483647 as libc::c_int) - 1 as libc::c_int)
                                                                                         < 7 as libc::c_int - 1 as libc::c_int) as libc::c_int
-                                                                                })
+                                                                                }
                                                                             } else {
                                                                                 ((-(2147483647 as libc::c_int) - 1 as libc::c_int)
                                                                                     as libc::c_long
@@ -26904,7 +26904,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                             && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                             as libc::c_long) < 7 as libc::c_int as libc::c_long)
                                                                                     as libc::c_int
-                                                                            })
+                                                                            }
                                                                         } else {
                                                                             (((2147483647 as libc::c_int / 7 as libc::c_int)
                                                                                 as libc::c_long)
@@ -26912,8 +26912,8 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                     - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                         && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                         as libc::c_long) as libc::c_int
-                                                                        })
-                                                                    })
+                                                                        }
+                                                                    }
                                                                 }) != 0
                                                                 {
                                                                     dayincr = ((pc.day_ordinal
@@ -26931,15 +26931,15 @@ unsafe extern "C" fn parse_datetime_body(
                                                                         .wrapping_mul(7 as libc::c_int as libc::c_uint)
                                                                         as libc::c_int as intmax_t;
                                                                     0 as libc::c_int
-                                                                })
+                                                                }
                                                             } else {
-                                                                (if (if (7 as libc::c_int) < 0 as libc::c_int {
-                                                                    (if (pc.day_ordinal
+                                                                if (if (7 as libc::c_int) < 0 as libc::c_int {
+                                                                    if (pc.day_ordinal
                                                                         - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                             && tm.tm_wday != pc.day_number) as libc::c_int
                                                                             as libc::c_long) < 0 as libc::c_int as libc::c_long
                                                                     {
-                                                                        (if (if 1 as libc::c_int != 0 {
+                                                                        if (if 1 as libc::c_int != 0 {
                                                                             0 as libc::c_int as libc::c_uint
                                                                         } else {
                                                                             (if 1 as libc::c_int != 0 {
@@ -27038,9 +27038,9 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                         - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                             && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                             as libc::c_long)) as libc::c_int
-                                                                        })
+                                                                        }
                                                                     } else {
-                                                                        (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                        if (if (if ((if 1 as libc::c_int != 0 {
                                                                             0 as libc::c_int
                                                                         } else {
                                                                             (if 1 as libc::c_int != 0 {
@@ -27123,7 +27123,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                 }) + 0 as libc::c_int) as libc::c_int
                                                                         }) != 0 && 7 as libc::c_int == -(1 as libc::c_int)
                                                                         {
-                                                                            (if ((if 1 as libc::c_int != 0 {
+                                                                            if ((if 1 as libc::c_int != 0 {
                                                                                 0 as libc::c_int as libc::c_long
                                                                             } else {
                                                                                 pc.day_ordinal
@@ -27152,25 +27152,25 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                 && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                                 as libc::c_long - 1 as libc::c_int as libc::c_long)
                                                                                     as libc::c_int
-                                                                            })
+                                                                            }
                                                                         } else {
                                                                             (((0 as libc::c_int / 7 as libc::c_int) as libc::c_long)
                                                                                 < pc.day_ordinal
                                                                                     - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                         && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                         as libc::c_long) as libc::c_int
-                                                                        })
-                                                                    })
+                                                                        }
+                                                                    }
                                                                 } else {
-                                                                    (if 7 as libc::c_int == 0 as libc::c_int {
+                                                                    if 7 as libc::c_int == 0 as libc::c_int {
                                                                         0 as libc::c_int
                                                                     } else {
-                                                                        (if (pc.day_ordinal
+                                                                        if (pc.day_ordinal
                                                                             - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                 && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                 as libc::c_long) < 0 as libc::c_int as libc::c_long
                                                                         {
-                                                                            (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                            if (if (if ((if 1 as libc::c_int != 0 {
                                                                                 0 as libc::c_int as libc::c_long
                                                                             } else {
                                                                                 (if 1 as libc::c_int != 0 {
@@ -27287,7 +27287,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                         && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                         as libc::c_long == -(1 as libc::c_int) as libc::c_long
                                                                             {
-                                                                                (if ((if 1 as libc::c_int != 0 {
+                                                                                if ((if 1 as libc::c_int != 0 {
                                                                                     0 as libc::c_int
                                                                                 } else {
                                                                                     7 as libc::c_int
@@ -27298,7 +27298,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                 } else {
                                                                                     ((-(1 as libc::c_int) - 0 as libc::c_int)
                                                                                         < 7 as libc::c_int - 1 as libc::c_int) as libc::c_int
-                                                                                })
+                                                                                }
                                                                             } else {
                                                                                 (0 as libc::c_int as libc::c_long
                                                                                     / (pc.day_ordinal
@@ -27306,7 +27306,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                             && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                             as libc::c_long) < 7 as libc::c_int as libc::c_long)
                                                                                     as libc::c_int
-                                                                            })
+                                                                            }
                                                                         } else {
                                                                             (((2147483647 as libc::c_int as libc::c_uint)
                                                                                 .wrapping_mul(2 as libc::c_uint)
@@ -27317,8 +27317,8 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                     - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                         && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                         as libc::c_long) as libc::c_int
-                                                                        })
-                                                                    })
+                                                                        }
+                                                                    }
                                                                 }) != 0
                                                                 {
                                                                     dayincr = ((pc.day_ordinal
@@ -27334,26 +27334,26 @@ unsafe extern "C" fn parse_datetime_body(
                                                                             as libc::c_long) as libc::c_uint)
                                                                         .wrapping_mul(7 as libc::c_int as libc::c_uint) as intmax_t;
                                                                     0 as libc::c_int
-                                                                })
-                                                            })
+                                                                }
+                                                            }
                                                         } else {
-                                                            (if ::core::mem::size_of::<intmax_t>() as libc::c_ulong
+                                                            if ::core::mem::size_of::<intmax_t>() as libc::c_ulong
                                                                 == ::core::mem::size_of::<libc::c_long>() as libc::c_ulong
                                                             {
-                                                                (if ((if 1 as libc::c_int != 0 {
+                                                                if ((if 1 as libc::c_int != 0 {
                                                                     0 as libc::c_int as libc::c_long
                                                                 } else {
                                                                     dayincr
                                                                 }) - 1 as libc::c_int as libc::c_long)
                                                                     < 0 as libc::c_int as libc::c_long
                                                                 {
-                                                                    (if (if (7 as libc::c_int) < 0 as libc::c_int {
-                                                                        (if (pc.day_ordinal
+                                                                    if (if (7 as libc::c_int) < 0 as libc::c_int {
+                                                                        if (pc.day_ordinal
                                                                             - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                 && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                 as libc::c_long) < 0 as libc::c_int as libc::c_long
                                                                         {
-                                                                            (if ((if 1 as libc::c_int != 0 {
+                                                                            if ((if 1 as libc::c_int != 0 {
                                                                                 0 as libc::c_int as libc::c_long
                                                                             } else {
                                                                                 (if 1 as libc::c_int != 0 {
@@ -27438,9 +27438,9 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                             - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                                 && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                                 as libc::c_long)) as libc::c_int
-                                                                            })
+                                                                            }
                                                                         } else {
-                                                                            (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                            if (if (if ((if 1 as libc::c_int != 0 {
                                                                                 0 as libc::c_int as libc::c_long
                                                                             } else {
                                                                                 (if 1 as libc::c_int != 0 {
@@ -27545,7 +27545,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                             - 1 as libc::c_long)) as libc::c_int
                                                                             }) != 0 && 7 as libc::c_int == -(1 as libc::c_int)
                                                                             {
-                                                                                (if ((if 1 as libc::c_int != 0 {
+                                                                                if ((if 1 as libc::c_int != 0 {
                                                                                     0 as libc::c_int as libc::c_long
                                                                                 } else {
                                                                                     pc.day_ordinal
@@ -27576,7 +27576,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                     && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                                     as libc::c_long - 1 as libc::c_int as libc::c_long)
                                                                                         as libc::c_int
-                                                                                })
+                                                                                }
                                                                             } else {
                                                                                 (((-(9223372036854775807 as libc::c_long)
                                                                                     - 1 as libc::c_long) / 7 as libc::c_int as libc::c_long)
@@ -27584,18 +27584,18 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                         - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                             && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                             as libc::c_long) as libc::c_int
-                                                                            })
-                                                                        })
+                                                                            }
+                                                                        }
                                                                     } else {
-                                                                        (if 7 as libc::c_int == 0 as libc::c_int {
+                                                                        if 7 as libc::c_int == 0 as libc::c_int {
                                                                             0 as libc::c_int
                                                                         } else {
-                                                                            (if (pc.day_ordinal
+                                                                            if (pc.day_ordinal
                                                                                 - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                     && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                     as libc::c_long) < 0 as libc::c_int as libc::c_long
                                                                             {
-                                                                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                if (if (if ((if 1 as libc::c_int != 0 {
                                                                                     0 as libc::c_int as libc::c_long
                                                                                 } else {
                                                                                     (if 1 as libc::c_int != 0 {
@@ -27728,7 +27728,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                             && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                             as libc::c_long == -(1 as libc::c_int) as libc::c_long
                                                                                 {
-                                                                                    (if ((if 1 as libc::c_int != 0 {
+                                                                                    if ((if 1 as libc::c_int != 0 {
                                                                                         0 as libc::c_int
                                                                                     } else {
                                                                                         7 as libc::c_int
@@ -27744,7 +27744,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                 - 1 as libc::c_long)
                                                                                             < (7 as libc::c_int - 1 as libc::c_int) as libc::c_long)
                                                                                             as libc::c_int
-                                                                                    })
+                                                                                    }
                                                                                 } else {
                                                                                     ((-(9223372036854775807 as libc::c_long)
                                                                                         - 1 as libc::c_long)
@@ -27753,7 +27753,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                 && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                                 as libc::c_long) < 7 as libc::c_int as libc::c_long)
                                                                                         as libc::c_int
-                                                                                })
+                                                                                }
                                                                             } else {
                                                                                 ((9223372036854775807 as libc::c_long
                                                                                     / 7 as libc::c_int as libc::c_long)
@@ -27761,8 +27761,8 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                         - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                             && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                             as libc::c_long) as libc::c_int
-                                                                            })
-                                                                        })
+                                                                            }
+                                                                        }
                                                                     }) != 0
                                                                     {
                                                                         dayincr = ((pc.day_ordinal
@@ -27780,15 +27780,15 @@ unsafe extern "C" fn parse_datetime_body(
                                                                             .wrapping_mul(7 as libc::c_int as libc::c_ulong)
                                                                             as libc::c_long;
                                                                         0 as libc::c_int
-                                                                    })
+                                                                    }
                                                                 } else {
-                                                                    (if (if (7 as libc::c_int) < 0 as libc::c_int {
-                                                                        (if (pc.day_ordinal
+                                                                    if (if (7 as libc::c_int) < 0 as libc::c_int {
+                                                                        if (pc.day_ordinal
                                                                             - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                 && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                 as libc::c_long) < 0 as libc::c_int as libc::c_long
                                                                         {
-                                                                            (if (if 1 as libc::c_int != 0 {
+                                                                            if (if 1 as libc::c_int != 0 {
                                                                                 0 as libc::c_int as libc::c_ulong
                                                                             } else {
                                                                                 (if 1 as libc::c_int != 0 {
@@ -27887,9 +27887,9 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                             - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                                 && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                                 as libc::c_long)) as libc::c_ulong) as libc::c_int
-                                                                            })
+                                                                            }
                                                                         } else {
-                                                                            (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                            if (if (if ((if 1 as libc::c_int != 0 {
                                                                                 0 as libc::c_int
                                                                             } else {
                                                                                 (if 1 as libc::c_int != 0 {
@@ -27972,7 +27972,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                     }) + 0 as libc::c_int) as libc::c_int
                                                                             }) != 0 && 7 as libc::c_int == -(1 as libc::c_int)
                                                                             {
-                                                                                (if ((if 1 as libc::c_int != 0 {
+                                                                                if ((if 1 as libc::c_int != 0 {
                                                                                     0 as libc::c_int as libc::c_long
                                                                                 } else {
                                                                                     pc.day_ordinal
@@ -28001,25 +28001,25 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                     && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                                     as libc::c_long - 1 as libc::c_int as libc::c_long)
                                                                                         as libc::c_int
-                                                                                })
+                                                                                }
                                                                             } else {
                                                                                 (((0 as libc::c_int / 7 as libc::c_int) as libc::c_long)
                                                                                     < pc.day_ordinal
                                                                                         - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                             && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                             as libc::c_long) as libc::c_int
-                                                                            })
-                                                                        })
+                                                                            }
+                                                                        }
                                                                     } else {
-                                                                        (if 7 as libc::c_int == 0 as libc::c_int {
+                                                                        if 7 as libc::c_int == 0 as libc::c_int {
                                                                             0 as libc::c_int
                                                                         } else {
-                                                                            (if (pc.day_ordinal
+                                                                            if (pc.day_ordinal
                                                                                 - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                     && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                     as libc::c_long) < 0 as libc::c_int as libc::c_long
                                                                             {
-                                                                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                if (if (if ((if 1 as libc::c_int != 0 {
                                                                                     0 as libc::c_int as libc::c_long
                                                                                 } else {
                                                                                     (if 1 as libc::c_int != 0 {
@@ -28136,7 +28136,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                             && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                             as libc::c_long == -(1 as libc::c_int) as libc::c_long
                                                                                 {
-                                                                                    (if ((if 1 as libc::c_int != 0 {
+                                                                                    if ((if 1 as libc::c_int != 0 {
                                                                                         0 as libc::c_int
                                                                                     } else {
                                                                                         7 as libc::c_int
@@ -28147,7 +28147,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                     } else {
                                                                                         ((-(1 as libc::c_int) - 0 as libc::c_int)
                                                                                             < 7 as libc::c_int - 1 as libc::c_int) as libc::c_int
-                                                                                    })
+                                                                                    }
                                                                                 } else {
                                                                                     (0 as libc::c_int as libc::c_long
                                                                                         / (pc.day_ordinal
@@ -28155,7 +28155,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                 && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                                 as libc::c_long) < 7 as libc::c_int as libc::c_long)
                                                                                         as libc::c_int
-                                                                                })
+                                                                                }
                                                                             } else {
                                                                                 ((9223372036854775807 as libc::c_long as libc::c_ulong)
                                                                                     .wrapping_mul(2 as libc::c_ulong)
@@ -28165,8 +28165,8 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                         - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                             && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                             as libc::c_long) as libc::c_ulong) as libc::c_int
-                                                                            })
-                                                                        })
+                                                                            }
+                                                                        }
                                                                     }) != 0
                                                                     {
                                                                         dayincr = ((pc.day_ordinal
@@ -28184,23 +28184,23 @@ unsafe extern "C" fn parse_datetime_body(
                                                                             .wrapping_mul(7 as libc::c_int as libc::c_ulong)
                                                                             as intmax_t;
                                                                         0 as libc::c_int
-                                                                    })
-                                                                })
+                                                                    }
+                                                                }
                                                             } else {
-                                                                (if ((if 1 as libc::c_int != 0 {
+                                                                if ((if 1 as libc::c_int != 0 {
                                                                     0 as libc::c_int as libc::c_long
                                                                 } else {
                                                                     dayincr
                                                                 }) - 1 as libc::c_int as libc::c_long)
                                                                     < 0 as libc::c_int as libc::c_long
                                                                 {
-                                                                    (if (if (7 as libc::c_int) < 0 as libc::c_int {
-                                                                        (if (pc.day_ordinal
+                                                                    if (if (7 as libc::c_int) < 0 as libc::c_int {
+                                                                        if (pc.day_ordinal
                                                                             - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                 && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                 as libc::c_long) < 0 as libc::c_int as libc::c_long
                                                                         {
-                                                                            (if ((if 1 as libc::c_int != 0 {
+                                                                            if ((if 1 as libc::c_int != 0 {
                                                                                 0 as libc::c_int as libc::c_longlong
                                                                             } else {
                                                                                 (if 1 as libc::c_int != 0 {
@@ -28286,9 +28286,9 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                             - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                                 && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                                 as libc::c_long)) as libc::c_longlong) as libc::c_int
-                                                                            })
+                                                                            }
                                                                         } else {
-                                                                            (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                            if (if (if ((if 1 as libc::c_int != 0 {
                                                                                 0 as libc::c_int as libc::c_longlong
                                                                             } else {
                                                                                 (if 1 as libc::c_int != 0 {
@@ -28395,7 +28395,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                             - 1 as libc::c_longlong)) as libc::c_int
                                                                             }) != 0 && 7 as libc::c_int == -(1 as libc::c_int)
                                                                             {
-                                                                                (if ((if 1 as libc::c_int != 0 {
+                                                                                if ((if 1 as libc::c_int != 0 {
                                                                                     0 as libc::c_int as libc::c_long
                                                                                 } else {
                                                                                     pc.day_ordinal
@@ -28426,7 +28426,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                     && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                                     as libc::c_long - 1 as libc::c_int as libc::c_long)
                                                                                                 as libc::c_longlong) as libc::c_int
-                                                                                })
+                                                                                }
                                                                             } else {
                                                                                 (((-(9223372036854775807 as libc::c_longlong)
                                                                                     - 1 as libc::c_longlong)
@@ -28435,18 +28435,18 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                         - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                             && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                             as libc::c_long) as libc::c_longlong) as libc::c_int
-                                                                            })
-                                                                        })
+                                                                            }
+                                                                        }
                                                                     } else {
-                                                                        (if 7 as libc::c_int == 0 as libc::c_int {
+                                                                        if 7 as libc::c_int == 0 as libc::c_int {
                                                                             0 as libc::c_int
                                                                         } else {
-                                                                            (if (pc.day_ordinal
+                                                                            if (pc.day_ordinal
                                                                                 - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                     && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                     as libc::c_long) < 0 as libc::c_int as libc::c_long
                                                                             {
-                                                                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                if (if (if ((if 1 as libc::c_int != 0 {
                                                                                     0 as libc::c_int as libc::c_longlong
                                                                                 } else {
                                                                                     (if 1 as libc::c_int != 0 {
@@ -28581,7 +28581,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                             && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                             as libc::c_long == -(1 as libc::c_int) as libc::c_long
                                                                                 {
-                                                                                    (if ((if 1 as libc::c_int != 0 {
+                                                                                    if ((if 1 as libc::c_int != 0 {
                                                                                         0 as libc::c_int
                                                                                     } else {
                                                                                         7 as libc::c_int
@@ -28597,7 +28597,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                 - 1 as libc::c_longlong)
                                                                                             < (7 as libc::c_int - 1 as libc::c_int) as libc::c_longlong)
                                                                                             as libc::c_int
-                                                                                    })
+                                                                                    }
                                                                                 } else {
                                                                                     (((-(9223372036854775807 as libc::c_longlong)
                                                                                         - 1 as libc::c_longlong)
@@ -28606,7 +28606,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                 && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                                 as libc::c_long) as libc::c_longlong)
                                                                                         < 7 as libc::c_int as libc::c_longlong) as libc::c_int
-                                                                                })
+                                                                                }
                                                                             } else {
                                                                                 ((9223372036854775807 as libc::c_longlong
                                                                                     / 7 as libc::c_int as libc::c_longlong)
@@ -28614,8 +28614,8 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                         - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                             && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                             as libc::c_long) as libc::c_longlong) as libc::c_int
-                                                                            })
-                                                                        })
+                                                                            }
+                                                                        }
                                                                     }) != 0
                                                                     {
                                                                         dayincr = ((pc.day_ordinal
@@ -28633,15 +28633,15 @@ unsafe extern "C" fn parse_datetime_body(
                                                                             .wrapping_mul(7 as libc::c_int as libc::c_ulonglong)
                                                                             as libc::c_longlong as intmax_t;
                                                                         0 as libc::c_int
-                                                                    })
+                                                                    }
                                                                 } else {
-                                                                    (if (if (7 as libc::c_int) < 0 as libc::c_int {
-                                                                        (if (pc.day_ordinal
+                                                                    if (if (7 as libc::c_int) < 0 as libc::c_int {
+                                                                        if (pc.day_ordinal
                                                                             - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                 && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                 as libc::c_long) < 0 as libc::c_int as libc::c_long
                                                                         {
-                                                                            (if (if 1 as libc::c_int != 0 {
+                                                                            if (if 1 as libc::c_int != 0 {
                                                                                 0 as libc::c_int as libc::c_ulonglong
                                                                             } else {
                                                                                 (if 1 as libc::c_int != 0 {
@@ -28744,9 +28744,9 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                             - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                                 && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                                 as libc::c_long)) as libc::c_ulonglong) as libc::c_int
-                                                                            })
+                                                                            }
                                                                         } else {
-                                                                            (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                            if (if (if ((if 1 as libc::c_int != 0 {
                                                                                 0 as libc::c_int
                                                                             } else {
                                                                                 (if 1 as libc::c_int != 0 {
@@ -28829,7 +28829,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                     }) + 0 as libc::c_int) as libc::c_int
                                                                             }) != 0 && 7 as libc::c_int == -(1 as libc::c_int)
                                                                             {
-                                                                                (if ((if 1 as libc::c_int != 0 {
+                                                                                if ((if 1 as libc::c_int != 0 {
                                                                                     0 as libc::c_int as libc::c_long
                                                                                 } else {
                                                                                     pc.day_ordinal
@@ -28858,25 +28858,25 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                     && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                                     as libc::c_long - 1 as libc::c_int as libc::c_long)
                                                                                         as libc::c_int
-                                                                                })
+                                                                                }
                                                                             } else {
                                                                                 (((0 as libc::c_int / 7 as libc::c_int) as libc::c_long)
                                                                                     < pc.day_ordinal
                                                                                         - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                             && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                             as libc::c_long) as libc::c_int
-                                                                            })
-                                                                        })
+                                                                            }
+                                                                        }
                                                                     } else {
-                                                                        (if 7 as libc::c_int == 0 as libc::c_int {
+                                                                        if 7 as libc::c_int == 0 as libc::c_int {
                                                                             0 as libc::c_int
                                                                         } else {
-                                                                            (if (pc.day_ordinal
+                                                                            if (pc.day_ordinal
                                                                                 - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                     && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                     as libc::c_long) < 0 as libc::c_int as libc::c_long
                                                                             {
-                                                                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                if (if (if ((if 1 as libc::c_int != 0 {
                                                                                     0 as libc::c_int as libc::c_long
                                                                                 } else {
                                                                                     (if 1 as libc::c_int != 0 {
@@ -28993,7 +28993,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                             && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                             as libc::c_long == -(1 as libc::c_int) as libc::c_long
                                                                                 {
-                                                                                    (if ((if 1 as libc::c_int != 0 {
+                                                                                    if ((if 1 as libc::c_int != 0 {
                                                                                         0 as libc::c_int
                                                                                     } else {
                                                                                         7 as libc::c_int
@@ -29004,7 +29004,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                     } else {
                                                                                         ((-(1 as libc::c_int) - 0 as libc::c_int)
                                                                                             < 7 as libc::c_int - 1 as libc::c_int) as libc::c_int
-                                                                                    })
+                                                                                    }
                                                                                 } else {
                                                                                     (0 as libc::c_int as libc::c_long
                                                                                         / (pc.day_ordinal
@@ -29012,7 +29012,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                 && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                                 as libc::c_long) < 7 as libc::c_int as libc::c_long)
                                                                                         as libc::c_int
-                                                                                })
+                                                                                }
                                                                             } else {
                                                                                 ((9223372036854775807 as libc::c_longlong
                                                                                     as libc::c_ulonglong)
@@ -29023,8 +29023,8 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                         - ((0 as libc::c_int as libc::c_long) < pc.day_ordinal
                                                                                             && tm.tm_wday != pc.day_number) as libc::c_int
                                                                                             as libc::c_long) as libc::c_ulonglong) as libc::c_int
-                                                                            })
-                                                                        })
+                                                                            }
+                                                                        }
                                                                     }) != 0
                                                                     {
                                                                         dayincr = ((pc.day_ordinal
@@ -29042,22 +29042,22 @@ unsafe extern "C" fn parse_datetime_body(
                                                                             .wrapping_mul(7 as libc::c_int as libc::c_ulonglong)
                                                                             as intmax_t;
                                                                         0 as libc::c_int
-                                                                    })
-                                                                })
-                                                            })
-                                                        })
-                                                    })
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
                                                 }) != 0
                                                     || {
                                                         let (fresh72, fresh73) = ((pc.day_number - tm.tm_wday
                                                             + 7 as libc::c_int) % 7 as libc::c_int)
-                                                            .overflowing_add(dayincr);
+                                                            .overflowing_add(dayincr.try_into().unwrap());
                                                         *(&mut dayincr as *mut intmax_t) = fresh72;
                                                         fresh73 as libc::c_int != 0
                                                     }
                                                     || {
                                                         let (fresh74, fresh75) = dayincr
-                                                            .overflowing_add(tm.tm_mday);
+                                                            .overflowing_add(tm.tm_mday.into());
                                                         *(&mut tm.tm_mday as *mut libc::c_int) = fresh74;
                                                         fresh75 as libc::c_int != 0
                                                     }
@@ -29193,18 +29193,18 @@ unsafe extern "C" fn parse_datetime_body(
                                                         let mut month: libc::c_int = 0;
                                                         let mut day: libc::c_int = 0;
                                                         let (fresh76, fresh77) = (tm.tm_year)
-                                                            .overflowing_add(pc.rel.year);
+                                                            .overflowing_add(pc.rel.year.try_into().unwrap());
                                                         *(&mut year as *mut libc::c_int) = fresh76;
                                                         if fresh77 as libc::c_int != 0
                                                             || {
                                                                 let (fresh78, fresh79) = (tm.tm_mon)
-                                                                    .overflowing_add(pc.rel.month);
+                                                                    .overflowing_add(pc.rel.month.try_into().unwrap());
                                                                 *(&mut month as *mut libc::c_int) = fresh78;
                                                                 fresh79 as libc::c_int != 0
                                                             }
                                                             || {
                                                                 let (fresh80, fresh81) = (tm.tm_mday)
-                                                                    .overflowing_add(pc.rel.day);
+                                                                    .overflowing_add(pc.rel.day.try_into().unwrap());
                                                                 *(&mut day as *mut libc::c_int) = fresh80;
                                                                 fresh81 as libc::c_int != 0
                                                             }
@@ -29325,15 +29325,15 @@ unsafe extern "C" fn parse_datetime_body(
                                                                 let mut utcoff: libc::c_long = tm.tm_gmtoff;
                                                                 let mut delta: intmax_t = 0;
                                                                 let (fresh82, fresh83) = (pc.time_zone)
-                                                                    .overflowing_sub(utcoff);
+                                                                    .overflowing_sub(utcoff.try_into().unwrap());
                                                                 *&mut delta = fresh82;
                                                                 overflow = (overflow as libc::c_int
-                                                                    | fresh83 as libc::c_int) as bool;
+                                                                    | fresh83 as libc::c_int) != 0;
                                                                 let mut t1: time_t = 0;
                                                                 let (fresh84, fresh85) = Start.overflowing_sub(delta);
                                                                 *&mut t1 = fresh84;
                                                                 overflow = (overflow as libc::c_int
-                                                                    | fresh85 as libc::c_int) as bool;
+                                                                    | fresh85 as libc::c_int) != 0;
                                                                 if overflow {
                                                                     if debugging(&mut pc) {
                                                                         dbg_printf(
@@ -29391,14 +29391,14 @@ unsafe extern "C" fn parse_datetime_body(
                                                                     if (if ::core::mem::size_of::<intmax_t>() as libc::c_ulong
                                                                         == ::core::mem::size_of::<libc::c_schar>() as libc::c_ulong
                                                                     {
-                                                                        (if !((0 as libc::c_int as intmax_t)
+                                                                        if !((0 as libc::c_int as intmax_t)
                                                                             < -(1 as libc::c_int) as intmax_t)
                                                                         {
-                                                                            (if (if (60 as libc::c_int * 60 as libc::c_int)
+                                                                            if (if (60 as libc::c_int * 60 as libc::c_int)
                                                                                 < 0 as libc::c_int
                                                                             {
-                                                                                (if pc.rel.hour < 0 as libc::c_int as libc::c_long {
-                                                                                    (if ((if 1 as libc::c_int != 0 {
+                                                                                if pc.rel.hour < 0 as libc::c_int as libc::c_long {
+                                                                                    if ((if 1 as libc::c_int != 0 {
                                                                                         0 as libc::c_int
                                                                                     } else {
                                                                                         (if 1 as libc::c_int != 0 {
@@ -29478,9 +29478,9 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                         }) as libc::c_long
                                                                                             <= -(1 as libc::c_int) as libc::c_long - pc.rel.hour)
                                                                                             as libc::c_int
-                                                                                    })
+                                                                                    }
                                                                                 } else {
-                                                                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                    if (if (if ((if 1 as libc::c_int != 0 {
                                                                                         0 as libc::c_int
                                                                                     } else {
                                                                                         (if 1 as libc::c_int != 0 {
@@ -29566,7 +29566,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                         && 60 as libc::c_int * 60 as libc::c_int
                                                                                             == -(1 as libc::c_int)
                                                                                     {
-                                                                                        (if ((if 1 as libc::c_int != 0 {
+                                                                                        if ((if 1 as libc::c_int != 0 {
                                                                                             0 as libc::c_int as libc::c_long
                                                                                         } else {
                                                                                             pc.rel.hour
@@ -29584,21 +29584,21 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                     as libc::c_long)
                                                                                                     < pc.rel.hour - 1 as libc::c_int as libc::c_long)
                                                                                                 as libc::c_int
-                                                                                        })
+                                                                                        }
                                                                                     } else {
                                                                                         ((((-(127 as libc::c_int) - 1 as libc::c_int)
                                                                                             / (60 as libc::c_int * 60 as libc::c_int)) as libc::c_long)
                                                                                             < pc.rel.hour) as libc::c_int
-                                                                                    })
-                                                                                })
+                                                                                    }
+                                                                                }
                                                                             } else {
-                                                                                (if 60 as libc::c_int * 60 as libc::c_int
+                                                                                if 60 as libc::c_int * 60 as libc::c_int
                                                                                     == 0 as libc::c_int
                                                                                 {
                                                                                     0 as libc::c_int
                                                                                 } else {
-                                                                                    (if pc.rel.hour < 0 as libc::c_int as libc::c_long {
-                                                                                        (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                    if pc.rel.hour < 0 as libc::c_int as libc::c_long {
+                                                                                        if (if (if ((if 1 as libc::c_int != 0 {
                                                                                             0 as libc::c_int as libc::c_long
                                                                                         } else {
                                                                                             (if 1 as libc::c_int != 0 {
@@ -29698,7 +29698,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                         }) != 0
                                                                                             && pc.rel.hour == -(1 as libc::c_int) as libc::c_long
                                                                                         {
-                                                                                            (if ((if 1 as libc::c_int != 0 {
+                                                                                            if ((if 1 as libc::c_int != 0 {
                                                                                                 0 as libc::c_int
                                                                                             } else {
                                                                                                 60 as libc::c_int * 60 as libc::c_int
@@ -29712,19 +29712,19 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                     - (-(127 as libc::c_int) - 1 as libc::c_int)
                                                                                                     < 60 as libc::c_int * 60 as libc::c_int - 1 as libc::c_int)
                                                                                                     as libc::c_int
-                                                                                            })
+                                                                                            }
                                                                                         } else {
                                                                                             ((-(127 as libc::c_int) - 1 as libc::c_int) as libc::c_long
                                                                                                 / pc.rel.hour
                                                                                                 < (60 as libc::c_int * 60 as libc::c_int) as libc::c_long)
                                                                                                 as libc::c_int
-                                                                                        })
+                                                                                        }
                                                                                     } else {
                                                                                         (((127 as libc::c_int
                                                                                             / (60 as libc::c_int * 60 as libc::c_int)) as libc::c_long)
                                                                                             < pc.rel.hour) as libc::c_int
-                                                                                    })
-                                                                                })
+                                                                                    }
+                                                                                }
                                                                             }) != 0
                                                                             {
                                                                                 d1 = (pc.rel.hour as libc::c_uint)
@@ -29738,13 +29738,13 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                         (60 as libc::c_int * 60 as libc::c_int) as libc::c_uint,
                                                                                     ) as libc::c_schar as intmax_t;
                                                                                 0 as libc::c_int
-                                                                            })
+                                                                            }
                                                                         } else {
-                                                                            (if (if (60 as libc::c_int * 60 as libc::c_int)
+                                                                            if (if (60 as libc::c_int * 60 as libc::c_int)
                                                                                 < 0 as libc::c_int
                                                                             {
-                                                                                (if pc.rel.hour < 0 as libc::c_int as libc::c_long {
-                                                                                    (if ((if 1 as libc::c_int != 0 {
+                                                                                if pc.rel.hour < 0 as libc::c_int as libc::c_long {
+                                                                                    if ((if 1 as libc::c_int != 0 {
                                                                                         0 as libc::c_int
                                                                                     } else {
                                                                                         (if 1 as libc::c_int != 0 {
@@ -29826,9 +29826,9 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                         }) as libc::c_long
                                                                                             <= -(1 as libc::c_int) as libc::c_long - pc.rel.hour)
                                                                                             as libc::c_int
-                                                                                    })
+                                                                                    }
                                                                                 } else {
-                                                                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                    if (if (if ((if 1 as libc::c_int != 0 {
                                                                                         0 as libc::c_int
                                                                                     } else {
                                                                                         (if 1 as libc::c_int != 0 {
@@ -29913,7 +29913,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                         && 60 as libc::c_int * 60 as libc::c_int
                                                                                             == -(1 as libc::c_int)
                                                                                     {
-                                                                                        (if ((if 1 as libc::c_int != 0 {
+                                                                                        if ((if 1 as libc::c_int != 0 {
                                                                                             0 as libc::c_int as libc::c_long
                                                                                         } else {
                                                                                             pc.rel.hour
@@ -29929,21 +29929,21 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                     as libc::c_long)
                                                                                                     < pc.rel.hour - 1 as libc::c_int as libc::c_long)
                                                                                                 as libc::c_int
-                                                                                        })
+                                                                                        }
                                                                                     } else {
                                                                                         (((0 as libc::c_int
                                                                                             / (60 as libc::c_int * 60 as libc::c_int)) as libc::c_long)
                                                                                             < pc.rel.hour) as libc::c_int
-                                                                                    })
-                                                                                })
+                                                                                    }
+                                                                                }
                                                                             } else {
-                                                                                (if 60 as libc::c_int * 60 as libc::c_int
+                                                                                if 60 as libc::c_int * 60 as libc::c_int
                                                                                     == 0 as libc::c_int
                                                                                 {
                                                                                     0 as libc::c_int
                                                                                 } else {
-                                                                                    (if pc.rel.hour < 0 as libc::c_int as libc::c_long {
-                                                                                        (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                    if pc.rel.hour < 0 as libc::c_int as libc::c_long {
+                                                                                        if (if (if ((if 1 as libc::c_int != 0 {
                                                                                             0 as libc::c_int as libc::c_long
                                                                                         } else {
                                                                                             (if 1 as libc::c_int != 0 {
@@ -30033,7 +30033,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                         }) != 0
                                                                                             && pc.rel.hour == -(1 as libc::c_int) as libc::c_long
                                                                                         {
-                                                                                            (if ((if 1 as libc::c_int != 0 {
+                                                                                            if ((if 1 as libc::c_int != 0 {
                                                                                                 0 as libc::c_int
                                                                                             } else {
                                                                                                 60 as libc::c_int * 60 as libc::c_int
@@ -30046,19 +30046,19 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                 ((-(1 as libc::c_int) - 0 as libc::c_int)
                                                                                                     < 60 as libc::c_int * 60 as libc::c_int - 1 as libc::c_int)
                                                                                                     as libc::c_int
-                                                                                            })
+                                                                                            }
                                                                                         } else {
                                                                                             (0 as libc::c_int as libc::c_long / pc.rel.hour
                                                                                                 < (60 as libc::c_int * 60 as libc::c_int) as libc::c_long)
                                                                                                 as libc::c_int
-                                                                                        })
+                                                                                        }
                                                                                     } else {
                                                                                         ((((127 as libc::c_int * 2 as libc::c_int
                                                                                             + 1 as libc::c_int)
                                                                                             / (60 as libc::c_int * 60 as libc::c_int)) as libc::c_long)
                                                                                             < pc.rel.hour) as libc::c_int
-                                                                                    })
-                                                                                })
+                                                                                    }
+                                                                                }
                                                                             }) != 0
                                                                             {
                                                                                 d1 = (pc.rel.hour as libc::c_uint)
@@ -30072,20 +30072,20 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                         (60 as libc::c_int * 60 as libc::c_int) as libc::c_uint,
                                                                                     ) as libc::c_uchar as intmax_t;
                                                                                 0 as libc::c_int
-                                                                            })
-                                                                        })
+                                                                            }
+                                                                        }
                                                                     } else {
-                                                                        (if ::core::mem::size_of::<intmax_t>() as libc::c_ulong
+                                                                        if ::core::mem::size_of::<intmax_t>() as libc::c_ulong
                                                                             == ::core::mem::size_of::<libc::c_short>() as libc::c_ulong
                                                                         {
-                                                                            (if !((0 as libc::c_int as intmax_t)
+                                                                            if !((0 as libc::c_int as intmax_t)
                                                                                 < -(1 as libc::c_int) as intmax_t)
                                                                             {
-                                                                                (if (if (60 as libc::c_int * 60 as libc::c_int)
+                                                                                if (if (60 as libc::c_int * 60 as libc::c_int)
                                                                                     < 0 as libc::c_int
                                                                                 {
-                                                                                    (if pc.rel.hour < 0 as libc::c_int as libc::c_long {
-                                                                                        (if ((if 1 as libc::c_int != 0 {
+                                                                                    if pc.rel.hour < 0 as libc::c_int as libc::c_long {
+                                                                                        if ((if 1 as libc::c_int != 0 {
                                                                                             0 as libc::c_int
                                                                                         } else {
                                                                                             (if 1 as libc::c_int != 0 {
@@ -30165,9 +30165,9 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                             }) as libc::c_long
                                                                                                 <= -(1 as libc::c_int) as libc::c_long - pc.rel.hour)
                                                                                                 as libc::c_int
-                                                                                        })
+                                                                                        }
                                                                                     } else {
-                                                                                        (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                        if (if (if ((if 1 as libc::c_int != 0 {
                                                                                             0 as libc::c_int
                                                                                         } else {
                                                                                             (if 1 as libc::c_int != 0 {
@@ -30253,7 +30253,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                             && 60 as libc::c_int * 60 as libc::c_int
                                                                                                 == -(1 as libc::c_int)
                                                                                         {
-                                                                                            (if ((if 1 as libc::c_int != 0 {
+                                                                                            if ((if 1 as libc::c_int != 0 {
                                                                                                 0 as libc::c_int as libc::c_long
                                                                                             } else {
                                                                                                 pc.rel.hour
@@ -30271,21 +30271,21 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                         as libc::c_long)
                                                                                                         < pc.rel.hour - 1 as libc::c_int as libc::c_long)
                                                                                                     as libc::c_int
-                                                                                            })
+                                                                                            }
                                                                                         } else {
                                                                                             ((((-(32767 as libc::c_int) - 1 as libc::c_int)
                                                                                                 / (60 as libc::c_int * 60 as libc::c_int)) as libc::c_long)
                                                                                                 < pc.rel.hour) as libc::c_int
-                                                                                        })
-                                                                                    })
+                                                                                        }
+                                                                                    }
                                                                                 } else {
-                                                                                    (if 60 as libc::c_int * 60 as libc::c_int
+                                                                                    if 60 as libc::c_int * 60 as libc::c_int
                                                                                         == 0 as libc::c_int
                                                                                     {
                                                                                         0 as libc::c_int
                                                                                     } else {
-                                                                                        (if pc.rel.hour < 0 as libc::c_int as libc::c_long {
-                                                                                            (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                        if pc.rel.hour < 0 as libc::c_int as libc::c_long {
+                                                                                            if (if (if ((if 1 as libc::c_int != 0 {
                                                                                                 0 as libc::c_int as libc::c_long
                                                                                             } else {
                                                                                                 (if 1 as libc::c_int != 0 {
@@ -30391,7 +30391,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                             }) != 0
                                                                                                 && pc.rel.hour == -(1 as libc::c_int) as libc::c_long
                                                                                             {
-                                                                                                (if ((if 1 as libc::c_int != 0 {
+                                                                                                if ((if 1 as libc::c_int != 0 {
                                                                                                     0 as libc::c_int
                                                                                                 } else {
                                                                                                     60 as libc::c_int * 60 as libc::c_int
@@ -30406,19 +30406,19 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                         - (-(32767 as libc::c_int) - 1 as libc::c_int)
                                                                                                         < 60 as libc::c_int * 60 as libc::c_int - 1 as libc::c_int)
                                                                                                         as libc::c_int
-                                                                                                })
+                                                                                                }
                                                                                             } else {
                                                                                                 ((-(32767 as libc::c_int) - 1 as libc::c_int)
                                                                                                     as libc::c_long / pc.rel.hour
                                                                                                     < (60 as libc::c_int * 60 as libc::c_int) as libc::c_long)
                                                                                                     as libc::c_int
-                                                                                            })
+                                                                                            }
                                                                                         } else {
                                                                                             (((32767 as libc::c_int
                                                                                                 / (60 as libc::c_int * 60 as libc::c_int)) as libc::c_long)
                                                                                                 < pc.rel.hour) as libc::c_int
-                                                                                        })
-                                                                                    })
+                                                                                        }
+                                                                                    }
                                                                                 }) != 0
                                                                                 {
                                                                                     d1 = (pc.rel.hour as libc::c_uint)
@@ -30432,13 +30432,13 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                             (60 as libc::c_int * 60 as libc::c_int) as libc::c_uint,
                                                                                         ) as libc::c_short as intmax_t;
                                                                                     0 as libc::c_int
-                                                                                })
+                                                                                }
                                                                             } else {
-                                                                                (if (if (60 as libc::c_int * 60 as libc::c_int)
+                                                                                if (if (60 as libc::c_int * 60 as libc::c_int)
                                                                                     < 0 as libc::c_int
                                                                                 {
-                                                                                    (if pc.rel.hour < 0 as libc::c_int as libc::c_long {
-                                                                                        (if ((if 1 as libc::c_int != 0 {
+                                                                                    if pc.rel.hour < 0 as libc::c_int as libc::c_long {
+                                                                                        if ((if 1 as libc::c_int != 0 {
                                                                                             0 as libc::c_int
                                                                                         } else {
                                                                                             (if 1 as libc::c_int != 0 {
@@ -30521,9 +30521,9 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                             }) as libc::c_long
                                                                                                 <= -(1 as libc::c_int) as libc::c_long - pc.rel.hour)
                                                                                                 as libc::c_int
-                                                                                        })
+                                                                                        }
                                                                                     } else {
-                                                                                        (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                        if (if (if ((if 1 as libc::c_int != 0 {
                                                                                             0 as libc::c_int
                                                                                         } else {
                                                                                             (if 1 as libc::c_int != 0 {
@@ -30608,7 +30608,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                             && 60 as libc::c_int * 60 as libc::c_int
                                                                                                 == -(1 as libc::c_int)
                                                                                         {
-                                                                                            (if ((if 1 as libc::c_int != 0 {
+                                                                                            if ((if 1 as libc::c_int != 0 {
                                                                                                 0 as libc::c_int as libc::c_long
                                                                                             } else {
                                                                                                 pc.rel.hour
@@ -30624,21 +30624,21 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                         as libc::c_long)
                                                                                                         < pc.rel.hour - 1 as libc::c_int as libc::c_long)
                                                                                                     as libc::c_int
-                                                                                            })
+                                                                                            }
                                                                                         } else {
                                                                                             (((0 as libc::c_int
                                                                                                 / (60 as libc::c_int * 60 as libc::c_int)) as libc::c_long)
                                                                                                 < pc.rel.hour) as libc::c_int
-                                                                                        })
-                                                                                    })
+                                                                                        }
+                                                                                    }
                                                                                 } else {
-                                                                                    (if 60 as libc::c_int * 60 as libc::c_int
+                                                                                    if 60 as libc::c_int * 60 as libc::c_int
                                                                                         == 0 as libc::c_int
                                                                                     {
                                                                                         0 as libc::c_int
                                                                                     } else {
-                                                                                        (if pc.rel.hour < 0 as libc::c_int as libc::c_long {
-                                                                                            (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                        if pc.rel.hour < 0 as libc::c_int as libc::c_long {
+                                                                                            if (if (if ((if 1 as libc::c_int != 0 {
                                                                                                 0 as libc::c_int as libc::c_long
                                                                                             } else {
                                                                                                 (if 1 as libc::c_int != 0 {
@@ -30728,7 +30728,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                             }) != 0
                                                                                                 && pc.rel.hour == -(1 as libc::c_int) as libc::c_long
                                                                                             {
-                                                                                                (if ((if 1 as libc::c_int != 0 {
+                                                                                                if ((if 1 as libc::c_int != 0 {
                                                                                                     0 as libc::c_int
                                                                                                 } else {
                                                                                                     60 as libc::c_int * 60 as libc::c_int
@@ -30741,19 +30741,19 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                     ((-(1 as libc::c_int) - 0 as libc::c_int)
                                                                                                         < 60 as libc::c_int * 60 as libc::c_int - 1 as libc::c_int)
                                                                                                         as libc::c_int
-                                                                                                })
+                                                                                                }
                                                                                             } else {
                                                                                                 (0 as libc::c_int as libc::c_long / pc.rel.hour
                                                                                                     < (60 as libc::c_int * 60 as libc::c_int) as libc::c_long)
                                                                                                     as libc::c_int
-                                                                                            })
+                                                                                            }
                                                                                         } else {
                                                                                             ((((32767 as libc::c_int * 2 as libc::c_int
                                                                                                 + 1 as libc::c_int)
                                                                                                 / (60 as libc::c_int * 60 as libc::c_int)) as libc::c_long)
                                                                                                 < pc.rel.hour) as libc::c_int
-                                                                                        })
-                                                                                    })
+                                                                                        }
+                                                                                    }
                                                                                 }) != 0
                                                                                 {
                                                                                     d1 = (pc.rel.hour as libc::c_uint)
@@ -30767,24 +30767,24 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                             (60 as libc::c_int * 60 as libc::c_int) as libc::c_uint,
                                                                                         ) as libc::c_ushort as intmax_t;
                                                                                     0 as libc::c_int
-                                                                                })
-                                                                            })
+                                                                                }
+                                                                            }
                                                                         } else {
-                                                                            (if ::core::mem::size_of::<intmax_t>() as libc::c_ulong
+                                                                            if ::core::mem::size_of::<intmax_t>() as libc::c_ulong
                                                                                 == ::core::mem::size_of::<libc::c_int>() as libc::c_ulong
                                                                             {
-                                                                                (if ((if 1 as libc::c_int != 0 {
+                                                                                if ((if 1 as libc::c_int != 0 {
                                                                                     0 as libc::c_int as libc::c_long
                                                                                 } else {
                                                                                     d1
                                                                                 }) - 1 as libc::c_int as libc::c_long)
                                                                                     < 0 as libc::c_int as libc::c_long
                                                                                 {
-                                                                                    (if (if (60 as libc::c_int * 60 as libc::c_int)
+                                                                                    if (if (60 as libc::c_int * 60 as libc::c_int)
                                                                                         < 0 as libc::c_int
                                                                                     {
-                                                                                        (if pc.rel.hour < 0 as libc::c_int as libc::c_long {
-                                                                                            (if ((if 1 as libc::c_int != 0 {
+                                                                                        if pc.rel.hour < 0 as libc::c_int as libc::c_long {
+                                                                                            if ((if 1 as libc::c_int != 0 {
                                                                                                 0 as libc::c_int
                                                                                             } else {
                                                                                                 (if 1 as libc::c_int != 0 {
@@ -30864,9 +30864,9 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                 }) as libc::c_long
                                                                                                     <= -(1 as libc::c_int) as libc::c_long - pc.rel.hour)
                                                                                                     as libc::c_int
-                                                                                            })
+                                                                                            }
                                                                                         } else {
-                                                                                            (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                            if (if (if ((if 1 as libc::c_int != 0 {
                                                                                                 0 as libc::c_int
                                                                                             } else {
                                                                                                 (if 1 as libc::c_int != 0 {
@@ -30952,7 +30952,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                 && 60 as libc::c_int * 60 as libc::c_int
                                                                                                     == -(1 as libc::c_int)
                                                                                             {
-                                                                                                (if ((if 1 as libc::c_int != 0 {
+                                                                                                if ((if 1 as libc::c_int != 0 {
                                                                                                     0 as libc::c_int as libc::c_long
                                                                                                 } else {
                                                                                                     pc.rel.hour
@@ -30970,21 +30970,21 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                             as libc::c_long)
                                                                                                             < pc.rel.hour - 1 as libc::c_int as libc::c_long)
                                                                                                         as libc::c_int
-                                                                                                })
+                                                                                                }
                                                                                             } else {
                                                                                                 ((((-(2147483647 as libc::c_int) - 1 as libc::c_int)
                                                                                                     / (60 as libc::c_int * 60 as libc::c_int)) as libc::c_long)
                                                                                                     < pc.rel.hour) as libc::c_int
-                                                                                            })
-                                                                                        })
+                                                                                            }
+                                                                                        }
                                                                                     } else {
-                                                                                        (if 60 as libc::c_int * 60 as libc::c_int
+                                                                                        if 60 as libc::c_int * 60 as libc::c_int
                                                                                             == 0 as libc::c_int
                                                                                         {
                                                                                             0 as libc::c_int
                                                                                         } else {
-                                                                                            (if pc.rel.hour < 0 as libc::c_int as libc::c_long {
-                                                                                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                            if pc.rel.hour < 0 as libc::c_int as libc::c_long {
+                                                                                                if (if (if ((if 1 as libc::c_int != 0 {
                                                                                                     0 as libc::c_int as libc::c_long
                                                                                                 } else {
                                                                                                     (if 1 as libc::c_int != 0 {
@@ -31090,7 +31090,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                 }) != 0
                                                                                                     && pc.rel.hour == -(1 as libc::c_int) as libc::c_long
                                                                                                 {
-                                                                                                    (if ((if 1 as libc::c_int != 0 {
+                                                                                                    if ((if 1 as libc::c_int != 0 {
                                                                                                         0 as libc::c_int
                                                                                                     } else {
                                                                                                         60 as libc::c_int * 60 as libc::c_int
@@ -31105,19 +31105,19 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                             - (-(2147483647 as libc::c_int) - 1 as libc::c_int)
                                                                                                             < 60 as libc::c_int * 60 as libc::c_int - 1 as libc::c_int)
                                                                                                             as libc::c_int
-                                                                                                    })
+                                                                                                    }
                                                                                                 } else {
                                                                                                     ((-(2147483647 as libc::c_int) - 1 as libc::c_int)
                                                                                                         as libc::c_long / pc.rel.hour
                                                                                                         < (60 as libc::c_int * 60 as libc::c_int) as libc::c_long)
                                                                                                         as libc::c_int
-                                                                                                })
+                                                                                                }
                                                                                             } else {
                                                                                                 (((2147483647 as libc::c_int
                                                                                                     / (60 as libc::c_int * 60 as libc::c_int)) as libc::c_long)
                                                                                                     < pc.rel.hour) as libc::c_int
-                                                                                            })
-                                                                                        })
+                                                                                            }
+                                                                                        }
                                                                                     }) != 0
                                                                                     {
                                                                                         d1 = (pc.rel.hour as libc::c_uint)
@@ -31131,13 +31131,13 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                 (60 as libc::c_int * 60 as libc::c_int) as libc::c_uint,
                                                                                             ) as libc::c_int as intmax_t;
                                                                                         0 as libc::c_int
-                                                                                    })
+                                                                                    }
                                                                                 } else {
-                                                                                    (if (if (60 as libc::c_int * 60 as libc::c_int)
+                                                                                    if (if (60 as libc::c_int * 60 as libc::c_int)
                                                                                         < 0 as libc::c_int
                                                                                     {
-                                                                                        (if pc.rel.hour < 0 as libc::c_int as libc::c_long {
-                                                                                            (if (if 1 as libc::c_int != 0 {
+                                                                                        if pc.rel.hour < 0 as libc::c_int as libc::c_long {
+                                                                                            if (if 1 as libc::c_int != 0 {
                                                                                                 0 as libc::c_int as libc::c_uint
                                                                                             } else {
                                                                                                 (if 1 as libc::c_int != 0 {
@@ -31236,9 +31236,9 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                 }) as libc::c_long
                                                                                                     <= -(1 as libc::c_int) as libc::c_long - pc.rel.hour)
                                                                                                     as libc::c_int
-                                                                                            })
+                                                                                            }
                                                                                         } else {
-                                                                                            (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                            if (if (if ((if 1 as libc::c_int != 0 {
                                                                                                 0 as libc::c_int
                                                                                             } else {
                                                                                                 (if 1 as libc::c_int != 0 {
@@ -31323,7 +31323,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                 && 60 as libc::c_int * 60 as libc::c_int
                                                                                                     == -(1 as libc::c_int)
                                                                                             {
-                                                                                                (if ((if 1 as libc::c_int != 0 {
+                                                                                                if ((if 1 as libc::c_int != 0 {
                                                                                                     0 as libc::c_int as libc::c_long
                                                                                                 } else {
                                                                                                     pc.rel.hour
@@ -31339,21 +31339,21 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                             as libc::c_long)
                                                                                                             < pc.rel.hour - 1 as libc::c_int as libc::c_long)
                                                                                                         as libc::c_int
-                                                                                                })
+                                                                                                }
                                                                                             } else {
                                                                                                 (((0 as libc::c_int
                                                                                                     / (60 as libc::c_int * 60 as libc::c_int)) as libc::c_long)
                                                                                                     < pc.rel.hour) as libc::c_int
-                                                                                            })
-                                                                                        })
+                                                                                            }
+                                                                                        }
                                                                                     } else {
-                                                                                        (if 60 as libc::c_int * 60 as libc::c_int
+                                                                                        if 60 as libc::c_int * 60 as libc::c_int
                                                                                             == 0 as libc::c_int
                                                                                         {
                                                                                             0 as libc::c_int
                                                                                         } else {
-                                                                                            (if pc.rel.hour < 0 as libc::c_int as libc::c_long {
-                                                                                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                            if pc.rel.hour < 0 as libc::c_int as libc::c_long {
+                                                                                                if (if (if ((if 1 as libc::c_int != 0 {
                                                                                                     0 as libc::c_int as libc::c_long
                                                                                                 } else {
                                                                                                     (if 1 as libc::c_int != 0 {
@@ -31443,7 +31443,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                 }) != 0
                                                                                                     && pc.rel.hour == -(1 as libc::c_int) as libc::c_long
                                                                                                 {
-                                                                                                    (if ((if 1 as libc::c_int != 0 {
+                                                                                                    if ((if 1 as libc::c_int != 0 {
                                                                                                         0 as libc::c_int
                                                                                                     } else {
                                                                                                         60 as libc::c_int * 60 as libc::c_int
@@ -31456,12 +31456,12 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                         ((-(1 as libc::c_int) - 0 as libc::c_int)
                                                                                                             < 60 as libc::c_int * 60 as libc::c_int - 1 as libc::c_int)
                                                                                                             as libc::c_int
-                                                                                                    })
+                                                                                                    }
                                                                                                 } else {
                                                                                                     (0 as libc::c_int as libc::c_long / pc.rel.hour
                                                                                                         < (60 as libc::c_int * 60 as libc::c_int) as libc::c_long)
                                                                                                         as libc::c_int
-                                                                                                })
+                                                                                                }
                                                                                             } else {
                                                                                                 (((2147483647 as libc::c_int as libc::c_uint)
                                                                                                     .wrapping_mul(2 as libc::c_uint)
@@ -31469,8 +31469,8 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                     .wrapping_div(
                                                                                                         (60 as libc::c_int * 60 as libc::c_int) as libc::c_uint,
                                                                                                     ) as libc::c_long) < pc.rel.hour) as libc::c_int
-                                                                                            })
-                                                                                        })
+                                                                                            }
+                                                                                        }
                                                                                     }) != 0
                                                                                     {
                                                                                         d1 = (pc.rel.hour as libc::c_uint)
@@ -31484,24 +31484,24 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                 (60 as libc::c_int * 60 as libc::c_int) as libc::c_uint,
                                                                                             ) as intmax_t;
                                                                                         0 as libc::c_int
-                                                                                    })
-                                                                                })
+                                                                                    }
+                                                                                }
                                                                             } else {
-                                                                                (if ::core::mem::size_of::<intmax_t>() as libc::c_ulong
+                                                                                if ::core::mem::size_of::<intmax_t>() as libc::c_ulong
                                                                                     == ::core::mem::size_of::<libc::c_long>() as libc::c_ulong
                                                                                 {
-                                                                                    (if ((if 1 as libc::c_int != 0 {
+                                                                                    if ((if 1 as libc::c_int != 0 {
                                                                                         0 as libc::c_int as libc::c_long
                                                                                     } else {
                                                                                         d1
                                                                                     }) - 1 as libc::c_int as libc::c_long)
                                                                                         < 0 as libc::c_int as libc::c_long
                                                                                     {
-                                                                                        (if (if (60 as libc::c_int * 60 as libc::c_int)
+                                                                                        if (if (60 as libc::c_int * 60 as libc::c_int)
                                                                                             < 0 as libc::c_int
                                                                                         {
-                                                                                            (if pc.rel.hour < 0 as libc::c_int as libc::c_long {
-                                                                                                (if ((if 1 as libc::c_int != 0 {
+                                                                                            if pc.rel.hour < 0 as libc::c_int as libc::c_long {
+                                                                                                if ((if 1 as libc::c_int != 0 {
                                                                                                     0 as libc::c_int as libc::c_long
                                                                                                 } else {
                                                                                                     (if 1 as libc::c_int != 0 {
@@ -31581,9 +31581,9 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                             / -(60 as libc::c_int * 60 as libc::c_int) as libc::c_long
                                                                                                     }) <= -(1 as libc::c_int) as libc::c_long - pc.rel.hour)
                                                                                                         as libc::c_int
-                                                                                                })
+                                                                                                }
                                                                                             } else {
-                                                                                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                                if (if (if ((if 1 as libc::c_int != 0 {
                                                                                                     0 as libc::c_int as libc::c_long
                                                                                                 } else {
                                                                                                     (if 1 as libc::c_int != 0 {
@@ -31690,7 +31690,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                     && 60 as libc::c_int * 60 as libc::c_int
                                                                                                         == -(1 as libc::c_int)
                                                                                                 {
-                                                                                                    (if ((if 1 as libc::c_int != 0 {
+                                                                                                    if ((if 1 as libc::c_int != 0 {
                                                                                                         0 as libc::c_int as libc::c_long
                                                                                                     } else {
                                                                                                         pc.rel.hour
@@ -31708,22 +31708,22 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                                     - 1 as libc::c_long)
                                                                                                                 < pc.rel.hour - 1 as libc::c_int as libc::c_long)
                                                                                                             as libc::c_int
-                                                                                                    })
+                                                                                                    }
                                                                                                 } else {
                                                                                                     (((-(9223372036854775807 as libc::c_long)
                                                                                                         - 1 as libc::c_long)
                                                                                                         / (60 as libc::c_int * 60 as libc::c_int) as libc::c_long)
                                                                                                         < pc.rel.hour) as libc::c_int
-                                                                                                })
-                                                                                            })
+                                                                                                }
+                                                                                            }
                                                                                         } else {
-                                                                                            (if 60 as libc::c_int * 60 as libc::c_int
+                                                                                            if 60 as libc::c_int * 60 as libc::c_int
                                                                                                 == 0 as libc::c_int
                                                                                             {
                                                                                                 0 as libc::c_int
                                                                                             } else {
-                                                                                                (if pc.rel.hour < 0 as libc::c_int as libc::c_long {
-                                                                                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                                if pc.rel.hour < 0 as libc::c_int as libc::c_long {
+                                                                                                    if (if (if ((if 1 as libc::c_int != 0 {
                                                                                                         0 as libc::c_int as libc::c_long
                                                                                                     } else {
                                                                                                         (if 1 as libc::c_int != 0 {
@@ -31829,7 +31829,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                     }) != 0
                                                                                                         && pc.rel.hour == -(1 as libc::c_int) as libc::c_long
                                                                                                     {
-                                                                                                        (if ((if 1 as libc::c_int != 0 {
+                                                                                                        if ((if 1 as libc::c_int != 0 {
                                                                                                             0 as libc::c_int
                                                                                                         } else {
                                                                                                             60 as libc::c_int * 60 as libc::c_int
@@ -31845,19 +31845,19 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                                     - 1 as libc::c_long)
                                                                                                                 < (60 as libc::c_int * 60 as libc::c_int - 1 as libc::c_int)
                                                                                                                     as libc::c_long) as libc::c_int
-                                                                                                        })
+                                                                                                        }
                                                                                                     } else {
                                                                                                         ((-(9223372036854775807 as libc::c_long)
                                                                                                             - 1 as libc::c_long) / pc.rel.hour
                                                                                                             < (60 as libc::c_int * 60 as libc::c_int) as libc::c_long)
                                                                                                             as libc::c_int
-                                                                                                    })
+                                                                                                    }
                                                                                                 } else {
                                                                                                     ((9223372036854775807 as libc::c_long
                                                                                                         / (60 as libc::c_int * 60 as libc::c_int) as libc::c_long)
                                                                                                         < pc.rel.hour) as libc::c_int
-                                                                                                })
-                                                                                            })
+                                                                                                }
+                                                                                            }
                                                                                         }) != 0
                                                                                         {
                                                                                             d1 = (pc.rel.hour as libc::c_ulong)
@@ -31871,13 +31871,13 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                     (60 as libc::c_int * 60 as libc::c_int) as libc::c_ulong,
                                                                                                 ) as libc::c_long;
                                                                                             0 as libc::c_int
-                                                                                        })
+                                                                                        }
                                                                                     } else {
-                                                                                        (if (if (60 as libc::c_int * 60 as libc::c_int)
+                                                                                        if (if (60 as libc::c_int * 60 as libc::c_int)
                                                                                             < 0 as libc::c_int
                                                                                         {
-                                                                                            (if pc.rel.hour < 0 as libc::c_int as libc::c_long {
-                                                                                                (if (if 1 as libc::c_int != 0 {
+                                                                                            if pc.rel.hour < 0 as libc::c_int as libc::c_long {
+                                                                                                if (if 1 as libc::c_int != 0 {
                                                                                                     0 as libc::c_int as libc::c_ulong
                                                                                                 } else {
                                                                                                     (if 1 as libc::c_int != 0 {
@@ -31976,9 +31976,9 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                     })
                                                                                                         <= (-(1 as libc::c_int) as libc::c_long - pc.rel.hour)
                                                                                                             as libc::c_ulong) as libc::c_int
-                                                                                                })
+                                                                                                }
                                                                                             } else {
-                                                                                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                                if (if (if ((if 1 as libc::c_int != 0 {
                                                                                                     0 as libc::c_int
                                                                                                 } else {
                                                                                                     (if 1 as libc::c_int != 0 {
@@ -32063,7 +32063,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                     && 60 as libc::c_int * 60 as libc::c_int
                                                                                                         == -(1 as libc::c_int)
                                                                                                 {
-                                                                                                    (if ((if 1 as libc::c_int != 0 {
+                                                                                                    if ((if 1 as libc::c_int != 0 {
                                                                                                         0 as libc::c_int as libc::c_long
                                                                                                     } else {
                                                                                                         pc.rel.hour
@@ -32079,21 +32079,21 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                                 as libc::c_long)
                                                                                                                 < pc.rel.hour - 1 as libc::c_int as libc::c_long)
                                                                                                             as libc::c_int
-                                                                                                    })
+                                                                                                    }
                                                                                                 } else {
                                                                                                     (((0 as libc::c_int
                                                                                                         / (60 as libc::c_int * 60 as libc::c_int)) as libc::c_long)
                                                                                                         < pc.rel.hour) as libc::c_int
-                                                                                                })
-                                                                                            })
+                                                                                                }
+                                                                                            }
                                                                                         } else {
-                                                                                            (if 60 as libc::c_int * 60 as libc::c_int
+                                                                                            if 60 as libc::c_int * 60 as libc::c_int
                                                                                                 == 0 as libc::c_int
                                                                                             {
                                                                                                 0 as libc::c_int
                                                                                             } else {
-                                                                                                (if pc.rel.hour < 0 as libc::c_int as libc::c_long {
-                                                                                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                                if pc.rel.hour < 0 as libc::c_int as libc::c_long {
+                                                                                                    if (if (if ((if 1 as libc::c_int != 0 {
                                                                                                         0 as libc::c_int as libc::c_long
                                                                                                     } else {
                                                                                                         (if 1 as libc::c_int != 0 {
@@ -32183,7 +32183,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                     }) != 0
                                                                                                         && pc.rel.hour == -(1 as libc::c_int) as libc::c_long
                                                                                                     {
-                                                                                                        (if ((if 1 as libc::c_int != 0 {
+                                                                                                        if ((if 1 as libc::c_int != 0 {
                                                                                                             0 as libc::c_int
                                                                                                         } else {
                                                                                                             60 as libc::c_int * 60 as libc::c_int
@@ -32196,12 +32196,12 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                             ((-(1 as libc::c_int) - 0 as libc::c_int)
                                                                                                                 < 60 as libc::c_int * 60 as libc::c_int - 1 as libc::c_int)
                                                                                                                 as libc::c_int
-                                                                                                        })
+                                                                                                        }
                                                                                                     } else {
                                                                                                         (0 as libc::c_int as libc::c_long / pc.rel.hour
                                                                                                             < (60 as libc::c_int * 60 as libc::c_int) as libc::c_long)
                                                                                                             as libc::c_int
-                                                                                                    })
+                                                                                                    }
                                                                                                 } else {
                                                                                                     ((9223372036854775807 as libc::c_long as libc::c_ulong)
                                                                                                         .wrapping_mul(2 as libc::c_ulong)
@@ -32209,8 +32209,8 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                         .wrapping_div(
                                                                                                             (60 as libc::c_int * 60 as libc::c_int) as libc::c_ulong,
                                                                                                         ) < pc.rel.hour as libc::c_ulong) as libc::c_int
-                                                                                                })
-                                                                                            })
+                                                                                                }
+                                                                                            }
                                                                                         }) != 0
                                                                                         {
                                                                                             d1 = (pc.rel.hour as libc::c_ulong)
@@ -32224,21 +32224,21 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                     (60 as libc::c_int * 60 as libc::c_int) as libc::c_ulong,
                                                                                                 ) as intmax_t;
                                                                                             0 as libc::c_int
-                                                                                        })
-                                                                                    })
+                                                                                        }
+                                                                                    }
                                                                                 } else {
-                                                                                    (if ((if 1 as libc::c_int != 0 {
+                                                                                    if ((if 1 as libc::c_int != 0 {
                                                                                         0 as libc::c_int as libc::c_long
                                                                                     } else {
                                                                                         d1
                                                                                     }) - 1 as libc::c_int as libc::c_long)
                                                                                         < 0 as libc::c_int as libc::c_long
                                                                                     {
-                                                                                        (if (if (60 as libc::c_int * 60 as libc::c_int)
+                                                                                        if (if (60 as libc::c_int * 60 as libc::c_int)
                                                                                             < 0 as libc::c_int
                                                                                         {
-                                                                                            (if pc.rel.hour < 0 as libc::c_int as libc::c_long {
-                                                                                                (if ((if 1 as libc::c_int != 0 {
+                                                                                            if pc.rel.hour < 0 as libc::c_int as libc::c_long {
+                                                                                                if ((if 1 as libc::c_int != 0 {
                                                                                                     0 as libc::c_int as libc::c_longlong
                                                                                                 } else {
                                                                                                     (if 1 as libc::c_int != 0 {
@@ -32323,9 +32323,9 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                     })
                                                                                                         <= (-(1 as libc::c_int) as libc::c_long - pc.rel.hour)
                                                                                                             as libc::c_longlong) as libc::c_int
-                                                                                                })
+                                                                                                }
                                                                                             } else {
-                                                                                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                                if (if (if ((if 1 as libc::c_int != 0 {
                                                                                                     0 as libc::c_int as libc::c_longlong
                                                                                                 } else {
                                                                                                     (if 1 as libc::c_int != 0 {
@@ -32434,7 +32434,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                     && 60 as libc::c_int * 60 as libc::c_int
                                                                                                         == -(1 as libc::c_int)
                                                                                                 {
-                                                                                                    (if ((if 1 as libc::c_int != 0 {
+                                                                                                    if ((if 1 as libc::c_int != 0 {
                                                                                                         0 as libc::c_int as libc::c_long
                                                                                                     } else {
                                                                                                         pc.rel.hour
@@ -32452,23 +32452,23 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                                     - 1 as libc::c_longlong)
                                                                                                                 < (pc.rel.hour - 1 as libc::c_int as libc::c_long)
                                                                                                                     as libc::c_longlong) as libc::c_int
-                                                                                                    })
+                                                                                                    }
                                                                                                 } else {
                                                                                                     (((-(9223372036854775807 as libc::c_longlong)
                                                                                                         - 1 as libc::c_longlong)
                                                                                                         / (60 as libc::c_int * 60 as libc::c_int)
                                                                                                             as libc::c_longlong) < pc.rel.hour as libc::c_longlong)
                                                                                                         as libc::c_int
-                                                                                                })
-                                                                                            })
+                                                                                                }
+                                                                                            }
                                                                                         } else {
-                                                                                            (if 60 as libc::c_int * 60 as libc::c_int
+                                                                                            if 60 as libc::c_int * 60 as libc::c_int
                                                                                                 == 0 as libc::c_int
                                                                                             {
                                                                                                 0 as libc::c_int
                                                                                             } else {
-                                                                                                (if pc.rel.hour < 0 as libc::c_int as libc::c_long {
-                                                                                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                                if pc.rel.hour < 0 as libc::c_int as libc::c_long {
+                                                                                                    if (if (if ((if 1 as libc::c_int != 0 {
                                                                                                         0 as libc::c_int as libc::c_longlong
                                                                                                     } else {
                                                                                                         (if 1 as libc::c_int != 0 {
@@ -32576,7 +32576,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                     }) != 0
                                                                                                         && pc.rel.hour == -(1 as libc::c_int) as libc::c_long
                                                                                                     {
-                                                                                                        (if ((if 1 as libc::c_int != 0 {
+                                                                                                        if ((if 1 as libc::c_int != 0 {
                                                                                                             0 as libc::c_int
                                                                                                         } else {
                                                                                                             60 as libc::c_int * 60 as libc::c_int
@@ -32593,20 +32593,20 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                                     - 1 as libc::c_longlong)
                                                                                                                 < (60 as libc::c_int * 60 as libc::c_int - 1 as libc::c_int)
                                                                                                                     as libc::c_longlong) as libc::c_int
-                                                                                                        })
+                                                                                                        }
                                                                                                     } else {
                                                                                                         (((-(9223372036854775807 as libc::c_longlong)
                                                                                                             - 1 as libc::c_longlong) / pc.rel.hour as libc::c_longlong)
                                                                                                             < (60 as libc::c_int * 60 as libc::c_int)
                                                                                                                 as libc::c_longlong) as libc::c_int
-                                                                                                    })
+                                                                                                    }
                                                                                                 } else {
                                                                                                     ((9223372036854775807 as libc::c_longlong
                                                                                                         / (60 as libc::c_int * 60 as libc::c_int)
                                                                                                             as libc::c_longlong) < pc.rel.hour as libc::c_longlong)
                                                                                                         as libc::c_int
-                                                                                                })
-                                                                                            })
+                                                                                                }
+                                                                                            }
                                                                                         }) != 0
                                                                                         {
                                                                                             d1 = (pc.rel.hour as libc::c_ulonglong)
@@ -32620,13 +32620,13 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                     (60 as libc::c_int * 60 as libc::c_int) as libc::c_ulonglong,
                                                                                                 ) as libc::c_longlong as intmax_t;
                                                                                             0 as libc::c_int
-                                                                                        })
+                                                                                        }
                                                                                     } else {
-                                                                                        (if (if (60 as libc::c_int * 60 as libc::c_int)
+                                                                                        if (if (60 as libc::c_int * 60 as libc::c_int)
                                                                                             < 0 as libc::c_int
                                                                                         {
-                                                                                            (if pc.rel.hour < 0 as libc::c_int as libc::c_long {
-                                                                                                (if (if 1 as libc::c_int != 0 {
+                                                                                            if pc.rel.hour < 0 as libc::c_int as libc::c_long {
+                                                                                                if (if 1 as libc::c_int != 0 {
                                                                                                     0 as libc::c_int as libc::c_ulonglong
                                                                                                 } else {
                                                                                                     (if 1 as libc::c_int != 0 {
@@ -32730,9 +32730,9 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                     })
                                                                                                         <= (-(1 as libc::c_int) as libc::c_long - pc.rel.hour)
                                                                                                             as libc::c_ulonglong) as libc::c_int
-                                                                                                })
+                                                                                                }
                                                                                             } else {
-                                                                                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                                if (if (if ((if 1 as libc::c_int != 0 {
                                                                                                     0 as libc::c_int
                                                                                                 } else {
                                                                                                     (if 1 as libc::c_int != 0 {
@@ -32817,7 +32817,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                     && 60 as libc::c_int * 60 as libc::c_int
                                                                                                         == -(1 as libc::c_int)
                                                                                                 {
-                                                                                                    (if ((if 1 as libc::c_int != 0 {
+                                                                                                    if ((if 1 as libc::c_int != 0 {
                                                                                                         0 as libc::c_int as libc::c_long
                                                                                                     } else {
                                                                                                         pc.rel.hour
@@ -32833,21 +32833,21 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                                 as libc::c_long)
                                                                                                                 < pc.rel.hour - 1 as libc::c_int as libc::c_long)
                                                                                                             as libc::c_int
-                                                                                                    })
+                                                                                                    }
                                                                                                 } else {
                                                                                                     (((0 as libc::c_int
                                                                                                         / (60 as libc::c_int * 60 as libc::c_int)) as libc::c_long)
                                                                                                         < pc.rel.hour) as libc::c_int
-                                                                                                })
-                                                                                            })
+                                                                                                }
+                                                                                            }
                                                                                         } else {
-                                                                                            (if 60 as libc::c_int * 60 as libc::c_int
+                                                                                            if 60 as libc::c_int * 60 as libc::c_int
                                                                                                 == 0 as libc::c_int
                                                                                             {
                                                                                                 0 as libc::c_int
                                                                                             } else {
-                                                                                                (if pc.rel.hour < 0 as libc::c_int as libc::c_long {
-                                                                                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                                if pc.rel.hour < 0 as libc::c_int as libc::c_long {
+                                                                                                    if (if (if ((if 1 as libc::c_int != 0 {
                                                                                                         0 as libc::c_int as libc::c_long
                                                                                                     } else {
                                                                                                         (if 1 as libc::c_int != 0 {
@@ -32937,7 +32937,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                     }) != 0
                                                                                                         && pc.rel.hour == -(1 as libc::c_int) as libc::c_long
                                                                                                     {
-                                                                                                        (if ((if 1 as libc::c_int != 0 {
+                                                                                                        if ((if 1 as libc::c_int != 0 {
                                                                                                             0 as libc::c_int
                                                                                                         } else {
                                                                                                             60 as libc::c_int * 60 as libc::c_int
@@ -32950,12 +32950,12 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                             ((-(1 as libc::c_int) - 0 as libc::c_int)
                                                                                                                 < 60 as libc::c_int * 60 as libc::c_int - 1 as libc::c_int)
                                                                                                                 as libc::c_int
-                                                                                                        })
+                                                                                                        }
                                                                                                     } else {
                                                                                                         (0 as libc::c_int as libc::c_long / pc.rel.hour
                                                                                                             < (60 as libc::c_int * 60 as libc::c_int) as libc::c_long)
                                                                                                             as libc::c_int
-                                                                                                    })
+                                                                                                    }
                                                                                                 } else {
                                                                                                     ((9223372036854775807 as libc::c_longlong
                                                                                                         as libc::c_ulonglong)
@@ -32964,8 +32964,8 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                         .wrapping_div(
                                                                                                             (60 as libc::c_int * 60 as libc::c_int) as libc::c_ulonglong,
                                                                                                         ) < pc.rel.hour as libc::c_ulonglong) as libc::c_int
-                                                                                                })
-                                                                                            })
+                                                                                                }
+                                                                                            }
                                                                                         }) != 0
                                                                                         {
                                                                                             d1 = (pc.rel.hour as libc::c_ulonglong)
@@ -32979,11 +32979,11 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                     (60 as libc::c_int * 60 as libc::c_int) as libc::c_ulonglong,
                                                                                                 ) as intmax_t;
                                                                                             0 as libc::c_int
-                                                                                        })
-                                                                                    })
-                                                                                })
-                                                                            })
-                                                                        })
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
                                                                     }) != 0
                                                                         || {
                                                                             let (fresh86, fresh87) = Start.overflowing_add(d1);
@@ -32993,12 +32993,12 @@ unsafe extern "C" fn parse_datetime_body(
                                                                         || (if ::core::mem::size_of::<intmax_t>() as libc::c_ulong
                                                                             == ::core::mem::size_of::<libc::c_schar>() as libc::c_ulong
                                                                         {
-                                                                            (if !((0 as libc::c_int as intmax_t)
+                                                                            if !((0 as libc::c_int as intmax_t)
                                                                                 < -(1 as libc::c_int) as intmax_t)
                                                                             {
-                                                                                (if (if (60 as libc::c_int) < 0 as libc::c_int {
-                                                                                    (if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
-                                                                                        (if ((if 1 as libc::c_int != 0 {
+                                                                                if (if (60 as libc::c_int) < 0 as libc::c_int {
+                                                                                    if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
+                                                                                        if ((if 1 as libc::c_int != 0 {
                                                                                             0 as libc::c_int
                                                                                         } else {
                                                                                             (if 1 as libc::c_int != 0 {
@@ -33075,9 +33075,9 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                             }) as libc::c_long
                                                                                                 <= -(1 as libc::c_int) as libc::c_long - pc.rel.minutes)
                                                                                                 as libc::c_int
-                                                                                        })
+                                                                                        }
                                                                                     } else {
-                                                                                        (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                        if (if (if ((if 1 as libc::c_int != 0 {
                                                                                             0 as libc::c_int
                                                                                         } else {
                                                                                             (if 1 as libc::c_int != 0 {
@@ -33161,7 +33161,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                 as libc::c_int
                                                                                         }) != 0 && 60 as libc::c_int == -(1 as libc::c_int)
                                                                                         {
-                                                                                            (if ((if 1 as libc::c_int != 0 {
+                                                                                            if ((if 1 as libc::c_int != 0 {
                                                                                                 0 as libc::c_int as libc::c_long
                                                                                             } else {
                                                                                                 pc.rel.minutes
@@ -33179,19 +33179,19 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                         as libc::c_long)
                                                                                                         < pc.rel.minutes - 1 as libc::c_int as libc::c_long)
                                                                                                     as libc::c_int
-                                                                                            })
+                                                                                            }
                                                                                         } else {
                                                                                             ((((-(127 as libc::c_int) - 1 as libc::c_int)
                                                                                                 / 60 as libc::c_int) as libc::c_long) < pc.rel.minutes)
                                                                                                 as libc::c_int
-                                                                                        })
-                                                                                    })
+                                                                                        }
+                                                                                    }
                                                                                 } else {
-                                                                                    (if 60 as libc::c_int == 0 as libc::c_int {
+                                                                                    if 60 as libc::c_int == 0 as libc::c_int {
                                                                                         0 as libc::c_int
                                                                                     } else {
-                                                                                        (if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
-                                                                                            (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                        if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
+                                                                                            if (if (if ((if 1 as libc::c_int != 0 {
                                                                                                 0 as libc::c_int as libc::c_long
                                                                                             } else {
                                                                                                 (if 1 as libc::c_int != 0 {
@@ -33291,7 +33291,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                             }) != 0
                                                                                                 && pc.rel.minutes == -(1 as libc::c_int) as libc::c_long
                                                                                             {
-                                                                                                (if ((if 1 as libc::c_int != 0 {
+                                                                                                if ((if 1 as libc::c_int != 0 {
                                                                                                     0 as libc::c_int
                                                                                                 } else {
                                                                                                     60 as libc::c_int
@@ -33304,17 +33304,17 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                     (-(1 as libc::c_int)
                                                                                                         - (-(127 as libc::c_int) - 1 as libc::c_int)
                                                                                                         < 60 as libc::c_int - 1 as libc::c_int) as libc::c_int
-                                                                                                })
+                                                                                                }
                                                                                             } else {
                                                                                                 ((-(127 as libc::c_int) - 1 as libc::c_int) as libc::c_long
                                                                                                     / pc.rel.minutes < 60 as libc::c_int as libc::c_long)
                                                                                                     as libc::c_int
-                                                                                            })
+                                                                                            }
                                                                                         } else {
                                                                                             (((127 as libc::c_int / 60 as libc::c_int) as libc::c_long)
                                                                                                 < pc.rel.minutes) as libc::c_int
-                                                                                        })
-                                                                                    })
+                                                                                        }
+                                                                                    }
                                                                                 }) != 0
                                                                                 {
                                                                                     d2 = (pc.rel.minutes as libc::c_uint)
@@ -33326,11 +33326,11 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                         .wrapping_mul(60 as libc::c_int as libc::c_uint)
                                                                                         as libc::c_schar as intmax_t;
                                                                                     0 as libc::c_int
-                                                                                })
+                                                                                }
                                                                             } else {
-                                                                                (if (if (60 as libc::c_int) < 0 as libc::c_int {
-                                                                                    (if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
-                                                                                        (if ((if 1 as libc::c_int != 0 {
+                                                                                if (if (60 as libc::c_int) < 0 as libc::c_int {
+                                                                                    if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
+                                                                                        if ((if 1 as libc::c_int != 0 {
                                                                                             0 as libc::c_int
                                                                                         } else {
                                                                                             (if 1 as libc::c_int != 0 {
@@ -33410,9 +33410,9 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                             }) as libc::c_long
                                                                                                 <= -(1 as libc::c_int) as libc::c_long - pc.rel.minutes)
                                                                                                 as libc::c_int
-                                                                                        })
+                                                                                        }
                                                                                     } else {
-                                                                                        (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                        if (if (if ((if 1 as libc::c_int != 0 {
                                                                                             0 as libc::c_int
                                                                                         } else {
                                                                                             (if 1 as libc::c_int != 0 {
@@ -33495,7 +33495,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                 }) + 0 as libc::c_int) as libc::c_int
                                                                                         }) != 0 && 60 as libc::c_int == -(1 as libc::c_int)
                                                                                         {
-                                                                                            (if ((if 1 as libc::c_int != 0 {
+                                                                                            if ((if 1 as libc::c_int != 0 {
                                                                                                 0 as libc::c_int as libc::c_long
                                                                                             } else {
                                                                                                 pc.rel.minutes
@@ -33511,18 +33511,18 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                         as libc::c_long)
                                                                                                         < pc.rel.minutes - 1 as libc::c_int as libc::c_long)
                                                                                                     as libc::c_int
-                                                                                            })
+                                                                                            }
                                                                                         } else {
                                                                                             (((0 as libc::c_int / 60 as libc::c_int) as libc::c_long)
                                                                                                 < pc.rel.minutes) as libc::c_int
-                                                                                        })
-                                                                                    })
+                                                                                        }
+                                                                                    }
                                                                                 } else {
-                                                                                    (if 60 as libc::c_int == 0 as libc::c_int {
+                                                                                    if 60 as libc::c_int == 0 as libc::c_int {
                                                                                         0 as libc::c_int
                                                                                     } else {
-                                                                                        (if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
-                                                                                            (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                        if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
+                                                                                            if (if (if ((if 1 as libc::c_int != 0 {
                                                                                                 0 as libc::c_int as libc::c_long
                                                                                             } else {
                                                                                                 (if 1 as libc::c_int != 0 {
@@ -33612,7 +33612,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                             }) != 0
                                                                                                 && pc.rel.minutes == -(1 as libc::c_int) as libc::c_long
                                                                                             {
-                                                                                                (if ((if 1 as libc::c_int != 0 {
+                                                                                                if ((if 1 as libc::c_int != 0 {
                                                                                                     0 as libc::c_int
                                                                                                 } else {
                                                                                                     60 as libc::c_int
@@ -33623,17 +33623,17 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                 } else {
                                                                                                     ((-(1 as libc::c_int) - 0 as libc::c_int)
                                                                                                         < 60 as libc::c_int - 1 as libc::c_int) as libc::c_int
-                                                                                                })
+                                                                                                }
                                                                                             } else {
                                                                                                 (0 as libc::c_int as libc::c_long / pc.rel.minutes
                                                                                                     < 60 as libc::c_int as libc::c_long) as libc::c_int
-                                                                                            })
+                                                                                            }
                                                                                         } else {
                                                                                             ((((127 as libc::c_int * 2 as libc::c_int
                                                                                                 + 1 as libc::c_int) / 60 as libc::c_int) as libc::c_long)
                                                                                                 < pc.rel.minutes) as libc::c_int
-                                                                                        })
-                                                                                    })
+                                                                                        }
+                                                                                    }
                                                                                 }) != 0
                                                                                 {
                                                                                     d2 = (pc.rel.minutes as libc::c_uint)
@@ -33645,18 +33645,18 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                         .wrapping_mul(60 as libc::c_int as libc::c_uint)
                                                                                         as libc::c_uchar as intmax_t;
                                                                                     0 as libc::c_int
-                                                                                })
-                                                                            })
+                                                                                }
+                                                                            }
                                                                         } else {
-                                                                            (if ::core::mem::size_of::<intmax_t>() as libc::c_ulong
+                                                                            if ::core::mem::size_of::<intmax_t>() as libc::c_ulong
                                                                                 == ::core::mem::size_of::<libc::c_short>() as libc::c_ulong
                                                                             {
-                                                                                (if !((0 as libc::c_int as intmax_t)
+                                                                                if !((0 as libc::c_int as intmax_t)
                                                                                     < -(1 as libc::c_int) as intmax_t)
                                                                                 {
-                                                                                    (if (if (60 as libc::c_int) < 0 as libc::c_int {
-                                                                                        (if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
-                                                                                            (if ((if 1 as libc::c_int != 0 {
+                                                                                    if (if (60 as libc::c_int) < 0 as libc::c_int {
+                                                                                        if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
+                                                                                            if ((if 1 as libc::c_int != 0 {
                                                                                                 0 as libc::c_int
                                                                                             } else {
                                                                                                 (if 1 as libc::c_int != 0 {
@@ -33733,9 +33733,9 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                 }) as libc::c_long
                                                                                                     <= -(1 as libc::c_int) as libc::c_long - pc.rel.minutes)
                                                                                                     as libc::c_int
-                                                                                            })
+                                                                                            }
                                                                                         } else {
-                                                                                            (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                            if (if (if ((if 1 as libc::c_int != 0 {
                                                                                                 0 as libc::c_int
                                                                                             } else {
                                                                                                 (if 1 as libc::c_int != 0 {
@@ -33819,7 +33819,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                     as libc::c_int
                                                                                             }) != 0 && 60 as libc::c_int == -(1 as libc::c_int)
                                                                                             {
-                                                                                                (if ((if 1 as libc::c_int != 0 {
+                                                                                                if ((if 1 as libc::c_int != 0 {
                                                                                                     0 as libc::c_int as libc::c_long
                                                                                                 } else {
                                                                                                     pc.rel.minutes
@@ -33837,19 +33837,19 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                             as libc::c_long)
                                                                                                             < pc.rel.minutes - 1 as libc::c_int as libc::c_long)
                                                                                                         as libc::c_int
-                                                                                                })
+                                                                                                }
                                                                                             } else {
                                                                                                 ((((-(32767 as libc::c_int) - 1 as libc::c_int)
                                                                                                     / 60 as libc::c_int) as libc::c_long) < pc.rel.minutes)
                                                                                                     as libc::c_int
-                                                                                            })
-                                                                                        })
+                                                                                            }
+                                                                                        }
                                                                                     } else {
-                                                                                        (if 60 as libc::c_int == 0 as libc::c_int {
+                                                                                        if 60 as libc::c_int == 0 as libc::c_int {
                                                                                             0 as libc::c_int
                                                                                         } else {
-                                                                                            (if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
-                                                                                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                            if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
+                                                                                                if (if (if ((if 1 as libc::c_int != 0 {
                                                                                                     0 as libc::c_int as libc::c_long
                                                                                                 } else {
                                                                                                     (if 1 as libc::c_int != 0 {
@@ -33955,7 +33955,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                 }) != 0
                                                                                                     && pc.rel.minutes == -(1 as libc::c_int) as libc::c_long
                                                                                                 {
-                                                                                                    (if ((if 1 as libc::c_int != 0 {
+                                                                                                    if ((if 1 as libc::c_int != 0 {
                                                                                                         0 as libc::c_int
                                                                                                     } else {
                                                                                                         60 as libc::c_int
@@ -33969,17 +33969,17 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                         (-(1 as libc::c_int)
                                                                                                             - (-(32767 as libc::c_int) - 1 as libc::c_int)
                                                                                                             < 60 as libc::c_int - 1 as libc::c_int) as libc::c_int
-                                                                                                    })
+                                                                                                    }
                                                                                                 } else {
                                                                                                     ((-(32767 as libc::c_int) - 1 as libc::c_int)
                                                                                                         as libc::c_long / pc.rel.minutes
                                                                                                         < 60 as libc::c_int as libc::c_long) as libc::c_int
-                                                                                                })
+                                                                                                }
                                                                                             } else {
                                                                                                 (((32767 as libc::c_int / 60 as libc::c_int)
                                                                                                     as libc::c_long) < pc.rel.minutes) as libc::c_int
-                                                                                            })
-                                                                                        })
+                                                                                            }
+                                                                                        }
                                                                                     }) != 0
                                                                                     {
                                                                                         d2 = (pc.rel.minutes as libc::c_uint)
@@ -33991,11 +33991,11 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                             .wrapping_mul(60 as libc::c_int as libc::c_uint)
                                                                                             as libc::c_short as intmax_t;
                                                                                         0 as libc::c_int
-                                                                                    })
+                                                                                    }
                                                                                 } else {
-                                                                                    (if (if (60 as libc::c_int) < 0 as libc::c_int {
-                                                                                        (if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
-                                                                                            (if ((if 1 as libc::c_int != 0 {
+                                                                                    if (if (60 as libc::c_int) < 0 as libc::c_int {
+                                                                                        if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
+                                                                                            if ((if 1 as libc::c_int != 0 {
                                                                                                 0 as libc::c_int
                                                                                             } else {
                                                                                                 (if 1 as libc::c_int != 0 {
@@ -34076,9 +34076,9 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                 }) as libc::c_long
                                                                                                     <= -(1 as libc::c_int) as libc::c_long - pc.rel.minutes)
                                                                                                     as libc::c_int
-                                                                                            })
+                                                                                            }
                                                                                         } else {
-                                                                                            (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                            if (if (if ((if 1 as libc::c_int != 0 {
                                                                                                 0 as libc::c_int
                                                                                             } else {
                                                                                                 (if 1 as libc::c_int != 0 {
@@ -34161,7 +34161,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                     }) + 0 as libc::c_int) as libc::c_int
                                                                                             }) != 0 && 60 as libc::c_int == -(1 as libc::c_int)
                                                                                             {
-                                                                                                (if ((if 1 as libc::c_int != 0 {
+                                                                                                if ((if 1 as libc::c_int != 0 {
                                                                                                     0 as libc::c_int as libc::c_long
                                                                                                 } else {
                                                                                                     pc.rel.minutes
@@ -34177,18 +34177,18 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                             as libc::c_long)
                                                                                                             < pc.rel.minutes - 1 as libc::c_int as libc::c_long)
                                                                                                         as libc::c_int
-                                                                                                })
+                                                                                                }
                                                                                             } else {
                                                                                                 (((0 as libc::c_int / 60 as libc::c_int) as libc::c_long)
                                                                                                     < pc.rel.minutes) as libc::c_int
-                                                                                            })
-                                                                                        })
+                                                                                            }
+                                                                                        }
                                                                                     } else {
-                                                                                        (if 60 as libc::c_int == 0 as libc::c_int {
+                                                                                        if 60 as libc::c_int == 0 as libc::c_int {
                                                                                             0 as libc::c_int
                                                                                         } else {
-                                                                                            (if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
-                                                                                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                            if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
+                                                                                                if (if (if ((if 1 as libc::c_int != 0 {
                                                                                                     0 as libc::c_int as libc::c_long
                                                                                                 } else {
                                                                                                     (if 1 as libc::c_int != 0 {
@@ -34278,7 +34278,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                 }) != 0
                                                                                                     && pc.rel.minutes == -(1 as libc::c_int) as libc::c_long
                                                                                                 {
-                                                                                                    (if ((if 1 as libc::c_int != 0 {
+                                                                                                    if ((if 1 as libc::c_int != 0 {
                                                                                                         0 as libc::c_int
                                                                                                     } else {
                                                                                                         60 as libc::c_int
@@ -34289,17 +34289,17 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                     } else {
                                                                                                         ((-(1 as libc::c_int) - 0 as libc::c_int)
                                                                                                             < 60 as libc::c_int - 1 as libc::c_int) as libc::c_int
-                                                                                                    })
+                                                                                                    }
                                                                                                 } else {
                                                                                                     (0 as libc::c_int as libc::c_long / pc.rel.minutes
                                                                                                         < 60 as libc::c_int as libc::c_long) as libc::c_int
-                                                                                                })
+                                                                                                }
                                                                                             } else {
                                                                                                 ((((32767 as libc::c_int * 2 as libc::c_int
                                                                                                     + 1 as libc::c_int) / 60 as libc::c_int) as libc::c_long)
                                                                                                     < pc.rel.minutes) as libc::c_int
-                                                                                            })
-                                                                                        })
+                                                                                            }
+                                                                                        }
                                                                                     }) != 0
                                                                                     {
                                                                                         d2 = (pc.rel.minutes as libc::c_uint)
@@ -34311,22 +34311,22 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                             .wrapping_mul(60 as libc::c_int as libc::c_uint)
                                                                                             as libc::c_ushort as intmax_t;
                                                                                         0 as libc::c_int
-                                                                                    })
-                                                                                })
+                                                                                    }
+                                                                                }
                                                                             } else {
-                                                                                (if ::core::mem::size_of::<intmax_t>() as libc::c_ulong
+                                                                                if ::core::mem::size_of::<intmax_t>() as libc::c_ulong
                                                                                     == ::core::mem::size_of::<libc::c_int>() as libc::c_ulong
                                                                                 {
-                                                                                    (if ((if 1 as libc::c_int != 0 {
+                                                                                    if ((if 1 as libc::c_int != 0 {
                                                                                         0 as libc::c_int as libc::c_long
                                                                                     } else {
                                                                                         d2
                                                                                     }) - 1 as libc::c_int as libc::c_long)
                                                                                         < 0 as libc::c_int as libc::c_long
                                                                                     {
-                                                                                        (if (if (60 as libc::c_int) < 0 as libc::c_int {
-                                                                                            (if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
-                                                                                                (if ((if 1 as libc::c_int != 0 {
+                                                                                        if (if (60 as libc::c_int) < 0 as libc::c_int {
+                                                                                            if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
+                                                                                                if ((if 1 as libc::c_int != 0 {
                                                                                                     0 as libc::c_int
                                                                                                 } else {
                                                                                                     (if 1 as libc::c_int != 0 {
@@ -34403,9 +34403,9 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                     }) as libc::c_long
                                                                                                         <= -(1 as libc::c_int) as libc::c_long - pc.rel.minutes)
                                                                                                         as libc::c_int
-                                                                                                })
+                                                                                                }
                                                                                             } else {
-                                                                                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                                if (if (if ((if 1 as libc::c_int != 0 {
                                                                                                     0 as libc::c_int
                                                                                                 } else {
                                                                                                     (if 1 as libc::c_int != 0 {
@@ -34489,7 +34489,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                         as libc::c_int
                                                                                                 }) != 0 && 60 as libc::c_int == -(1 as libc::c_int)
                                                                                                 {
-                                                                                                    (if ((if 1 as libc::c_int != 0 {
+                                                                                                    if ((if 1 as libc::c_int != 0 {
                                                                                                         0 as libc::c_int as libc::c_long
                                                                                                     } else {
                                                                                                         pc.rel.minutes
@@ -34507,19 +34507,19 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                                 as libc::c_long)
                                                                                                                 < pc.rel.minutes - 1 as libc::c_int as libc::c_long)
                                                                                                             as libc::c_int
-                                                                                                    })
+                                                                                                    }
                                                                                                 } else {
                                                                                                     ((((-(2147483647 as libc::c_int) - 1 as libc::c_int)
                                                                                                         / 60 as libc::c_int) as libc::c_long) < pc.rel.minutes)
                                                                                                         as libc::c_int
-                                                                                                })
-                                                                                            })
+                                                                                                }
+                                                                                            }
                                                                                         } else {
-                                                                                            (if 60 as libc::c_int == 0 as libc::c_int {
+                                                                                            if 60 as libc::c_int == 0 as libc::c_int {
                                                                                                 0 as libc::c_int
                                                                                             } else {
-                                                                                                (if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
-                                                                                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                                if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
+                                                                                                    if (if (if ((if 1 as libc::c_int != 0 {
                                                                                                         0 as libc::c_int as libc::c_long
                                                                                                     } else {
                                                                                                         (if 1 as libc::c_int != 0 {
@@ -34625,7 +34625,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                     }) != 0
                                                                                                         && pc.rel.minutes == -(1 as libc::c_int) as libc::c_long
                                                                                                     {
-                                                                                                        (if ((if 1 as libc::c_int != 0 {
+                                                                                                        if ((if 1 as libc::c_int != 0 {
                                                                                                             0 as libc::c_int
                                                                                                         } else {
                                                                                                             60 as libc::c_int
@@ -34639,17 +34639,17 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                             (-(1 as libc::c_int)
                                                                                                                 - (-(2147483647 as libc::c_int) - 1 as libc::c_int)
                                                                                                                 < 60 as libc::c_int - 1 as libc::c_int) as libc::c_int
-                                                                                                        })
+                                                                                                        }
                                                                                                     } else {
                                                                                                         ((-(2147483647 as libc::c_int) - 1 as libc::c_int)
                                                                                                             as libc::c_long / pc.rel.minutes
                                                                                                             < 60 as libc::c_int as libc::c_long) as libc::c_int
-                                                                                                    })
+                                                                                                    }
                                                                                                 } else {
                                                                                                     (((2147483647 as libc::c_int / 60 as libc::c_int)
                                                                                                         as libc::c_long) < pc.rel.minutes) as libc::c_int
-                                                                                                })
-                                                                                            })
+                                                                                                }
+                                                                                            }
                                                                                         }) != 0
                                                                                         {
                                                                                             d2 = (pc.rel.minutes as libc::c_uint)
@@ -34661,11 +34661,11 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                 .wrapping_mul(60 as libc::c_int as libc::c_uint)
                                                                                                 as libc::c_int as intmax_t;
                                                                                             0 as libc::c_int
-                                                                                        })
+                                                                                        }
                                                                                     } else {
-                                                                                        (if (if (60 as libc::c_int) < 0 as libc::c_int {
-                                                                                            (if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
-                                                                                                (if (if 1 as libc::c_int != 0 {
+                                                                                        if (if (60 as libc::c_int) < 0 as libc::c_int {
+                                                                                            if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
+                                                                                                if (if 1 as libc::c_int != 0 {
                                                                                                     0 as libc::c_int as libc::c_uint
                                                                                                 } else {
                                                                                                     (if 1 as libc::c_int != 0 {
@@ -34758,9 +34758,9 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                     }) as libc::c_long
                                                                                                         <= -(1 as libc::c_int) as libc::c_long - pc.rel.minutes)
                                                                                                         as libc::c_int
-                                                                                                })
+                                                                                                }
                                                                                             } else {
-                                                                                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                                if (if (if ((if 1 as libc::c_int != 0 {
                                                                                                     0 as libc::c_int
                                                                                                 } else {
                                                                                                     (if 1 as libc::c_int != 0 {
@@ -34843,7 +34843,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                         }) + 0 as libc::c_int) as libc::c_int
                                                                                                 }) != 0 && 60 as libc::c_int == -(1 as libc::c_int)
                                                                                                 {
-                                                                                                    (if ((if 1 as libc::c_int != 0 {
+                                                                                                    if ((if 1 as libc::c_int != 0 {
                                                                                                         0 as libc::c_int as libc::c_long
                                                                                                     } else {
                                                                                                         pc.rel.minutes
@@ -34859,18 +34859,18 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                                 as libc::c_long)
                                                                                                                 < pc.rel.minutes - 1 as libc::c_int as libc::c_long)
                                                                                                             as libc::c_int
-                                                                                                    })
+                                                                                                    }
                                                                                                 } else {
                                                                                                     (((0 as libc::c_int / 60 as libc::c_int) as libc::c_long)
                                                                                                         < pc.rel.minutes) as libc::c_int
-                                                                                                })
-                                                                                            })
+                                                                                                }
+                                                                                            }
                                                                                         } else {
-                                                                                            (if 60 as libc::c_int == 0 as libc::c_int {
+                                                                                            if 60 as libc::c_int == 0 as libc::c_int {
                                                                                                 0 as libc::c_int
                                                                                             } else {
-                                                                                                (if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
-                                                                                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                                if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
+                                                                                                    if (if (if ((if 1 as libc::c_int != 0 {
                                                                                                         0 as libc::c_int as libc::c_long
                                                                                                     } else {
                                                                                                         (if 1 as libc::c_int != 0 {
@@ -34960,7 +34960,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                     }) != 0
                                                                                                         && pc.rel.minutes == -(1 as libc::c_int) as libc::c_long
                                                                                                     {
-                                                                                                        (if ((if 1 as libc::c_int != 0 {
+                                                                                                        if ((if 1 as libc::c_int != 0 {
                                                                                                             0 as libc::c_int
                                                                                                         } else {
                                                                                                             60 as libc::c_int
@@ -34971,19 +34971,19 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                         } else {
                                                                                                             ((-(1 as libc::c_int) - 0 as libc::c_int)
                                                                                                                 < 60 as libc::c_int - 1 as libc::c_int) as libc::c_int
-                                                                                                        })
+                                                                                                        }
                                                                                                     } else {
                                                                                                         (0 as libc::c_int as libc::c_long / pc.rel.minutes
                                                                                                             < 60 as libc::c_int as libc::c_long) as libc::c_int
-                                                                                                    })
+                                                                                                    }
                                                                                                 } else {
                                                                                                     (((2147483647 as libc::c_int as libc::c_uint)
                                                                                                         .wrapping_mul(2 as libc::c_uint)
                                                                                                         .wrapping_add(1 as libc::c_uint)
                                                                                                         .wrapping_div(60 as libc::c_int as libc::c_uint)
                                                                                                         as libc::c_long) < pc.rel.minutes) as libc::c_int
-                                                                                                })
-                                                                                            })
+                                                                                                }
+                                                                                            }
                                                                                         }) != 0
                                                                                         {
                                                                                             d2 = (pc.rel.minutes as libc::c_uint)
@@ -34995,22 +34995,22 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                 .wrapping_mul(60 as libc::c_int as libc::c_uint)
                                                                                                 as intmax_t;
                                                                                             0 as libc::c_int
-                                                                                        })
-                                                                                    })
+                                                                                        }
+                                                                                    }
                                                                                 } else {
-                                                                                    (if ::core::mem::size_of::<intmax_t>() as libc::c_ulong
+                                                                                    if ::core::mem::size_of::<intmax_t>() as libc::c_ulong
                                                                                         == ::core::mem::size_of::<libc::c_long>() as libc::c_ulong
                                                                                     {
-                                                                                        (if ((if 1 as libc::c_int != 0 {
+                                                                                        if ((if 1 as libc::c_int != 0 {
                                                                                             0 as libc::c_int as libc::c_long
                                                                                         } else {
                                                                                             d2
                                                                                         }) - 1 as libc::c_int as libc::c_long)
                                                                                             < 0 as libc::c_int as libc::c_long
                                                                                         {
-                                                                                            (if (if (60 as libc::c_int) < 0 as libc::c_int {
-                                                                                                (if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
-                                                                                                    (if ((if 1 as libc::c_int != 0 {
+                                                                                            if (if (60 as libc::c_int) < 0 as libc::c_int {
+                                                                                                if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
+                                                                                                    if ((if 1 as libc::c_int != 0 {
                                                                                                         0 as libc::c_int as libc::c_long
                                                                                                     } else {
                                                                                                         (if 1 as libc::c_int != 0 {
@@ -35088,9 +35088,9 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                                 / -(60 as libc::c_int) as libc::c_long
                                                                                                         }) <= -(1 as libc::c_int) as libc::c_long - pc.rel.minutes)
                                                                                                             as libc::c_int
-                                                                                                    })
+                                                                                                    }
                                                                                                 } else {
-                                                                                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                                    if (if (if ((if 1 as libc::c_int != 0 {
                                                                                                         0 as libc::c_int as libc::c_long
                                                                                                     } else {
                                                                                                         (if 1 as libc::c_int != 0 {
@@ -35195,7 +35195,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                                     - 1 as libc::c_long)) as libc::c_int
                                                                                                     }) != 0 && 60 as libc::c_int == -(1 as libc::c_int)
                                                                                                     {
-                                                                                                        (if ((if 1 as libc::c_int != 0 {
+                                                                                                        if ((if 1 as libc::c_int != 0 {
                                                                                                             0 as libc::c_int as libc::c_long
                                                                                                         } else {
                                                                                                             pc.rel.minutes
@@ -35213,19 +35213,19 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                                         - 1 as libc::c_long)
                                                                                                                     < pc.rel.minutes - 1 as libc::c_int as libc::c_long)
                                                                                                                 as libc::c_int
-                                                                                                        })
+                                                                                                        }
                                                                                                     } else {
                                                                                                         (((-(9223372036854775807 as libc::c_long)
                                                                                                             - 1 as libc::c_long) / 60 as libc::c_int as libc::c_long)
                                                                                                             < pc.rel.minutes) as libc::c_int
-                                                                                                    })
-                                                                                                })
+                                                                                                    }
+                                                                                                }
                                                                                             } else {
-                                                                                                (if 60 as libc::c_int == 0 as libc::c_int {
+                                                                                                if 60 as libc::c_int == 0 as libc::c_int {
                                                                                                     0 as libc::c_int
                                                                                                 } else {
-                                                                                                    (if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
-                                                                                                        (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                                    if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
+                                                                                                        if (if (if ((if 1 as libc::c_int != 0 {
                                                                                                             0 as libc::c_int as libc::c_long
                                                                                                         } else {
                                                                                                             (if 1 as libc::c_int != 0 {
@@ -35331,7 +35331,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                         }) != 0
                                                                                                             && pc.rel.minutes == -(1 as libc::c_int) as libc::c_long
                                                                                                         {
-                                                                                                            (if ((if 1 as libc::c_int != 0 {
+                                                                                                            if ((if 1 as libc::c_int != 0 {
                                                                                                                 0 as libc::c_int
                                                                                                             } else {
                                                                                                                 60 as libc::c_int
@@ -35347,18 +35347,18 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                                         - 1 as libc::c_long)
                                                                                                                     < (60 as libc::c_int - 1 as libc::c_int) as libc::c_long)
                                                                                                                     as libc::c_int
-                                                                                                            })
+                                                                                                            }
                                                                                                         } else {
                                                                                                             ((-(9223372036854775807 as libc::c_long)
                                                                                                                 - 1 as libc::c_long) / pc.rel.minutes
                                                                                                                 < 60 as libc::c_int as libc::c_long) as libc::c_int
-                                                                                                        })
+                                                                                                        }
                                                                                                     } else {
                                                                                                         ((9223372036854775807 as libc::c_long
                                                                                                             / 60 as libc::c_int as libc::c_long) < pc.rel.minutes)
                                                                                                             as libc::c_int
-                                                                                                    })
-                                                                                                })
+                                                                                                    }
+                                                                                                }
                                                                                             }) != 0
                                                                                             {
                                                                                                 d2 = (pc.rel.minutes as libc::c_ulong)
@@ -35370,11 +35370,11 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                     .wrapping_mul(60 as libc::c_int as libc::c_ulong)
                                                                                                     as libc::c_long;
                                                                                                 0 as libc::c_int
-                                                                                            })
+                                                                                            }
                                                                                         } else {
-                                                                                            (if (if (60 as libc::c_int) < 0 as libc::c_int {
-                                                                                                (if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
-                                                                                                    (if (if 1 as libc::c_int != 0 {
+                                                                                            if (if (60 as libc::c_int) < 0 as libc::c_int {
+                                                                                                if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
+                                                                                                    if (if 1 as libc::c_int != 0 {
                                                                                                         0 as libc::c_int as libc::c_ulong
                                                                                                     } else {
                                                                                                         (if 1 as libc::c_int != 0 {
@@ -35467,9 +35467,9 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                         })
                                                                                                             <= (-(1 as libc::c_int) as libc::c_long - pc.rel.minutes)
                                                                                                                 as libc::c_ulong) as libc::c_int
-                                                                                                    })
+                                                                                                    }
                                                                                                 } else {
-                                                                                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                                    if (if (if ((if 1 as libc::c_int != 0 {
                                                                                                         0 as libc::c_int
                                                                                                     } else {
                                                                                                         (if 1 as libc::c_int != 0 {
@@ -35552,7 +35552,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                             }) + 0 as libc::c_int) as libc::c_int
                                                                                                     }) != 0 && 60 as libc::c_int == -(1 as libc::c_int)
                                                                                                     {
-                                                                                                        (if ((if 1 as libc::c_int != 0 {
+                                                                                                        if ((if 1 as libc::c_int != 0 {
                                                                                                             0 as libc::c_int as libc::c_long
                                                                                                         } else {
                                                                                                             pc.rel.minutes
@@ -35568,18 +35568,18 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                                     as libc::c_long)
                                                                                                                     < pc.rel.minutes - 1 as libc::c_int as libc::c_long)
                                                                                                                 as libc::c_int
-                                                                                                        })
+                                                                                                        }
                                                                                                     } else {
                                                                                                         (((0 as libc::c_int / 60 as libc::c_int) as libc::c_long)
                                                                                                             < pc.rel.minutes) as libc::c_int
-                                                                                                    })
-                                                                                                })
+                                                                                                    }
+                                                                                                }
                                                                                             } else {
-                                                                                                (if 60 as libc::c_int == 0 as libc::c_int {
+                                                                                                if 60 as libc::c_int == 0 as libc::c_int {
                                                                                                     0 as libc::c_int
                                                                                                 } else {
-                                                                                                    (if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
-                                                                                                        (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                                    if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
+                                                                                                        if (if (if ((if 1 as libc::c_int != 0 {
                                                                                                             0 as libc::c_int as libc::c_long
                                                                                                         } else {
                                                                                                             (if 1 as libc::c_int != 0 {
@@ -35669,7 +35669,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                         }) != 0
                                                                                                             && pc.rel.minutes == -(1 as libc::c_int) as libc::c_long
                                                                                                         {
-                                                                                                            (if ((if 1 as libc::c_int != 0 {
+                                                                                                            if ((if 1 as libc::c_int != 0 {
                                                                                                                 0 as libc::c_int
                                                                                                             } else {
                                                                                                                 60 as libc::c_int
@@ -35680,19 +35680,19 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                             } else {
                                                                                                                 ((-(1 as libc::c_int) - 0 as libc::c_int)
                                                                                                                     < 60 as libc::c_int - 1 as libc::c_int) as libc::c_int
-                                                                                                            })
+                                                                                                            }
                                                                                                         } else {
                                                                                                             (0 as libc::c_int as libc::c_long / pc.rel.minutes
                                                                                                                 < 60 as libc::c_int as libc::c_long) as libc::c_int
-                                                                                                        })
+                                                                                                        }
                                                                                                     } else {
                                                                                                         ((9223372036854775807 as libc::c_long as libc::c_ulong)
                                                                                                             .wrapping_mul(2 as libc::c_ulong)
                                                                                                             .wrapping_add(1 as libc::c_ulong)
                                                                                                             .wrapping_div(60 as libc::c_int as libc::c_ulong)
                                                                                                             < pc.rel.minutes as libc::c_ulong) as libc::c_int
-                                                                                                    })
-                                                                                                })
+                                                                                                    }
+                                                                                                }
                                                                                             }) != 0
                                                                                             {
                                                                                                 d2 = (pc.rel.minutes as libc::c_ulong)
@@ -35704,19 +35704,19 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                     .wrapping_mul(60 as libc::c_int as libc::c_ulong)
                                                                                                     as intmax_t;
                                                                                                 0 as libc::c_int
-                                                                                            })
-                                                                                        })
+                                                                                            }
+                                                                                        }
                                                                                     } else {
-                                                                                        (if ((if 1 as libc::c_int != 0 {
+                                                                                        if ((if 1 as libc::c_int != 0 {
                                                                                             0 as libc::c_int as libc::c_long
                                                                                         } else {
                                                                                             d2
                                                                                         }) - 1 as libc::c_int as libc::c_long)
                                                                                             < 0 as libc::c_int as libc::c_long
                                                                                         {
-                                                                                            (if (if (60 as libc::c_int) < 0 as libc::c_int {
-                                                                                                (if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
-                                                                                                    (if ((if 1 as libc::c_int != 0 {
+                                                                                            if (if (60 as libc::c_int) < 0 as libc::c_int {
+                                                                                                if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
+                                                                                                    if ((if 1 as libc::c_int != 0 {
                                                                                                         0 as libc::c_int as libc::c_longlong
                                                                                                     } else {
                                                                                                         (if 1 as libc::c_int != 0 {
@@ -35796,9 +35796,9 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                         })
                                                                                                             <= (-(1 as libc::c_int) as libc::c_long - pc.rel.minutes)
                                                                                                                 as libc::c_longlong) as libc::c_int
-                                                                                                    })
+                                                                                                    }
                                                                                                 } else {
-                                                                                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                                    if (if (if ((if 1 as libc::c_int != 0 {
                                                                                                         0 as libc::c_int as libc::c_longlong
                                                                                                     } else {
                                                                                                         (if 1 as libc::c_int != 0 {
@@ -35905,7 +35905,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                                     - 1 as libc::c_longlong)) as libc::c_int
                                                                                                     }) != 0 && 60 as libc::c_int == -(1 as libc::c_int)
                                                                                                     {
-                                                                                                        (if ((if 1 as libc::c_int != 0 {
+                                                                                                        if ((if 1 as libc::c_int != 0 {
                                                                                                             0 as libc::c_int as libc::c_long
                                                                                                         } else {
                                                                                                             pc.rel.minutes
@@ -35923,20 +35923,20 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                                         - 1 as libc::c_longlong)
                                                                                                                     < (pc.rel.minutes - 1 as libc::c_int as libc::c_long)
                                                                                                                         as libc::c_longlong) as libc::c_int
-                                                                                                        })
+                                                                                                        }
                                                                                                     } else {
                                                                                                         (((-(9223372036854775807 as libc::c_longlong)
                                                                                                             - 1 as libc::c_longlong)
                                                                                                             / 60 as libc::c_int as libc::c_longlong)
                                                                                                             < pc.rel.minutes as libc::c_longlong) as libc::c_int
-                                                                                                    })
-                                                                                                })
+                                                                                                    }
+                                                                                                }
                                                                                             } else {
-                                                                                                (if 60 as libc::c_int == 0 as libc::c_int {
+                                                                                                if 60 as libc::c_int == 0 as libc::c_int {
                                                                                                     0 as libc::c_int
                                                                                                 } else {
-                                                                                                    (if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
-                                                                                                        (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                                    if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
+                                                                                                        if (if (if ((if 1 as libc::c_int != 0 {
                                                                                                             0 as libc::c_int as libc::c_longlong
                                                                                                         } else {
                                                                                                             (if 1 as libc::c_int != 0 {
@@ -36044,7 +36044,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                         }) != 0
                                                                                                             && pc.rel.minutes == -(1 as libc::c_int) as libc::c_long
                                                                                                         {
-                                                                                                            (if ((if 1 as libc::c_int != 0 {
+                                                                                                            if ((if 1 as libc::c_int != 0 {
                                                                                                                 0 as libc::c_int
                                                                                                             } else {
                                                                                                                 60 as libc::c_int
@@ -36060,19 +36060,19 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                                         - 1 as libc::c_longlong)
                                                                                                                     < (60 as libc::c_int - 1 as libc::c_int)
                                                                                                                         as libc::c_longlong) as libc::c_int
-                                                                                                            })
+                                                                                                            }
                                                                                                         } else {
                                                                                                             (((-(9223372036854775807 as libc::c_longlong)
                                                                                                                 - 1 as libc::c_longlong)
                                                                                                                 / pc.rel.minutes as libc::c_longlong)
                                                                                                                 < 60 as libc::c_int as libc::c_longlong) as libc::c_int
-                                                                                                        })
+                                                                                                        }
                                                                                                     } else {
                                                                                                         ((9223372036854775807 as libc::c_longlong
                                                                                                             / 60 as libc::c_int as libc::c_longlong)
                                                                                                             < pc.rel.minutes as libc::c_longlong) as libc::c_int
-                                                                                                    })
-                                                                                                })
+                                                                                                    }
+                                                                                                }
                                                                                             }) != 0
                                                                                             {
                                                                                                 d2 = (pc.rel.minutes as libc::c_ulonglong)
@@ -36084,11 +36084,11 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                     .wrapping_mul(60 as libc::c_int as libc::c_ulonglong)
                                                                                                     as libc::c_longlong as intmax_t;
                                                                                                 0 as libc::c_int
-                                                                                            })
+                                                                                            }
                                                                                         } else {
-                                                                                            (if (if (60 as libc::c_int) < 0 as libc::c_int {
-                                                                                                (if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
-                                                                                                    (if (if 1 as libc::c_int != 0 {
+                                                                                            if (if (60 as libc::c_int) < 0 as libc::c_int {
+                                                                                                if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
+                                                                                                    if (if 1 as libc::c_int != 0 {
                                                                                                         0 as libc::c_int as libc::c_ulonglong
                                                                                                     } else {
                                                                                                         (if 1 as libc::c_int != 0 {
@@ -36185,9 +36185,9 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                         })
                                                                                                             <= (-(1 as libc::c_int) as libc::c_long - pc.rel.minutes)
                                                                                                                 as libc::c_ulonglong) as libc::c_int
-                                                                                                    })
+                                                                                                    }
                                                                                                 } else {
-                                                                                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                                    if (if (if ((if 1 as libc::c_int != 0 {
                                                                                                         0 as libc::c_int
                                                                                                     } else {
                                                                                                         (if 1 as libc::c_int != 0 {
@@ -36270,7 +36270,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                             }) + 0 as libc::c_int) as libc::c_int
                                                                                                     }) != 0 && 60 as libc::c_int == -(1 as libc::c_int)
                                                                                                     {
-                                                                                                        (if ((if 1 as libc::c_int != 0 {
+                                                                                                        if ((if 1 as libc::c_int != 0 {
                                                                                                             0 as libc::c_int as libc::c_long
                                                                                                         } else {
                                                                                                             pc.rel.minutes
@@ -36286,18 +36286,18 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                                     as libc::c_long)
                                                                                                                     < pc.rel.minutes - 1 as libc::c_int as libc::c_long)
                                                                                                                 as libc::c_int
-                                                                                                        })
+                                                                                                        }
                                                                                                     } else {
                                                                                                         (((0 as libc::c_int / 60 as libc::c_int) as libc::c_long)
                                                                                                             < pc.rel.minutes) as libc::c_int
-                                                                                                    })
-                                                                                                })
+                                                                                                    }
+                                                                                                }
                                                                                             } else {
-                                                                                                (if 60 as libc::c_int == 0 as libc::c_int {
+                                                                                                if 60 as libc::c_int == 0 as libc::c_int {
                                                                                                     0 as libc::c_int
                                                                                                 } else {
-                                                                                                    (if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
-                                                                                                        (if (if (if ((if 1 as libc::c_int != 0 {
+                                                                                                    if pc.rel.minutes < 0 as libc::c_int as libc::c_long {
+                                                                                                        if (if (if ((if 1 as libc::c_int != 0 {
                                                                                                             0 as libc::c_int as libc::c_long
                                                                                                         } else {
                                                                                                             (if 1 as libc::c_int != 0 {
@@ -36387,7 +36387,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                         }) != 0
                                                                                                             && pc.rel.minutes == -(1 as libc::c_int) as libc::c_long
                                                                                                         {
-                                                                                                            (if ((if 1 as libc::c_int != 0 {
+                                                                                                            if ((if 1 as libc::c_int != 0 {
                                                                                                                 0 as libc::c_int
                                                                                                             } else {
                                                                                                                 60 as libc::c_int
@@ -36398,11 +36398,11 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                             } else {
                                                                                                                 ((-(1 as libc::c_int) - 0 as libc::c_int)
                                                                                                                     < 60 as libc::c_int - 1 as libc::c_int) as libc::c_int
-                                                                                                            })
+                                                                                                            }
                                                                                                         } else {
                                                                                                             (0 as libc::c_int as libc::c_long / pc.rel.minutes
                                                                                                                 < 60 as libc::c_int as libc::c_long) as libc::c_int
-                                                                                                        })
+                                                                                                        }
                                                                                                     } else {
                                                                                                         ((9223372036854775807 as libc::c_longlong
                                                                                                             as libc::c_ulonglong)
@@ -36410,8 +36410,8 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                             .wrapping_add(1 as libc::c_ulonglong)
                                                                                                             .wrapping_div(60 as libc::c_int as libc::c_ulonglong)
                                                                                                             < pc.rel.minutes as libc::c_ulonglong) as libc::c_int
-                                                                                                    })
-                                                                                                })
+                                                                                                    }
+                                                                                                }
                                                                                             }) != 0
                                                                                             {
                                                                                                 d2 = (pc.rel.minutes as libc::c_ulonglong)
@@ -36423,11 +36423,11 @@ unsafe extern "C" fn parse_datetime_body(
                                                                                                     .wrapping_mul(60 as libc::c_int as libc::c_ulonglong)
                                                                                                     as intmax_t;
                                                                                                 0 as libc::c_int
-                                                                                            })
-                                                                                        })
-                                                                                    })
-                                                                                })
-                                                                            })
+                                                                                            }
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
                                                                         }) != 0
                                                                         || {
                                                                             let (fresh88, fresh89) = t1_0.overflowing_add(d2);
@@ -36440,7 +36440,7 @@ unsafe extern "C" fn parse_datetime_body(
                                                                             fresh91 as libc::c_int != 0
                                                                         }
                                                                         || {
-                                                                            let (fresh92, fresh93) = t3.overflowing_add(d4);
+                                                                            let (fresh92, fresh93) = t3.overflowing_add(d4.into());
                                                                             *(&mut t4 as *mut time_t) = fresh92;
                                                                             fresh93 as libc::c_int != 0
                                                                         }

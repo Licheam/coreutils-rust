@@ -11,6 +11,7 @@
 
 #[macro_use]
 extern crate c2rust_bitfields;
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -1253,14 +1254,13 @@ unsafe fn main_0(
             if strcmp(file, b"-\0" as *const u8 as *const libc::c_char)
                 == 0 as libc::c_int
             {
-                ok = (ok as libc::c_int & fmt(stdin, file) as libc::c_int) as bool;
+                ok = (ok as libc::c_int & fmt(stdin, file) as libc::c_int) != 0;
                 have_read_stdin = 1 as libc::c_int != 0;
             } else {
                 let mut in_stream: *mut FILE = 0 as *mut FILE;
                 in_stream = fopen(file, b"r\0" as *const u8 as *const libc::c_char);
                 if !in_stream.is_null() {
-                    ok = (ok as libc::c_int & fmt(in_stream, file) as libc::c_int)
-                        as bool;
+                    ok = (ok as libc::c_int & fmt(in_stream, file) as libc::c_int) != 0;
                 } else {
                     error(
                         0 as libc::c_int,

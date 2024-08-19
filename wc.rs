@@ -14,6 +14,7 @@
 #[macro_use]
 extern crate c2rust_bitfields;#[macro_use]
 extern crate c2rust_asm_casts;
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -2074,7 +2075,7 @@ unsafe fn main_0(
                         .offset(
                             (if nfiles != 0 { i } else { 0 as libc::c_int }) as isize,
                         ),
-                ) as libc::c_int) as bool;
+                ) as libc::c_int) != 0;
         }
         if nfiles == 0 {
             (*fstatus.offset(0 as libc::c_int as isize)).failed = 1 as libc::c_int;
@@ -2089,7 +2090,7 @@ unsafe fn main_0(
             & wc_file(
                 0 as *const libc::c_char,
                 &mut *fstatus.offset(0 as libc::c_int as isize),
-            ) as libc::c_int) as bool;
+            ) as libc::c_int) != 0;
     }
     if read_tokens {
         readtokens0_free(&mut tok);

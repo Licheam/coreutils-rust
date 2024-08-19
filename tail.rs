@@ -10,6 +10,7 @@
 #![feature(label_break_value)]
 
 
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -2394,7 +2395,7 @@ unsafe extern "C" fn tail_forever(
                             );
                             any_input = (any_input as libc::c_int
                                 | (bytes_read != 0 as libc::c_int as libc::c_ulong)
-                                    as libc::c_int) as bool;
+                                    as libc::c_int) != 0;
                             let ref mut fresh3 = (*f.offset(i as isize)).size;
                             *fresh3 = (*fresh3 as libc::c_ulong).wrapping_add(bytes_read)
                                 as off_t as off_t;
@@ -4150,7 +4151,7 @@ unsafe fn main_0(
     i = 0 as libc::c_int as size_t;
     while i < n_files {
         ok = (ok as libc::c_int
-            & tail_file(&mut *F.offset(i as isize), n_units) as libc::c_int) as bool;
+            & tail_file(&mut *F.offset(i as isize), n_units) as libc::c_int) != 0;
         i = i.wrapping_add(1);
         i;
     }

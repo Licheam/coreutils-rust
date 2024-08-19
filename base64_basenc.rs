@@ -10,6 +10,7 @@
 #![feature(label_break_value)]
 
 
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -652,8 +653,8 @@ unsafe extern "C" fn xset_binary_mode(mut fd: libc::c_int, mut mode: libc::c_int
 }
 #[inline]
 unsafe extern "C" fn __gl_setmode(
-    mut fd: libc::c_int,
-    mut mode: libc::c_int,
+    mut _fd: libc::c_int,
+    mut _mode: libc::c_int,
 ) -> libc::c_int {
     return 0 as libc::c_int;
 }
@@ -1209,7 +1210,7 @@ unsafe extern "C" fn base16_decode_ctx(
                 *fresh9 = ((((*ctx).ctx.base16.nibble as libc::c_int)
                     << 4 as libc::c_int) + nib) as libc::c_char;
                 *outlen += 1;
-                *outlen;
+                let _ = *outlen;
             } else {
                 (*ctx).ctx.base16.nibble = nib as libc::c_char;
             }
@@ -1612,7 +1613,7 @@ unsafe extern "C" fn base2lsbf_decode_ctx(
                 *fresh23 = (*ctx).ctx.base2.octet as libc::c_char;
                 (*ctx).ctx.base2.octet = 0 as libc::c_int as libc::c_uchar;
                 *outlen += 1;
-                *outlen;
+                let _ = *outlen;
                 (*ctx).i = 0 as libc::c_int;
             }
             in_0 = in_0.offset(1);
@@ -1663,7 +1664,7 @@ unsafe extern "C" fn base2msbf_decode_ctx(
                 *fresh25 = (*ctx).ctx.base2.octet as libc::c_char;
                 (*ctx).ctx.base2.octet = 0 as libc::c_int as libc::c_uchar;
                 *outlen += 1;
-                *outlen;
+                let _ = *outlen;
                 (*ctx).i = 0 as libc::c_int;
             }
             in_0 = in_0.offset(1);

@@ -10,6 +10,7 @@
 #![feature(label_break_value)]
 
 
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -1213,7 +1214,7 @@ unsafe fn main_0(
                 invalid = (invalid as libc::c_int
                     | ((lo_input <= hi_input) as libc::c_int
                         == (n_lines == 0 as libc::c_int as libc::c_ulong) as libc::c_int)
-                        as libc::c_int) as bool;
+                        as libc::c_int) != 0;
                 if invalid {
                     if ::core::mem::size_of::<C2RustUnnamed_15>() as libc::c_ulong != 0 {
                         error(
@@ -1489,11 +1490,11 @@ unsafe fn main_0(
                 quotearg_n_style_colon(
                     0 as libc::c_int,
                     shell_escape_quoting_style,
-                    (if !random_source.is_null() {
+                    if !random_source.is_null() {
                         random_source as *const libc::c_char
                     } else {
                         b"getrandom\0" as *const u8 as *const libc::c_char
-                    }),
+                    },
                 ),
             );
             if 0 as libc::c_int != 0 {} else {
@@ -1507,11 +1508,11 @@ unsafe fn main_0(
                 quotearg_n_style_colon(
                     0 as libc::c_int,
                     shell_escape_quoting_style,
-                    (if !random_source.is_null() {
+                    if !random_source.is_null() {
                         random_source as *const libc::c_char
                     } else {
                         b"getrandom\0" as *const u8 as *const libc::c_char
-                    }),
+                    },
                 ),
             );
             if 0 as libc::c_int != 0 {} else {

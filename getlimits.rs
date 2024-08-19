@@ -10,6 +10,7 @@
 
 
 extern crate f128;
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -338,7 +339,7 @@ unsafe extern "C" fn decimal_absval_add_one(
         *p = '0' as i32 as libc::c_char;
     }
     *p += 1;
-    *p;
+    let _ = *p;
     let mut result: *mut libc::c_char = if absnum < p { absnum } else { p };
     if negative {
         result = result.offset(-1);

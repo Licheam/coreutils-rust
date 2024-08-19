@@ -14,6 +14,7 @@
 extern crate c2rust_bitfields;
 extern crate f128;#[macro_use]
 extern crate num_traits;
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -1077,8 +1078,7 @@ unsafe extern "C" fn print_stat(
         }
         109 => {
             fail = (fail as libc::c_int
-                | out_mount_point(filename, pformat, prefix_len, statbuf) as libc::c_int)
-                as bool;
+                | out_mount_point(filename, pformat, prefix_len, statbuf) as libc::c_int) != 0;
         }
         115 => {
             out_int(pformat, prefix_len, (*statbuf).st_size);
@@ -1173,8 +1173,7 @@ unsafe extern "C" fn print_stat(
         }
         67 => {
             fail = (fail as libc::c_int
-                | out_file_context(pformat, prefix_len, filename) as libc::c_int)
-                as bool;
+                | out_file_context(pformat, prefix_len, filename) as libc::c_int) != 0;
         }
         _ => {
             fputc_unlocked('?' as i32, stdout);
@@ -2096,7 +2095,7 @@ unsafe extern "C" fn print_it(
                                 .expect(
                                     "non-null function pointer",
                                 )(dest, len, mod_char, fmt_char, fd, filename, data)
-                                as libc::c_int) as bool;
+                                as libc::c_int) != 0;
                     }
                     _ => {
                         if (1 as libc::c_int as libc::c_ulong) < len {
@@ -2211,13 +2210,13 @@ unsafe extern "C" fn print_it(
                                 {
                                     *b as libc::c_int - 'a' as i32 + 10 as libc::c_int
                                 } else {
-                                    (if *b as libc::c_int >= 'A' as i32
+                                    if *b as libc::c_int >= 'A' as i32
                                         && *b as libc::c_int <= 'F' as i32
                                     {
                                         *b as libc::c_int - 'A' as i32 + 10 as libc::c_int
                                     } else {
                                         *b as libc::c_int - '0' as i32
-                                    })
+                                    }
                                 });
                         }
                         putchar_unlocked(esc_value_0);
@@ -2714,7 +2713,7 @@ unsafe fn main_0(
                 do_statfs(*argv.offset(i as isize), format) as libc::c_int
             } else {
                 do_stat(*argv.offset(i as isize), format, format2) as libc::c_int
-            }) as bool;
+            }) != 0;
         i += 1;
         i;
     }

@@ -122,10 +122,10 @@ pub unsafe extern "C" fn base64_encode_alloc(
     if (if ::core::mem::size_of::<idx_t>() as libc::c_ulong
         == ::core::mem::size_of::<libc::c_schar>() as libc::c_ulong
     {
-        (if !((0 as libc::c_int as idx_t) < -(1 as libc::c_int) as idx_t) {
-            (if (if (4 as libc::c_int) < 0 as libc::c_int {
-                (if in_over_3 < 0 as libc::c_int as libc::c_long {
-                    (if ((if 1 as libc::c_int != 0 {
+        if !((0 as libc::c_int as idx_t) < -(1 as libc::c_int) as idx_t) {
+            if (if (4 as libc::c_int) < 0 as libc::c_int {
+                if in_over_3 < 0 as libc::c_int as libc::c_long {
+                    if ((if 1 as libc::c_int != 0 {
                         0 as libc::c_int
                     } else {
                         (if 1 as libc::c_int != 0 {
@@ -202,9 +202,9 @@ pub unsafe extern "C" fn base64_encode_alloc(
                         }) as libc::c_long
                             <= -(1 as libc::c_int) as libc::c_long - in_over_3)
                             as libc::c_int
-                    })
+                    }
                 } else {
-                    (if (if (if ((if 1 as libc::c_int != 0 {
+                    if (if (if ((if 1 as libc::c_int != 0 {
                         0 as libc::c_int
                     } else {
                         (if 1 as libc::c_int != 0 {
@@ -288,7 +288,7 @@ pub unsafe extern "C" fn base64_encode_alloc(
                             as libc::c_int
                     }) != 0 && 4 as libc::c_int == -(1 as libc::c_int)
                     {
-                        (if ((if 1 as libc::c_int != 0 {
+                        if ((if 1 as libc::c_int != 0 {
                             0 as libc::c_int as libc::c_long
                         } else {
                             in_over_3
@@ -306,18 +306,18 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                     as libc::c_long)
                                     < in_over_3 - 1 as libc::c_int as libc::c_long)
                                 as libc::c_int
-                        })
+                        }
                     } else {
                         ((((-(127 as libc::c_int) - 1 as libc::c_int) / 4 as libc::c_int)
                             as libc::c_long) < in_over_3) as libc::c_int
-                    })
-                })
+                    }
+                }
             } else {
-                (if 4 as libc::c_int == 0 as libc::c_int {
+                if 4 as libc::c_int == 0 as libc::c_int {
                     0 as libc::c_int
                 } else {
-                    (if in_over_3 < 0 as libc::c_int as libc::c_long {
-                        (if (if (if ((if 1 as libc::c_int != 0 {
+                    if in_over_3 < 0 as libc::c_int as libc::c_long {
+                        if (if (if ((if 1 as libc::c_int != 0 {
                             0 as libc::c_int as libc::c_long
                         } else {
                             (if 1 as libc::c_int != 0 {
@@ -416,7 +416,7 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                         as libc::c_long) as libc::c_int
                         }) != 0 && in_over_3 == -(1 as libc::c_int) as libc::c_long
                         {
-                            (if ((if 1 as libc::c_int != 0 {
+                            if ((if 1 as libc::c_int != 0 {
                                 0 as libc::c_int
                             } else {
                                 4 as libc::c_int
@@ -429,17 +429,17 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                 (-(1 as libc::c_int)
                                     - (-(127 as libc::c_int) - 1 as libc::c_int)
                                     < 4 as libc::c_int - 1 as libc::c_int) as libc::c_int
-                            })
+                            }
                         } else {
                             ((-(127 as libc::c_int) - 1 as libc::c_int) as libc::c_long
                                 / in_over_3 < 4 as libc::c_int as libc::c_long)
                                 as libc::c_int
-                        })
+                        }
                     } else {
                         (((127 as libc::c_int / 4 as libc::c_int) as libc::c_long)
                             < in_over_3) as libc::c_int
-                    })
-                })
+                    }
+                }
             }) != 0
             {
                 outlen = (in_over_3 as libc::c_uint)
@@ -451,11 +451,11 @@ pub unsafe extern "C" fn base64_encode_alloc(
                     .wrapping_mul(4 as libc::c_int as libc::c_uint) as libc::c_schar
                     as idx_t;
                 0 as libc::c_int
-            })
+            }
         } else {
-            (if (if (4 as libc::c_int) < 0 as libc::c_int {
-                (if in_over_3 < 0 as libc::c_int as libc::c_long {
-                    (if ((if 1 as libc::c_int != 0 {
+            if (if (4 as libc::c_int) < 0 as libc::c_int {
+                if in_over_3 < 0 as libc::c_int as libc::c_long {
+                    if ((if 1 as libc::c_int != 0 {
                         0 as libc::c_int
                     } else {
                         (if 1 as libc::c_int != 0 {
@@ -534,9 +534,9 @@ pub unsafe extern "C" fn base64_encode_alloc(
                         }) as libc::c_long
                             <= -(1 as libc::c_int) as libc::c_long - in_over_3)
                             as libc::c_int
-                    })
+                    }
                 } else {
-                    (if (if (if ((if 1 as libc::c_int != 0 {
+                    if (if (if ((if 1 as libc::c_int != 0 {
                         0 as libc::c_int
                     } else {
                         (if 1 as libc::c_int != 0 {
@@ -619,7 +619,7 @@ pub unsafe extern "C" fn base64_encode_alloc(
                             }) + 0 as libc::c_int) as libc::c_int
                     }) != 0 && 4 as libc::c_int == -(1 as libc::c_int)
                     {
-                        (if ((if 1 as libc::c_int != 0 {
+                        if ((if 1 as libc::c_int != 0 {
                             0 as libc::c_int as libc::c_long
                         } else {
                             in_over_3
@@ -635,18 +635,18 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                     as libc::c_long)
                                     < in_over_3 - 1 as libc::c_int as libc::c_long)
                                 as libc::c_int
-                        })
+                        }
                     } else {
                         (((0 as libc::c_int / 4 as libc::c_int) as libc::c_long)
                             < in_over_3) as libc::c_int
-                    })
-                })
+                    }
+                }
             } else {
-                (if 4 as libc::c_int == 0 as libc::c_int {
+                if 4 as libc::c_int == 0 as libc::c_int {
                     0 as libc::c_int
                 } else {
-                    (if in_over_3 < 0 as libc::c_int as libc::c_long {
-                        (if (if (if ((if 1 as libc::c_int != 0 {
+                    if in_over_3 < 0 as libc::c_int as libc::c_long {
+                        if (if (if ((if 1 as libc::c_int != 0 {
                             0 as libc::c_int as libc::c_long
                         } else {
                             (if 1 as libc::c_int != 0 {
@@ -735,7 +735,7 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                 }) + 0 as libc::c_int as libc::c_long) as libc::c_int
                         }) != 0 && in_over_3 == -(1 as libc::c_int) as libc::c_long
                         {
-                            (if ((if 1 as libc::c_int != 0 {
+                            if ((if 1 as libc::c_int != 0 {
                                 0 as libc::c_int
                             } else {
                                 4 as libc::c_int
@@ -746,17 +746,17 @@ pub unsafe extern "C" fn base64_encode_alloc(
                             } else {
                                 ((-(1 as libc::c_int) - 0 as libc::c_int)
                                     < 4 as libc::c_int - 1 as libc::c_int) as libc::c_int
-                            })
+                            }
                         } else {
                             (0 as libc::c_int as libc::c_long / in_over_3
                                 < 4 as libc::c_int as libc::c_long) as libc::c_int
-                        })
+                        }
                     } else {
                         ((((127 as libc::c_int * 2 as libc::c_int + 1 as libc::c_int)
                             / 4 as libc::c_int) as libc::c_long) < in_over_3)
                             as libc::c_int
-                    })
-                })
+                    }
+                }
             }) != 0
             {
                 outlen = (in_over_3 as libc::c_uint)
@@ -768,16 +768,16 @@ pub unsafe extern "C" fn base64_encode_alloc(
                     .wrapping_mul(4 as libc::c_int as libc::c_uint) as libc::c_uchar
                     as idx_t;
                 0 as libc::c_int
-            })
-        })
+            }
+        }
     } else {
-        (if ::core::mem::size_of::<idx_t>() as libc::c_ulong
+        if ::core::mem::size_of::<idx_t>() as libc::c_ulong
             == ::core::mem::size_of::<libc::c_short>() as libc::c_ulong
         {
-            (if !((0 as libc::c_int as idx_t) < -(1 as libc::c_int) as idx_t) {
-                (if (if (4 as libc::c_int) < 0 as libc::c_int {
-                    (if in_over_3 < 0 as libc::c_int as libc::c_long {
-                        (if ((if 1 as libc::c_int != 0 {
+            if !((0 as libc::c_int as idx_t) < -(1 as libc::c_int) as idx_t) {
+                if (if (4 as libc::c_int) < 0 as libc::c_int {
+                    if in_over_3 < 0 as libc::c_int as libc::c_long {
+                        if ((if 1 as libc::c_int != 0 {
                             0 as libc::c_int
                         } else {
                             (if 1 as libc::c_int != 0 {
@@ -854,9 +854,9 @@ pub unsafe extern "C" fn base64_encode_alloc(
                             }) as libc::c_long
                                 <= -(1 as libc::c_int) as libc::c_long - in_over_3)
                                 as libc::c_int
-                        })
+                        }
                     } else {
-                        (if (if (if ((if 1 as libc::c_int != 0 {
+                        if (if (if ((if 1 as libc::c_int != 0 {
                             0 as libc::c_int
                         } else {
                             (if 1 as libc::c_int != 0 {
@@ -940,7 +940,7 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                 as libc::c_int
                         }) != 0 && 4 as libc::c_int == -(1 as libc::c_int)
                         {
-                            (if ((if 1 as libc::c_int != 0 {
+                            if ((if 1 as libc::c_int != 0 {
                                 0 as libc::c_int as libc::c_long
                             } else {
                                 in_over_3
@@ -958,19 +958,19 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                         as libc::c_long)
                                         < in_over_3 - 1 as libc::c_int as libc::c_long)
                                     as libc::c_int
-                            })
+                            }
                         } else {
                             ((((-(32767 as libc::c_int) - 1 as libc::c_int)
                                 / 4 as libc::c_int) as libc::c_long) < in_over_3)
                                 as libc::c_int
-                        })
-                    })
+                        }
+                    }
                 } else {
-                    (if 4 as libc::c_int == 0 as libc::c_int {
+                    if 4 as libc::c_int == 0 as libc::c_int {
                         0 as libc::c_int
                     } else {
-                        (if in_over_3 < 0 as libc::c_int as libc::c_long {
-                            (if (if (if ((if 1 as libc::c_int != 0 {
+                        if in_over_3 < 0 as libc::c_int as libc::c_long {
+                            if (if (if ((if 1 as libc::c_int != 0 {
                                 0 as libc::c_int as libc::c_long
                             } else {
                                 (if 1 as libc::c_int != 0 {
@@ -1075,7 +1075,7 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                             as libc::c_long) as libc::c_int
                             }) != 0 && in_over_3 == -(1 as libc::c_int) as libc::c_long
                             {
-                                (if ((if 1 as libc::c_int != 0 {
+                                if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int
                                 } else {
                                     4 as libc::c_int
@@ -1089,17 +1089,17 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                     (-(1 as libc::c_int)
                                         - (-(32767 as libc::c_int) - 1 as libc::c_int)
                                         < 4 as libc::c_int - 1 as libc::c_int) as libc::c_int
-                                })
+                                }
                             } else {
                                 ((-(32767 as libc::c_int) - 1 as libc::c_int)
                                     as libc::c_long / in_over_3
                                     < 4 as libc::c_int as libc::c_long) as libc::c_int
-                            })
+                            }
                         } else {
                             (((32767 as libc::c_int / 4 as libc::c_int) as libc::c_long)
                                 < in_over_3) as libc::c_int
-                        })
-                    })
+                        }
+                    }
                 }) != 0
                 {
                     outlen = (in_over_3 as libc::c_uint)
@@ -1111,11 +1111,11 @@ pub unsafe extern "C" fn base64_encode_alloc(
                         .wrapping_mul(4 as libc::c_int as libc::c_uint) as libc::c_short
                         as idx_t;
                     0 as libc::c_int
-                })
+                }
             } else {
-                (if (if (4 as libc::c_int) < 0 as libc::c_int {
-                    (if in_over_3 < 0 as libc::c_int as libc::c_long {
-                        (if ((if 1 as libc::c_int != 0 {
+                if (if (4 as libc::c_int) < 0 as libc::c_int {
+                    if in_over_3 < 0 as libc::c_int as libc::c_long {
+                        if ((if 1 as libc::c_int != 0 {
                             0 as libc::c_int
                         } else {
                             (if 1 as libc::c_int != 0 {
@@ -1196,9 +1196,9 @@ pub unsafe extern "C" fn base64_encode_alloc(
                             }) as libc::c_long
                                 <= -(1 as libc::c_int) as libc::c_long - in_over_3)
                                 as libc::c_int
-                        })
+                        }
                     } else {
-                        (if (if (if ((if 1 as libc::c_int != 0 {
+                        if (if (if ((if 1 as libc::c_int != 0 {
                             0 as libc::c_int
                         } else {
                             (if 1 as libc::c_int != 0 {
@@ -1281,7 +1281,7 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                 }) + 0 as libc::c_int) as libc::c_int
                         }) != 0 && 4 as libc::c_int == -(1 as libc::c_int)
                         {
-                            (if ((if 1 as libc::c_int != 0 {
+                            if ((if 1 as libc::c_int != 0 {
                                 0 as libc::c_int as libc::c_long
                             } else {
                                 in_over_3
@@ -1297,18 +1297,18 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                         as libc::c_long)
                                         < in_over_3 - 1 as libc::c_int as libc::c_long)
                                     as libc::c_int
-                            })
+                            }
                         } else {
                             (((0 as libc::c_int / 4 as libc::c_int) as libc::c_long)
                                 < in_over_3) as libc::c_int
-                        })
-                    })
+                        }
+                    }
                 } else {
-                    (if 4 as libc::c_int == 0 as libc::c_int {
+                    if 4 as libc::c_int == 0 as libc::c_int {
                         0 as libc::c_int
                     } else {
-                        (if in_over_3 < 0 as libc::c_int as libc::c_long {
-                            (if (if (if ((if 1 as libc::c_int != 0 {
+                        if in_over_3 < 0 as libc::c_int as libc::c_long {
+                            if (if (if ((if 1 as libc::c_int != 0 {
                                 0 as libc::c_int as libc::c_long
                             } else {
                                 (if 1 as libc::c_int != 0 {
@@ -1397,7 +1397,7 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                     }) + 0 as libc::c_int as libc::c_long) as libc::c_int
                             }) != 0 && in_over_3 == -(1 as libc::c_int) as libc::c_long
                             {
-                                (if ((if 1 as libc::c_int != 0 {
+                                if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int
                                 } else {
                                     4 as libc::c_int
@@ -1408,17 +1408,17 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                 } else {
                                     ((-(1 as libc::c_int) - 0 as libc::c_int)
                                         < 4 as libc::c_int - 1 as libc::c_int) as libc::c_int
-                                })
+                                }
                             } else {
                                 (0 as libc::c_int as libc::c_long / in_over_3
                                     < 4 as libc::c_int as libc::c_long) as libc::c_int
-                            })
+                            }
                         } else {
                             ((((32767 as libc::c_int * 2 as libc::c_int
                                 + 1 as libc::c_int) / 4 as libc::c_int) as libc::c_long)
                                 < in_over_3) as libc::c_int
-                        })
-                    })
+                        }
+                    }
                 }) != 0
                 {
                     outlen = (in_over_3 as libc::c_uint)
@@ -1430,21 +1430,21 @@ pub unsafe extern "C" fn base64_encode_alloc(
                         .wrapping_mul(4 as libc::c_int as libc::c_uint) as libc::c_ushort
                         as idx_t;
                     0 as libc::c_int
-                })
-            })
+                }
+            }
         } else {
-            (if ::core::mem::size_of::<idx_t>() as libc::c_ulong
+            if ::core::mem::size_of::<idx_t>() as libc::c_ulong
                 == ::core::mem::size_of::<libc::c_int>() as libc::c_ulong
             {
-                (if ((if 1 as libc::c_int != 0 {
+                if ((if 1 as libc::c_int != 0 {
                     0 as libc::c_int as libc::c_long
                 } else {
                     outlen
                 }) - 1 as libc::c_int as libc::c_long) < 0 as libc::c_int as libc::c_long
                 {
-                    (if (if (4 as libc::c_int) < 0 as libc::c_int {
-                        (if in_over_3 < 0 as libc::c_int as libc::c_long {
-                            (if ((if 1 as libc::c_int != 0 {
+                    if (if (4 as libc::c_int) < 0 as libc::c_int {
+                        if in_over_3 < 0 as libc::c_int as libc::c_long {
+                            if ((if 1 as libc::c_int != 0 {
                                 0 as libc::c_int
                             } else {
                                 (if 1 as libc::c_int != 0 {
@@ -1521,9 +1521,9 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                 }) as libc::c_long
                                     <= -(1 as libc::c_int) as libc::c_long - in_over_3)
                                     as libc::c_int
-                            })
+                            }
                         } else {
-                            (if (if (if ((if 1 as libc::c_int != 0 {
+                            if (if (if ((if 1 as libc::c_int != 0 {
                                 0 as libc::c_int
                             } else {
                                 (if 1 as libc::c_int != 0 {
@@ -1607,7 +1607,7 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                     as libc::c_int
                             }) != 0 && 4 as libc::c_int == -(1 as libc::c_int)
                             {
-                                (if ((if 1 as libc::c_int != 0 {
+                                if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int as libc::c_long
                                 } else {
                                     in_over_3
@@ -1625,19 +1625,19 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                             as libc::c_long)
                                             < in_over_3 - 1 as libc::c_int as libc::c_long)
                                         as libc::c_int
-                                })
+                                }
                             } else {
                                 ((((-(2147483647 as libc::c_int) - 1 as libc::c_int)
                                     / 4 as libc::c_int) as libc::c_long) < in_over_3)
                                     as libc::c_int
-                            })
-                        })
+                            }
+                        }
                     } else {
-                        (if 4 as libc::c_int == 0 as libc::c_int {
+                        if 4 as libc::c_int == 0 as libc::c_int {
                             0 as libc::c_int
                         } else {
-                            (if in_over_3 < 0 as libc::c_int as libc::c_long {
-                                (if (if (if ((if 1 as libc::c_int != 0 {
+                            if in_over_3 < 0 as libc::c_int as libc::c_long {
+                                if (if (if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int as libc::c_long
                                 } else {
                                     (if 1 as libc::c_int != 0 {
@@ -1742,7 +1742,7 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                                 as libc::c_long) as libc::c_int
                                 }) != 0 && in_over_3 == -(1 as libc::c_int) as libc::c_long
                                 {
-                                    (if ((if 1 as libc::c_int != 0 {
+                                    if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int
                                     } else {
                                         4 as libc::c_int
@@ -1756,17 +1756,17 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                         (-(1 as libc::c_int)
                                             - (-(2147483647 as libc::c_int) - 1 as libc::c_int)
                                             < 4 as libc::c_int - 1 as libc::c_int) as libc::c_int
-                                    })
+                                    }
                                 } else {
                                     ((-(2147483647 as libc::c_int) - 1 as libc::c_int)
                                         as libc::c_long / in_over_3
                                         < 4 as libc::c_int as libc::c_long) as libc::c_int
-                                })
+                                }
                             } else {
                                 (((2147483647 as libc::c_int / 4 as libc::c_int)
                                     as libc::c_long) < in_over_3) as libc::c_int
-                            })
-                        })
+                            }
+                        }
                     }) != 0
                     {
                         outlen = (in_over_3 as libc::c_uint)
@@ -1778,11 +1778,11 @@ pub unsafe extern "C" fn base64_encode_alloc(
                             .wrapping_mul(4 as libc::c_int as libc::c_uint)
                             as libc::c_int as idx_t;
                         0 as libc::c_int
-                    })
+                    }
                 } else {
-                    (if (if (4 as libc::c_int) < 0 as libc::c_int {
-                        (if in_over_3 < 0 as libc::c_int as libc::c_long {
-                            (if (if 1 as libc::c_int != 0 {
+                    if (if (4 as libc::c_int) < 0 as libc::c_int {
+                        if in_over_3 < 0 as libc::c_int as libc::c_long {
+                            if (if 1 as libc::c_int != 0 {
                                 0 as libc::c_int as libc::c_uint
                             } else {
                                 (if 1 as libc::c_int != 0 {
@@ -1875,9 +1875,9 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                 }) as libc::c_long
                                     <= -(1 as libc::c_int) as libc::c_long - in_over_3)
                                     as libc::c_int
-                            })
+                            }
                         } else {
-                            (if (if (if ((if 1 as libc::c_int != 0 {
+                            if (if (if ((if 1 as libc::c_int != 0 {
                                 0 as libc::c_int
                             } else {
                                 (if 1 as libc::c_int != 0 {
@@ -1960,7 +1960,7 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                     }) + 0 as libc::c_int) as libc::c_int
                             }) != 0 && 4 as libc::c_int == -(1 as libc::c_int)
                             {
-                                (if ((if 1 as libc::c_int != 0 {
+                                if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int as libc::c_long
                                 } else {
                                     in_over_3
@@ -1976,18 +1976,18 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                             as libc::c_long)
                                             < in_over_3 - 1 as libc::c_int as libc::c_long)
                                         as libc::c_int
-                                })
+                                }
                             } else {
                                 (((0 as libc::c_int / 4 as libc::c_int) as libc::c_long)
                                     < in_over_3) as libc::c_int
-                            })
-                        })
+                            }
+                        }
                     } else {
-                        (if 4 as libc::c_int == 0 as libc::c_int {
+                        if 4 as libc::c_int == 0 as libc::c_int {
                             0 as libc::c_int
                         } else {
-                            (if in_over_3 < 0 as libc::c_int as libc::c_long {
-                                (if (if (if ((if 1 as libc::c_int != 0 {
+                            if in_over_3 < 0 as libc::c_int as libc::c_long {
+                                if (if (if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int as libc::c_long
                                 } else {
                                     (if 1 as libc::c_int != 0 {
@@ -2076,7 +2076,7 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                         }) + 0 as libc::c_int as libc::c_long) as libc::c_int
                                 }) != 0 && in_over_3 == -(1 as libc::c_int) as libc::c_long
                                 {
-                                    (if ((if 1 as libc::c_int != 0 {
+                                    if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int
                                     } else {
                                         4 as libc::c_int
@@ -2087,19 +2087,19 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                     } else {
                                         ((-(1 as libc::c_int) - 0 as libc::c_int)
                                             < 4 as libc::c_int - 1 as libc::c_int) as libc::c_int
-                                    })
+                                    }
                                 } else {
                                     (0 as libc::c_int as libc::c_long / in_over_3
                                         < 4 as libc::c_int as libc::c_long) as libc::c_int
-                                })
+                                }
                             } else {
                                 (((2147483647 as libc::c_int as libc::c_uint)
                                     .wrapping_mul(2 as libc::c_uint)
                                     .wrapping_add(1 as libc::c_uint)
                                     .wrapping_div(4 as libc::c_int as libc::c_uint)
                                     as libc::c_long) < in_over_3) as libc::c_int
-                            })
-                        })
+                            }
+                        }
                     }) != 0
                     {
                         outlen = (in_over_3 as libc::c_uint)
@@ -2109,22 +2109,22 @@ pub unsafe extern "C" fn base64_encode_alloc(
                         outlen = (in_over_3 as libc::c_uint)
                             .wrapping_mul(4 as libc::c_int as libc::c_uint) as idx_t;
                         0 as libc::c_int
-                    })
-                })
+                    }
+                }
             } else {
-                (if ::core::mem::size_of::<idx_t>() as libc::c_ulong
+                if ::core::mem::size_of::<idx_t>() as libc::c_ulong
                     == ::core::mem::size_of::<libc::c_long>() as libc::c_ulong
                 {
-                    (if ((if 1 as libc::c_int != 0 {
+                    if ((if 1 as libc::c_int != 0 {
                         0 as libc::c_int as libc::c_long
                     } else {
                         outlen
                     }) - 1 as libc::c_int as libc::c_long)
                         < 0 as libc::c_int as libc::c_long
                     {
-                        (if (if (4 as libc::c_int) < 0 as libc::c_int {
-                            (if in_over_3 < 0 as libc::c_int as libc::c_long {
-                                (if ((if 1 as libc::c_int != 0 {
+                        if (if (4 as libc::c_int) < 0 as libc::c_int {
+                            if in_over_3 < 0 as libc::c_int as libc::c_long {
+                                if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int as libc::c_long
                                 } else {
                                     (if 1 as libc::c_int != 0 {
@@ -2202,9 +2202,9 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                             / -(4 as libc::c_int) as libc::c_long
                                     }) <= -(1 as libc::c_int) as libc::c_long - in_over_3)
                                         as libc::c_int
-                                })
+                                }
                             } else {
-                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                if (if (if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int as libc::c_long
                                 } else {
                                     (if 1 as libc::c_int != 0 {
@@ -2309,7 +2309,7 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                                 - 1 as libc::c_long)) as libc::c_int
                                 }) != 0 && 4 as libc::c_int == -(1 as libc::c_int)
                                 {
-                                    (if ((if 1 as libc::c_int != 0 {
+                                    if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_long
                                     } else {
                                         in_over_3
@@ -2327,19 +2327,19 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                                     - 1 as libc::c_long)
                                                 < in_over_3 - 1 as libc::c_int as libc::c_long)
                                             as libc::c_int
-                                    })
+                                    }
                                 } else {
                                     (((-(9223372036854775807 as libc::c_long)
                                         - 1 as libc::c_long) / 4 as libc::c_int as libc::c_long)
                                         < in_over_3) as libc::c_int
-                                })
-                            })
+                                }
+                            }
                         } else {
-                            (if 4 as libc::c_int == 0 as libc::c_int {
+                            if 4 as libc::c_int == 0 as libc::c_int {
                                 0 as libc::c_int
                             } else {
-                                (if in_over_3 < 0 as libc::c_int as libc::c_long {
-                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                if in_over_3 < 0 as libc::c_int as libc::c_long {
+                                    if (if (if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_long
                                     } else {
                                         (if 1 as libc::c_int != 0 {
@@ -2444,7 +2444,7 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                                     - 1 as libc::c_long)) as libc::c_int
                                     }) != 0 && in_over_3 == -(1 as libc::c_int) as libc::c_long
                                     {
-                                        (if ((if 1 as libc::c_int != 0 {
+                                        if ((if 1 as libc::c_int != 0 {
                                             0 as libc::c_int
                                         } else {
                                             4 as libc::c_int
@@ -2460,18 +2460,18 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                                     - 1 as libc::c_long)
                                                 < (4 as libc::c_int - 1 as libc::c_int) as libc::c_long)
                                                 as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         ((-(9223372036854775807 as libc::c_long)
                                             - 1 as libc::c_long) / in_over_3
                                             < 4 as libc::c_int as libc::c_long) as libc::c_int
-                                    })
+                                    }
                                 } else {
                                     ((9223372036854775807 as libc::c_long
                                         / 4 as libc::c_int as libc::c_long) < in_over_3)
                                         as libc::c_int
-                                })
-                            })
+                                }
+                            }
                         }) != 0
                         {
                             outlen = (in_over_3 as libc::c_ulong)
@@ -2483,11 +2483,11 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                 .wrapping_mul(4 as libc::c_int as libc::c_ulong)
                                 as libc::c_long;
                             0 as libc::c_int
-                        })
+                        }
                     } else {
-                        (if (if (4 as libc::c_int) < 0 as libc::c_int {
-                            (if in_over_3 < 0 as libc::c_int as libc::c_long {
-                                (if (if 1 as libc::c_int != 0 {
+                        if (if (4 as libc::c_int) < 0 as libc::c_int {
+                            if in_over_3 < 0 as libc::c_int as libc::c_long {
+                                if (if 1 as libc::c_int != 0 {
                                     0 as libc::c_int as libc::c_ulong
                                 } else {
                                     (if 1 as libc::c_int != 0 {
@@ -2580,9 +2580,9 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                     })
                                         <= (-(1 as libc::c_int) as libc::c_long - in_over_3)
                                             as libc::c_ulong) as libc::c_int
-                                })
+                                }
                             } else {
-                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                if (if (if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int
                                 } else {
                                     (if 1 as libc::c_int != 0 {
@@ -2665,7 +2665,7 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                         }) + 0 as libc::c_int) as libc::c_int
                                 }) != 0 && 4 as libc::c_int == -(1 as libc::c_int)
                                 {
-                                    (if ((if 1 as libc::c_int != 0 {
+                                    if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_long
                                     } else {
                                         in_over_3
@@ -2681,18 +2681,18 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                                 as libc::c_long)
                                                 < in_over_3 - 1 as libc::c_int as libc::c_long)
                                             as libc::c_int
-                                    })
+                                    }
                                 } else {
                                     (((0 as libc::c_int / 4 as libc::c_int) as libc::c_long)
                                         < in_over_3) as libc::c_int
-                                })
-                            })
+                                }
+                            }
                         } else {
-                            (if 4 as libc::c_int == 0 as libc::c_int {
+                            if 4 as libc::c_int == 0 as libc::c_int {
                                 0 as libc::c_int
                             } else {
-                                (if in_over_3 < 0 as libc::c_int as libc::c_long {
-                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                if in_over_3 < 0 as libc::c_int as libc::c_long {
+                                    if (if (if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_long
                                     } else {
                                         (if 1 as libc::c_int != 0 {
@@ -2781,7 +2781,7 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                             }) + 0 as libc::c_int as libc::c_long) as libc::c_int
                                     }) != 0 && in_over_3 == -(1 as libc::c_int) as libc::c_long
                                     {
-                                        (if ((if 1 as libc::c_int != 0 {
+                                        if ((if 1 as libc::c_int != 0 {
                                             0 as libc::c_int
                                         } else {
                                             4 as libc::c_int
@@ -2792,19 +2792,19 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                         } else {
                                             ((-(1 as libc::c_int) - 0 as libc::c_int)
                                                 < 4 as libc::c_int - 1 as libc::c_int) as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         (0 as libc::c_int as libc::c_long / in_over_3
                                             < 4 as libc::c_int as libc::c_long) as libc::c_int
-                                    })
+                                    }
                                 } else {
                                     ((9223372036854775807 as libc::c_long as libc::c_ulong)
                                         .wrapping_mul(2 as libc::c_ulong)
                                         .wrapping_add(1 as libc::c_ulong)
                                         .wrapping_div(4 as libc::c_int as libc::c_ulong)
                                         < in_over_3 as libc::c_ulong) as libc::c_int
-                                })
-                            })
+                                }
+                            }
                         }) != 0
                         {
                             outlen = (in_over_3 as libc::c_ulong)
@@ -2814,19 +2814,19 @@ pub unsafe extern "C" fn base64_encode_alloc(
                             outlen = (in_over_3 as libc::c_ulong)
                                 .wrapping_mul(4 as libc::c_int as libc::c_ulong) as idx_t;
                             0 as libc::c_int
-                        })
-                    })
+                        }
+                    }
                 } else {
-                    (if ((if 1 as libc::c_int != 0 {
+                    if ((if 1 as libc::c_int != 0 {
                         0 as libc::c_int as libc::c_long
                     } else {
                         outlen
                     }) - 1 as libc::c_int as libc::c_long)
                         < 0 as libc::c_int as libc::c_long
                     {
-                        (if (if (4 as libc::c_int) < 0 as libc::c_int {
-                            (if in_over_3 < 0 as libc::c_int as libc::c_long {
-                                (if ((if 1 as libc::c_int != 0 {
+                        if (if (4 as libc::c_int) < 0 as libc::c_int {
+                            if in_over_3 < 0 as libc::c_int as libc::c_long {
+                                if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int as libc::c_longlong
                                 } else {
                                     (if 1 as libc::c_int != 0 {
@@ -2906,9 +2906,9 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                     })
                                         <= (-(1 as libc::c_int) as libc::c_long - in_over_3)
                                             as libc::c_longlong) as libc::c_int
-                                })
+                                }
                             } else {
-                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                if (if (if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int as libc::c_longlong
                                 } else {
                                     (if 1 as libc::c_int != 0 {
@@ -3015,7 +3015,7 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                                 - 1 as libc::c_longlong)) as libc::c_int
                                 }) != 0 && 4 as libc::c_int == -(1 as libc::c_int)
                                 {
-                                    (if ((if 1 as libc::c_int != 0 {
+                                    if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_long
                                     } else {
                                         in_over_3
@@ -3033,20 +3033,20 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                                     - 1 as libc::c_longlong)
                                                 < (in_over_3 - 1 as libc::c_int as libc::c_long)
                                                     as libc::c_longlong) as libc::c_int
-                                    })
+                                    }
                                 } else {
                                     (((-(9223372036854775807 as libc::c_longlong)
                                         - 1 as libc::c_longlong)
                                         / 4 as libc::c_int as libc::c_longlong)
                                         < in_over_3 as libc::c_longlong) as libc::c_int
-                                })
-                            })
+                                }
+                            }
                         } else {
-                            (if 4 as libc::c_int == 0 as libc::c_int {
+                            if 4 as libc::c_int == 0 as libc::c_int {
                                 0 as libc::c_int
                             } else {
-                                (if in_over_3 < 0 as libc::c_int as libc::c_long {
-                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                if in_over_3 < 0 as libc::c_int as libc::c_long {
+                                    if (if (if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_longlong
                                     } else {
                                         (if 1 as libc::c_int != 0 {
@@ -3153,7 +3153,7 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                                     - 1 as libc::c_longlong)) as libc::c_int
                                     }) != 0 && in_over_3 == -(1 as libc::c_int) as libc::c_long
                                     {
-                                        (if ((if 1 as libc::c_int != 0 {
+                                        if ((if 1 as libc::c_int != 0 {
                                             0 as libc::c_int
                                         } else {
                                             4 as libc::c_int
@@ -3169,18 +3169,18 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                                     - 1 as libc::c_longlong)
                                                 < (4 as libc::c_int - 1 as libc::c_int) as libc::c_longlong)
                                                 as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         (((-(9223372036854775807 as libc::c_longlong)
                                             - 1 as libc::c_longlong) / in_over_3 as libc::c_longlong)
                                             < 4 as libc::c_int as libc::c_longlong) as libc::c_int
-                                    })
+                                    }
                                 } else {
                                     ((9223372036854775807 as libc::c_longlong
                                         / 4 as libc::c_int as libc::c_longlong)
                                         < in_over_3 as libc::c_longlong) as libc::c_int
-                                })
-                            })
+                                }
+                            }
                         }) != 0
                         {
                             outlen = (in_over_3 as libc::c_ulonglong)
@@ -3192,11 +3192,11 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                 .wrapping_mul(4 as libc::c_int as libc::c_ulonglong)
                                 as libc::c_longlong as idx_t;
                             0 as libc::c_int
-                        })
+                        }
                     } else {
-                        (if (if (4 as libc::c_int) < 0 as libc::c_int {
-                            (if in_over_3 < 0 as libc::c_int as libc::c_long {
-                                (if (if 1 as libc::c_int != 0 {
+                        if (if (4 as libc::c_int) < 0 as libc::c_int {
+                            if in_over_3 < 0 as libc::c_int as libc::c_long {
+                                if (if 1 as libc::c_int != 0 {
                                     0 as libc::c_int as libc::c_ulonglong
                                 } else {
                                     (if 1 as libc::c_int != 0 {
@@ -3293,9 +3293,9 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                     })
                                         <= (-(1 as libc::c_int) as libc::c_long - in_over_3)
                                             as libc::c_ulonglong) as libc::c_int
-                                })
+                                }
                             } else {
-                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                if (if (if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int
                                 } else {
                                     (if 1 as libc::c_int != 0 {
@@ -3378,7 +3378,7 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                         }) + 0 as libc::c_int) as libc::c_int
                                 }) != 0 && 4 as libc::c_int == -(1 as libc::c_int)
                                 {
-                                    (if ((if 1 as libc::c_int != 0 {
+                                    if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_long
                                     } else {
                                         in_over_3
@@ -3394,18 +3394,18 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                                 as libc::c_long)
                                                 < in_over_3 - 1 as libc::c_int as libc::c_long)
                                             as libc::c_int
-                                    })
+                                    }
                                 } else {
                                     (((0 as libc::c_int / 4 as libc::c_int) as libc::c_long)
                                         < in_over_3) as libc::c_int
-                                })
-                            })
+                                }
+                            }
                         } else {
-                            (if 4 as libc::c_int == 0 as libc::c_int {
+                            if 4 as libc::c_int == 0 as libc::c_int {
                                 0 as libc::c_int
                             } else {
-                                (if in_over_3 < 0 as libc::c_int as libc::c_long {
-                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                if in_over_3 < 0 as libc::c_int as libc::c_long {
+                                    if (if (if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_long
                                     } else {
                                         (if 1 as libc::c_int != 0 {
@@ -3494,7 +3494,7 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                             }) + 0 as libc::c_int as libc::c_long) as libc::c_int
                                     }) != 0 && in_over_3 == -(1 as libc::c_int) as libc::c_long
                                     {
-                                        (if ((if 1 as libc::c_int != 0 {
+                                        if ((if 1 as libc::c_int != 0 {
                                             0 as libc::c_int
                                         } else {
                                             4 as libc::c_int
@@ -3505,11 +3505,11 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                         } else {
                                             ((-(1 as libc::c_int) - 0 as libc::c_int)
                                                 < 4 as libc::c_int - 1 as libc::c_int) as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         (0 as libc::c_int as libc::c_long / in_over_3
                                             < 4 as libc::c_int as libc::c_long) as libc::c_int
-                                    })
+                                    }
                                 } else {
                                     ((9223372036854775807 as libc::c_longlong
                                         as libc::c_ulonglong)
@@ -3517,8 +3517,8 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                         .wrapping_add(1 as libc::c_ulonglong)
                                         .wrapping_div(4 as libc::c_int as libc::c_ulonglong)
                                         < in_over_3 as libc::c_ulonglong) as libc::c_int
-                                })
-                            })
+                                }
+                            }
                         }) != 0
                         {
                             outlen = (in_over_3 as libc::c_ulonglong)
@@ -3530,11 +3530,11 @@ pub unsafe extern "C" fn base64_encode_alloc(
                                 .wrapping_mul(4 as libc::c_int as libc::c_ulonglong)
                                 as idx_t;
                             0 as libc::c_int
-                        })
-                    })
-                })
-            })
-        })
+                        }
+                    }
+                }
+            }
+        }
     }) != 0 || inlen < 0 as libc::c_int as libc::c_long
     {
         *out = 0 as *mut libc::c_char;
@@ -3754,7 +3754,7 @@ unsafe extern "C" fn decode_4(
             | b64[to_uchar(*in_0.offset(1 as libc::c_int as isize)) as usize]
                 as libc::c_int >> 4 as libc::c_int) as libc::c_char;
         *outleft -= 1;
-        *outleft;
+        let _ = *outleft;
     }
     if inlen == 2 as libc::c_int as libc::c_long {
         *outp = out;
@@ -3782,7 +3782,7 @@ unsafe extern "C" fn decode_4(
                 | b64[to_uchar(*in_0.offset(2 as libc::c_int as isize)) as usize]
                     as libc::c_int >> 2 as libc::c_int) as libc::c_char;
             *outleft -= 1;
-            *outleft;
+            let _ = *outleft;
         }
         if inlen == 3 as libc::c_int as libc::c_long {
             *outp = out;
@@ -3806,7 +3806,7 @@ unsafe extern "C" fn decode_4(
                     | b64[to_uchar(*in_0.offset(3 as libc::c_int as isize)) as usize]
                         as libc::c_int) as libc::c_char;
                 *outleft -= 1;
-                *outleft;
+                let _ = *outleft;
             }
         }
     }

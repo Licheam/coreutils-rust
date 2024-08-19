@@ -399,7 +399,7 @@ unsafe extern "C" fn numbered_backup(
         {
             all_9s = (all_9s as libc::c_int
                 & (*p.offset(versionlen as isize) as libc::c_int == '9' as i32)
-                    as libc::c_int) as bool;
+                    as libc::c_int) != 0;
             versionlen = versionlen.wrapping_add(1);
             versionlen;
         }

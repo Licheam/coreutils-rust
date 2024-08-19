@@ -513,11 +513,11 @@ unsafe extern "C" fn canonicalize_filename_mode_stk(
                                         *dest
                                             .offset(-startlen as isize) = '\0' as i32 as libc::c_char;
                                         if stat(
-                                            (if *rname as libc::c_int != 0 {
+                                            if *rname as libc::c_int != 0 {
                                                 rname as *const libc::c_char
                                             } else {
                                                 b".\0" as *const u8 as *const libc::c_char
-                                            }),
+                                            },
                                             &mut st,
                                         ) != 0 as libc::c_int
                                         {
@@ -773,13 +773,13 @@ unsafe extern "C" fn canonicalize_filename_mode_stk(
                                     || (if suffix_requires_dir_check(end) as libc::c_int != 0 {
                                         dir_check(rname, dest) as libc::c_int
                                     } else {
-                                        (if !logical {
+                                        if !logical {
                                             (*__errno_location() == 22 as libc::c_int) as libc::c_int
                                         } else {
                                             (*end as libc::c_int != 0
                                                 || file_accessible(rname) as libc::c_int != 0)
                                                 as libc::c_int
-                                        })
+                                        }
                                     }) != 0
                                     || can_exist as libc::c_uint
                                         == CAN_ALL_BUT_LAST as libc::c_int as libc::c_uint

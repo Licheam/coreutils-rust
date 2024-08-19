@@ -10,6 +10,7 @@
 #![feature(label_break_value)]
 
 
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -952,7 +953,7 @@ unsafe extern "C" fn print_page() -> bool {
                 if !((*p).print_func).expect("non-null function pointer")(p) {
                     read_rest_of_line(p);
                 }
-                pv = (pv as libc::c_int | pad_vertically as libc::c_int) as bool;
+                pv = (pv as libc::c_int | pad_vertically as libc::c_int) != 0;
                 (*p).lines_to_print -= 1;
                 (*p).lines_to_print;
                 if (*p).lines_to_print <= 0 as libc::c_int {
@@ -4719,7 +4720,7 @@ unsafe extern "C" fn init_header(
         buf = xmalloc(
             (::core::mem::size_of::<[libc::c_char; 21]>() as libc::c_ulong)
                 .wrapping_add(
-                    (if 10 as libc::c_int as libc::c_ulong
+                    if 10 as libc::c_int as libc::c_ulong
                         > (::core::mem::size_of::<libc::c_int>() as libc::c_ulong)
                             .wrapping_mul(8 as libc::c_int as libc::c_ulong)
                             .wrapping_sub(
@@ -4751,7 +4752,7 @@ unsafe extern "C" fn init_header(
                                     as libc::c_ulong,
                             )
                             .wrapping_add(1 as libc::c_int as libc::c_ulong)
-                    }),
+                    },
                 ),
         ) as *mut libc::c_char;
         sprintf(
@@ -4923,10 +4924,10 @@ unsafe extern "C" fn init_store_cols() {
     if (if ::core::mem::size_of::<libc::c_int>() as libc::c_ulong
         == ::core::mem::size_of::<libc::c_schar>() as libc::c_ulong
     {
-        (if !((0 as libc::c_int) < -(1 as libc::c_int)) {
-            (if (if columns < 0 as libc::c_int {
-                (if lines_per_body < 0 as libc::c_int {
-                    (if ((if 1 as libc::c_int != 0 {
+        if !((0 as libc::c_int) < -(1 as libc::c_int)) {
+            if (if columns < 0 as libc::c_int {
+                if lines_per_body < 0 as libc::c_int {
+                    if ((if 1 as libc::c_int != 0 {
                         0 as libc::c_int
                     } else {
                         (if 1 as libc::c_int != 0 {
@@ -4999,9 +5000,9 @@ unsafe extern "C" fn init_store_cols() {
                         } else {
                             127 as libc::c_int / -columns
                         }) <= -(1 as libc::c_int) - lines_per_body) as libc::c_int
-                    })
+                    }
                 } else {
-                    (if (if (if ((if 1 as libc::c_int != 0 {
+                    if (if (if ((if 1 as libc::c_int != 0 {
                         0 as libc::c_int
                     } else {
                         (if 1 as libc::c_int != 0 { 0 as libc::c_int } else { columns })
@@ -5079,7 +5080,7 @@ unsafe extern "C" fn init_store_cols() {
                             as libc::c_int
                     }) != 0 && columns == -(1 as libc::c_int)
                     {
-                        (if ((if 1 as libc::c_int != 0 {
+                        if ((if 1 as libc::c_int != 0 {
                             0 as libc::c_int
                         } else {
                             lines_per_body
@@ -5093,18 +5094,18 @@ unsafe extern "C" fn init_store_cols() {
                                 && -(1 as libc::c_int)
                                     - (-(127 as libc::c_int) - 1 as libc::c_int)
                                     < lines_per_body - 1 as libc::c_int) as libc::c_int
-                        })
+                        }
                     } else {
                         ((-(127 as libc::c_int) - 1 as libc::c_int) / columns
                             < lines_per_body) as libc::c_int
-                    })
-                })
+                    }
+                }
             } else {
-                (if columns == 0 as libc::c_int {
+                if columns == 0 as libc::c_int {
                     0 as libc::c_int
                 } else {
-                    (if lines_per_body < 0 as libc::c_int {
-                        (if (if (if ((if 1 as libc::c_int != 0 {
+                    if lines_per_body < 0 as libc::c_int {
+                        if (if (if ((if 1 as libc::c_int != 0 {
                             0 as libc::c_int
                         } else {
                             (if 1 as libc::c_int != 0 {
@@ -5188,7 +5189,7 @@ unsafe extern "C" fn init_store_cols() {
                                 as libc::c_int
                         }) != 0 && lines_per_body == -(1 as libc::c_int)
                         {
-                            (if ((if 1 as libc::c_int != 0 {
+                            if ((if 1 as libc::c_int != 0 {
                                 0 as libc::c_int
                             } else {
                                 columns
@@ -5201,15 +5202,15 @@ unsafe extern "C" fn init_store_cols() {
                                 (-(1 as libc::c_int)
                                     - (-(127 as libc::c_int) - 1 as libc::c_int)
                                     < columns - 1 as libc::c_int) as libc::c_int
-                            })
+                            }
                         } else {
                             ((-(127 as libc::c_int) - 1 as libc::c_int) / lines_per_body
                                 < columns) as libc::c_int
-                        })
+                        }
                     } else {
                         (127 as libc::c_int / columns < lines_per_body) as libc::c_int
-                    })
-                })
+                    }
+                }
             }) != 0
             {
                 total_lines = (lines_per_body as libc::c_uint)
@@ -5221,11 +5222,11 @@ unsafe extern "C" fn init_store_cols() {
                     .wrapping_mul(columns as libc::c_uint) as libc::c_schar
                     as libc::c_int;
                 0 as libc::c_int
-            })
+            }
         } else {
-            (if (if columns < 0 as libc::c_int {
-                (if lines_per_body < 0 as libc::c_int {
-                    (if ((if 1 as libc::c_int != 0 {
+            if (if columns < 0 as libc::c_int {
+                if lines_per_body < 0 as libc::c_int {
+                    if ((if 1 as libc::c_int != 0 {
                         0 as libc::c_int
                     } else {
                         (if 1 as libc::c_int != 0 {
@@ -5302,9 +5303,9 @@ unsafe extern "C" fn init_store_cols() {
                             (127 as libc::c_int * 2 as libc::c_int + 1 as libc::c_int)
                                 / -columns
                         }) <= -(1 as libc::c_int) - lines_per_body) as libc::c_int
-                    })
+                    }
                 } else {
-                    (if (if (if ((if 1 as libc::c_int != 0 {
+                    if (if (if ((if 1 as libc::c_int != 0 {
                         0 as libc::c_int
                     } else {
                         (if 1 as libc::c_int != 0 { 0 as libc::c_int } else { columns })
@@ -5384,7 +5385,7 @@ unsafe extern "C" fn init_store_cols() {
                             }) + 0 as libc::c_int) as libc::c_int
                     }) != 0 && columns == -(1 as libc::c_int)
                     {
-                        (if ((if 1 as libc::c_int != 0 {
+                        if ((if 1 as libc::c_int != 0 {
                             0 as libc::c_int
                         } else {
                             lines_per_body
@@ -5396,17 +5397,17 @@ unsafe extern "C" fn init_store_cols() {
                             ((0 as libc::c_int) < lines_per_body
                                 && (-(1 as libc::c_int) - 0 as libc::c_int)
                                     < lines_per_body - 1 as libc::c_int) as libc::c_int
-                        })
+                        }
                     } else {
                         (0 as libc::c_int / columns < lines_per_body) as libc::c_int
-                    })
-                })
+                    }
+                }
             } else {
-                (if columns == 0 as libc::c_int {
+                if columns == 0 as libc::c_int {
                     0 as libc::c_int
                 } else {
-                    (if lines_per_body < 0 as libc::c_int {
-                        (if (if (if ((if 1 as libc::c_int != 0 {
+                    if lines_per_body < 0 as libc::c_int {
+                        if (if (if ((if 1 as libc::c_int != 0 {
                             0 as libc::c_int
                         } else {
                             (if 1 as libc::c_int != 0 {
@@ -5489,7 +5490,7 @@ unsafe extern "C" fn init_store_cols() {
                                 }) + 0 as libc::c_int) as libc::c_int
                         }) != 0 && lines_per_body == -(1 as libc::c_int)
                         {
-                            (if ((if 1 as libc::c_int != 0 {
+                            if ((if 1 as libc::c_int != 0 {
                                 0 as libc::c_int
                             } else {
                                 columns
@@ -5500,15 +5501,15 @@ unsafe extern "C" fn init_store_cols() {
                             } else {
                                 ((-(1 as libc::c_int) - 0 as libc::c_int)
                                     < columns - 1 as libc::c_int) as libc::c_int
-                            })
+                            }
                         } else {
                             (0 as libc::c_int / lines_per_body < columns) as libc::c_int
-                        })
+                        }
                     } else {
                         ((127 as libc::c_int * 2 as libc::c_int + 1 as libc::c_int)
                             / columns < lines_per_body) as libc::c_int
-                    })
-                })
+                    }
+                }
             }) != 0
             {
                 total_lines = (lines_per_body as libc::c_uint)
@@ -5520,16 +5521,16 @@ unsafe extern "C" fn init_store_cols() {
                     .wrapping_mul(columns as libc::c_uint) as libc::c_uchar
                     as libc::c_int;
                 0 as libc::c_int
-            })
-        })
+            }
+        }
     } else {
-        (if ::core::mem::size_of::<libc::c_int>() as libc::c_ulong
+        if ::core::mem::size_of::<libc::c_int>() as libc::c_ulong
             == ::core::mem::size_of::<libc::c_short>() as libc::c_ulong
         {
-            (if !((0 as libc::c_int) < -(1 as libc::c_int)) {
-                (if (if columns < 0 as libc::c_int {
-                    (if lines_per_body < 0 as libc::c_int {
-                        (if ((if 1 as libc::c_int != 0 {
+            if !((0 as libc::c_int) < -(1 as libc::c_int)) {
+                if (if columns < 0 as libc::c_int {
+                    if lines_per_body < 0 as libc::c_int {
+                        if ((if 1 as libc::c_int != 0 {
                             0 as libc::c_int
                         } else {
                             (if 1 as libc::c_int != 0 {
@@ -5603,9 +5604,9 @@ unsafe extern "C" fn init_store_cols() {
                             } else {
                                 32767 as libc::c_int / -columns
                             }) <= -(1 as libc::c_int) - lines_per_body) as libc::c_int
-                        })
+                        }
                     } else {
-                        (if (if (if ((if 1 as libc::c_int != 0 {
+                        if (if (if ((if 1 as libc::c_int != 0 {
                             0 as libc::c_int
                         } else {
                             (if 1 as libc::c_int != 0 {
@@ -5689,7 +5690,7 @@ unsafe extern "C" fn init_store_cols() {
                                 as libc::c_int
                         }) != 0 && columns == -(1 as libc::c_int)
                         {
-                            (if ((if 1 as libc::c_int != 0 {
+                            if ((if 1 as libc::c_int != 0 {
                                 0 as libc::c_int
                             } else {
                                 lines_per_body
@@ -5704,18 +5705,18 @@ unsafe extern "C" fn init_store_cols() {
                                     && -(1 as libc::c_int)
                                         - (-(32767 as libc::c_int) - 1 as libc::c_int)
                                         < lines_per_body - 1 as libc::c_int) as libc::c_int
-                            })
+                            }
                         } else {
                             ((-(32767 as libc::c_int) - 1 as libc::c_int) / columns
                                 < lines_per_body) as libc::c_int
-                        })
-                    })
+                        }
+                    }
                 } else {
-                    (if columns == 0 as libc::c_int {
+                    if columns == 0 as libc::c_int {
                         0 as libc::c_int
                     } else {
-                        (if lines_per_body < 0 as libc::c_int {
-                            (if (if (if ((if 1 as libc::c_int != 0 {
+                        if lines_per_body < 0 as libc::c_int {
+                            if (if (if ((if 1 as libc::c_int != 0 {
                                 0 as libc::c_int
                             } else {
                                 (if 1 as libc::c_int != 0 {
@@ -5799,7 +5800,7 @@ unsafe extern "C" fn init_store_cols() {
                                     as libc::c_int
                             }) != 0 && lines_per_body == -(1 as libc::c_int)
                             {
-                                (if ((if 1 as libc::c_int != 0 {
+                                if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int
                                 } else {
                                     columns
@@ -5812,16 +5813,16 @@ unsafe extern "C" fn init_store_cols() {
                                     (-(1 as libc::c_int)
                                         - (-(32767 as libc::c_int) - 1 as libc::c_int)
                                         < columns - 1 as libc::c_int) as libc::c_int
-                                })
+                                }
                             } else {
                                 ((-(32767 as libc::c_int) - 1 as libc::c_int)
                                     / lines_per_body < columns) as libc::c_int
-                            })
+                            }
                         } else {
                             (32767 as libc::c_int / columns < lines_per_body)
                                 as libc::c_int
-                        })
-                    })
+                        }
+                    }
                 }) != 0
                 {
                     total_lines = (lines_per_body as libc::c_uint)
@@ -5833,11 +5834,11 @@ unsafe extern "C" fn init_store_cols() {
                         .wrapping_mul(columns as libc::c_uint) as libc::c_short
                         as libc::c_int;
                     0 as libc::c_int
-                })
+                }
             } else {
-                (if (if columns < 0 as libc::c_int {
-                    (if lines_per_body < 0 as libc::c_int {
-                        (if ((if 1 as libc::c_int != 0 {
+                if (if columns < 0 as libc::c_int {
+                    if lines_per_body < 0 as libc::c_int {
+                        if ((if 1 as libc::c_int != 0 {
                             0 as libc::c_int
                         } else {
                             (if 1 as libc::c_int != 0 {
@@ -5915,9 +5916,9 @@ unsafe extern "C" fn init_store_cols() {
                                 (32767 as libc::c_int * 2 as libc::c_int + 1 as libc::c_int)
                                     / -columns
                             }) <= -(1 as libc::c_int) - lines_per_body) as libc::c_int
-                        })
+                        }
                     } else {
-                        (if (if (if ((if 1 as libc::c_int != 0 {
+                        if (if (if ((if 1 as libc::c_int != 0 {
                             0 as libc::c_int
                         } else {
                             (if 1 as libc::c_int != 0 {
@@ -6000,7 +6001,7 @@ unsafe extern "C" fn init_store_cols() {
                                 }) + 0 as libc::c_int) as libc::c_int
                         }) != 0 && columns == -(1 as libc::c_int)
                         {
-                            (if ((if 1 as libc::c_int != 0 {
+                            if ((if 1 as libc::c_int != 0 {
                                 0 as libc::c_int
                             } else {
                                 lines_per_body
@@ -6012,17 +6013,17 @@ unsafe extern "C" fn init_store_cols() {
                                 ((0 as libc::c_int) < lines_per_body
                                     && (-(1 as libc::c_int) - 0 as libc::c_int)
                                         < lines_per_body - 1 as libc::c_int) as libc::c_int
-                            })
+                            }
                         } else {
                             (0 as libc::c_int / columns < lines_per_body) as libc::c_int
-                        })
-                    })
+                        }
+                    }
                 } else {
-                    (if columns == 0 as libc::c_int {
+                    if columns == 0 as libc::c_int {
                         0 as libc::c_int
                     } else {
-                        (if lines_per_body < 0 as libc::c_int {
-                            (if (if (if ((if 1 as libc::c_int != 0 {
+                        if lines_per_body < 0 as libc::c_int {
+                            if (if (if ((if 1 as libc::c_int != 0 {
                                 0 as libc::c_int
                             } else {
                                 (if 1 as libc::c_int != 0 {
@@ -6105,7 +6106,7 @@ unsafe extern "C" fn init_store_cols() {
                                     }) + 0 as libc::c_int) as libc::c_int
                             }) != 0 && lines_per_body == -(1 as libc::c_int)
                             {
-                                (if ((if 1 as libc::c_int != 0 {
+                                if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int
                                 } else {
                                     columns
@@ -6116,15 +6117,15 @@ unsafe extern "C" fn init_store_cols() {
                                 } else {
                                     ((-(1 as libc::c_int) - 0 as libc::c_int)
                                         < columns - 1 as libc::c_int) as libc::c_int
-                                })
+                                }
                             } else {
                                 (0 as libc::c_int / lines_per_body < columns) as libc::c_int
-                            })
+                            }
                         } else {
                             ((32767 as libc::c_int * 2 as libc::c_int + 1 as libc::c_int)
                                 / columns < lines_per_body) as libc::c_int
-                        })
-                    })
+                        }
+                    }
                 }) != 0
                 {
                     total_lines = (lines_per_body as libc::c_uint)
@@ -6136,18 +6137,18 @@ unsafe extern "C" fn init_store_cols() {
                         .wrapping_mul(columns as libc::c_uint) as libc::c_ushort
                         as libc::c_int;
                     0 as libc::c_int
-                })
-            })
+                }
+            }
         } else {
-            (if ::core::mem::size_of::<libc::c_int>() as libc::c_ulong
+            if ::core::mem::size_of::<libc::c_int>() as libc::c_ulong
                 == ::core::mem::size_of::<libc::c_int>() as libc::c_ulong
             {
-                (if ((if 1 as libc::c_int != 0 { 0 as libc::c_int } else { total_lines })
+                if ((if 1 as libc::c_int != 0 { 0 as libc::c_int } else { total_lines })
                     - 1 as libc::c_int) < 0 as libc::c_int
                 {
-                    (if (if columns < 0 as libc::c_int {
-                        (if lines_per_body < 0 as libc::c_int {
-                            (if ((if 1 as libc::c_int != 0 {
+                    if (if columns < 0 as libc::c_int {
+                        if lines_per_body < 0 as libc::c_int {
+                            if ((if 1 as libc::c_int != 0 {
                                 0 as libc::c_int
                             } else {
                                 (if 1 as libc::c_int != 0 {
@@ -6221,9 +6222,9 @@ unsafe extern "C" fn init_store_cols() {
                                 } else {
                                     2147483647 as libc::c_int / -columns
                                 }) <= -(1 as libc::c_int) - lines_per_body) as libc::c_int
-                            })
+                            }
                         } else {
-                            (if (if (if ((if 1 as libc::c_int != 0 {
+                            if (if (if ((if 1 as libc::c_int != 0 {
                                 0 as libc::c_int
                             } else {
                                 (if 1 as libc::c_int != 0 {
@@ -6307,7 +6308,7 @@ unsafe extern "C" fn init_store_cols() {
                                     as libc::c_int
                             }) != 0 && columns == -(1 as libc::c_int)
                             {
-                                (if ((if 1 as libc::c_int != 0 {
+                                if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int
                                 } else {
                                     lines_per_body
@@ -6322,18 +6323,18 @@ unsafe extern "C" fn init_store_cols() {
                                         && -(1 as libc::c_int)
                                             - (-(2147483647 as libc::c_int) - 1 as libc::c_int)
                                             < lines_per_body - 1 as libc::c_int) as libc::c_int
-                                })
+                                }
                             } else {
                                 ((-(2147483647 as libc::c_int) - 1 as libc::c_int) / columns
                                     < lines_per_body) as libc::c_int
-                            })
-                        })
+                            }
+                        }
                     } else {
-                        (if columns == 0 as libc::c_int {
+                        if columns == 0 as libc::c_int {
                             0 as libc::c_int
                         } else {
-                            (if lines_per_body < 0 as libc::c_int {
-                                (if (if (if ((if 1 as libc::c_int != 0 {
+                            if lines_per_body < 0 as libc::c_int {
+                                if (if (if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int
                                 } else {
                                     (if 1 as libc::c_int != 0 {
@@ -6417,7 +6418,7 @@ unsafe extern "C" fn init_store_cols() {
                                         as libc::c_int
                                 }) != 0 && lines_per_body == -(1 as libc::c_int)
                                 {
-                                    (if ((if 1 as libc::c_int != 0 {
+                                    if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int
                                     } else {
                                         columns
@@ -6431,16 +6432,16 @@ unsafe extern "C" fn init_store_cols() {
                                         (-(1 as libc::c_int)
                                             - (-(2147483647 as libc::c_int) - 1 as libc::c_int)
                                             < columns - 1 as libc::c_int) as libc::c_int
-                                    })
+                                    }
                                 } else {
                                     ((-(2147483647 as libc::c_int) - 1 as libc::c_int)
                                         / lines_per_body < columns) as libc::c_int
-                                })
+                                }
                             } else {
                                 (2147483647 as libc::c_int / columns < lines_per_body)
                                     as libc::c_int
-                            })
-                        })
+                            }
+                        }
                     }) != 0
                     {
                         total_lines = (lines_per_body as libc::c_uint)
@@ -6450,11 +6451,11 @@ unsafe extern "C" fn init_store_cols() {
                         total_lines = (lines_per_body as libc::c_uint)
                             .wrapping_mul(columns as libc::c_uint) as libc::c_int;
                         0 as libc::c_int
-                    })
+                    }
                 } else {
-                    (if (if columns < 0 as libc::c_int {
-                        (if lines_per_body < 0 as libc::c_int {
-                            (if (if 1 as libc::c_int != 0 {
+                    if (if columns < 0 as libc::c_int {
+                        if lines_per_body < 0 as libc::c_int {
+                            if (if 1 as libc::c_int != 0 {
                                 0 as libc::c_int as libc::c_uint
                             } else {
                                 (if 1 as libc::c_int != 0 {
@@ -6546,9 +6547,9 @@ unsafe extern "C" fn init_store_cols() {
                                 })
                                     <= (-(1 as libc::c_int) - lines_per_body) as libc::c_uint)
                                     as libc::c_int
-                            })
+                            }
                         } else {
-                            (if (if (if ((if 1 as libc::c_int != 0 {
+                            if (if (if ((if 1 as libc::c_int != 0 {
                                 0 as libc::c_int
                             } else {
                                 (if 1 as libc::c_int != 0 {
@@ -6631,7 +6632,7 @@ unsafe extern "C" fn init_store_cols() {
                                     }) + 0 as libc::c_int) as libc::c_int
                             }) != 0 && columns == -(1 as libc::c_int)
                             {
-                                (if ((if 1 as libc::c_int != 0 {
+                                if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int
                                 } else {
                                     lines_per_body
@@ -6643,17 +6644,17 @@ unsafe extern "C" fn init_store_cols() {
                                     ((0 as libc::c_int) < lines_per_body
                                         && (-(1 as libc::c_int) - 0 as libc::c_int)
                                             < lines_per_body - 1 as libc::c_int) as libc::c_int
-                                })
+                                }
                             } else {
                                 (0 as libc::c_int / columns < lines_per_body) as libc::c_int
-                            })
-                        })
+                            }
+                        }
                     } else {
-                        (if columns == 0 as libc::c_int {
+                        if columns == 0 as libc::c_int {
                             0 as libc::c_int
                         } else {
-                            (if lines_per_body < 0 as libc::c_int {
-                                (if (if (if ((if 1 as libc::c_int != 0 {
+                            if lines_per_body < 0 as libc::c_int {
+                                if (if (if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int
                                 } else {
                                     (if 1 as libc::c_int != 0 {
@@ -6736,7 +6737,7 @@ unsafe extern "C" fn init_store_cols() {
                                         }) + 0 as libc::c_int) as libc::c_int
                                 }) != 0 && lines_per_body == -(1 as libc::c_int)
                                 {
-                                    (if ((if 1 as libc::c_int != 0 {
+                                    if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int
                                     } else {
                                         columns
@@ -6747,18 +6748,18 @@ unsafe extern "C" fn init_store_cols() {
                                     } else {
                                         ((-(1 as libc::c_int) - 0 as libc::c_int)
                                             < columns - 1 as libc::c_int) as libc::c_int
-                                    })
+                                    }
                                 } else {
                                     (0 as libc::c_int / lines_per_body < columns) as libc::c_int
-                                })
+                                }
                             } else {
                                 ((2147483647 as libc::c_int as libc::c_uint)
                                     .wrapping_mul(2 as libc::c_uint)
                                     .wrapping_add(1 as libc::c_uint)
                                     .wrapping_div(columns as libc::c_uint)
                                     < lines_per_body as libc::c_uint) as libc::c_int
-                            })
-                        })
+                            }
+                        }
                     }) != 0
                     {
                         total_lines = (lines_per_body as libc::c_uint)
@@ -6768,21 +6769,21 @@ unsafe extern "C" fn init_store_cols() {
                         total_lines = (lines_per_body as libc::c_uint)
                             .wrapping_mul(columns as libc::c_uint) as libc::c_int;
                         0 as libc::c_int
-                    })
-                })
+                    }
+                }
             } else {
-                (if ::core::mem::size_of::<libc::c_int>() as libc::c_ulong
+                if ::core::mem::size_of::<libc::c_int>() as libc::c_ulong
                     == ::core::mem::size_of::<libc::c_long>() as libc::c_ulong
                 {
-                    (if ((if 1 as libc::c_int != 0 {
+                    if ((if 1 as libc::c_int != 0 {
                         0 as libc::c_int
                     } else {
                         total_lines
                     }) - 1 as libc::c_int) < 0 as libc::c_int
                     {
-                        (if (if columns < 0 as libc::c_int {
-                            (if lines_per_body < 0 as libc::c_int {
-                                (if ((if 1 as libc::c_int != 0 {
+                        if (if columns < 0 as libc::c_int {
+                            if lines_per_body < 0 as libc::c_int {
+                                if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int as libc::c_long
                                 } else {
                                     (if 1 as libc::c_int != 0 {
@@ -6861,9 +6862,9 @@ unsafe extern "C" fn init_store_cols() {
                                     })
                                         <= (-(1 as libc::c_int) - lines_per_body) as libc::c_long)
                                         as libc::c_int
-                                })
+                                }
                             } else {
-                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                if (if (if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int as libc::c_long
                                 } else {
                                     (if 1 as libc::c_int != 0 {
@@ -6968,7 +6969,7 @@ unsafe extern "C" fn init_store_cols() {
                                                 - 1 as libc::c_long)) as libc::c_int
                                 }) != 0 && columns == -(1 as libc::c_int)
                                 {
-                                    (if ((if 1 as libc::c_int != 0 {
+                                    if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int
                                     } else {
                                         lines_per_body
@@ -6985,19 +6986,19 @@ unsafe extern "C" fn init_store_cols() {
                                                     - 1 as libc::c_long)
                                                 < (lines_per_body - 1 as libc::c_int) as libc::c_long)
                                             as libc::c_int
-                                    })
+                                    }
                                 } else {
                                     (((-(9223372036854775807 as libc::c_long)
                                         - 1 as libc::c_long) / columns as libc::c_long)
                                         < lines_per_body as libc::c_long) as libc::c_int
-                                })
-                            })
+                                }
+                            }
                         } else {
-                            (if columns == 0 as libc::c_int {
+                            if columns == 0 as libc::c_int {
                                 0 as libc::c_int
                             } else {
-                                (if lines_per_body < 0 as libc::c_int {
-                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                if lines_per_body < 0 as libc::c_int {
+                                    if (if (if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_long
                                     } else {
                                         (if 1 as libc::c_int != 0 {
@@ -7102,7 +7103,7 @@ unsafe extern "C" fn init_store_cols() {
                                                     - 1 as libc::c_long)) as libc::c_int
                                     }) != 0 && lines_per_body == -(1 as libc::c_int)
                                     {
-                                        (if ((if 1 as libc::c_int != 0 {
+                                        if ((if 1 as libc::c_int != 0 {
                                             0 as libc::c_int
                                         } else {
                                             columns
@@ -7118,18 +7119,18 @@ unsafe extern "C" fn init_store_cols() {
                                                     - 1 as libc::c_long)
                                                 < (columns - 1 as libc::c_int) as libc::c_long)
                                                 as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         (((-(9223372036854775807 as libc::c_long)
                                             - 1 as libc::c_long) / lines_per_body as libc::c_long)
                                             < columns as libc::c_long) as libc::c_int
-                                    })
+                                    }
                                 } else {
                                     ((9223372036854775807 as libc::c_long
                                         / columns as libc::c_long) < lines_per_body as libc::c_long)
                                         as libc::c_int
-                                })
-                            })
+                                }
+                            }
                         }) != 0
                         {
                             total_lines = (lines_per_body as libc::c_ulong)
@@ -7141,11 +7142,11 @@ unsafe extern "C" fn init_store_cols() {
                                 .wrapping_mul(columns as libc::c_ulong) as libc::c_long
                                 as libc::c_int;
                             0 as libc::c_int
-                        })
+                        }
                     } else {
-                        (if (if columns < 0 as libc::c_int {
-                            (if lines_per_body < 0 as libc::c_int {
-                                (if (if 1 as libc::c_int != 0 {
+                        if (if columns < 0 as libc::c_int {
+                            if lines_per_body < 0 as libc::c_int {
+                                if (if 1 as libc::c_int != 0 {
                                     0 as libc::c_int as libc::c_ulong
                                 } else {
                                     (if 1 as libc::c_int != 0 {
@@ -7237,9 +7238,9 @@ unsafe extern "C" fn init_store_cols() {
                                     })
                                         <= (-(1 as libc::c_int) - lines_per_body) as libc::c_ulong)
                                         as libc::c_int
-                                })
+                                }
                             } else {
-                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                if (if (if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int
                                 } else {
                                     (if 1 as libc::c_int != 0 {
@@ -7322,7 +7323,7 @@ unsafe extern "C" fn init_store_cols() {
                                         }) + 0 as libc::c_int) as libc::c_int
                                 }) != 0 && columns == -(1 as libc::c_int)
                                 {
-                                    (if ((if 1 as libc::c_int != 0 {
+                                    if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int
                                     } else {
                                         lines_per_body
@@ -7334,17 +7335,17 @@ unsafe extern "C" fn init_store_cols() {
                                         ((0 as libc::c_int) < lines_per_body
                                             && (-(1 as libc::c_int) - 0 as libc::c_int)
                                                 < lines_per_body - 1 as libc::c_int) as libc::c_int
-                                    })
+                                    }
                                 } else {
                                     (0 as libc::c_int / columns < lines_per_body) as libc::c_int
-                                })
-                            })
+                                }
+                            }
                         } else {
-                            (if columns == 0 as libc::c_int {
+                            if columns == 0 as libc::c_int {
                                 0 as libc::c_int
                             } else {
-                                (if lines_per_body < 0 as libc::c_int {
-                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                if lines_per_body < 0 as libc::c_int {
+                                    if (if (if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int
                                     } else {
                                         (if 1 as libc::c_int != 0 {
@@ -7427,7 +7428,7 @@ unsafe extern "C" fn init_store_cols() {
                                             }) + 0 as libc::c_int) as libc::c_int
                                     }) != 0 && lines_per_body == -(1 as libc::c_int)
                                     {
-                                        (if ((if 1 as libc::c_int != 0 {
+                                        if ((if 1 as libc::c_int != 0 {
                                             0 as libc::c_int
                                         } else {
                                             columns
@@ -7438,18 +7439,18 @@ unsafe extern "C" fn init_store_cols() {
                                         } else {
                                             ((-(1 as libc::c_int) - 0 as libc::c_int)
                                                 < columns - 1 as libc::c_int) as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         (0 as libc::c_int / lines_per_body < columns) as libc::c_int
-                                    })
+                                    }
                                 } else {
                                     ((9223372036854775807 as libc::c_long as libc::c_ulong)
                                         .wrapping_mul(2 as libc::c_ulong)
                                         .wrapping_add(1 as libc::c_ulong)
                                         .wrapping_div(columns as libc::c_ulong)
                                         < lines_per_body as libc::c_ulong) as libc::c_int
-                                })
-                            })
+                                }
+                            }
                         }) != 0
                         {
                             total_lines = (lines_per_body as libc::c_ulong)
@@ -7459,18 +7460,18 @@ unsafe extern "C" fn init_store_cols() {
                             total_lines = (lines_per_body as libc::c_ulong)
                                 .wrapping_mul(columns as libc::c_ulong) as libc::c_int;
                             0 as libc::c_int
-                        })
-                    })
+                        }
+                    }
                 } else {
-                    (if ((if 1 as libc::c_int != 0 {
+                    if ((if 1 as libc::c_int != 0 {
                         0 as libc::c_int
                     } else {
                         total_lines
                     }) - 1 as libc::c_int) < 0 as libc::c_int
                     {
-                        (if (if columns < 0 as libc::c_int {
-                            (if lines_per_body < 0 as libc::c_int {
-                                (if ((if 1 as libc::c_int != 0 {
+                        if (if columns < 0 as libc::c_int {
+                            if lines_per_body < 0 as libc::c_int {
+                                if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int as libc::c_longlong
                                 } else {
                                     (if 1 as libc::c_int != 0 {
@@ -7550,9 +7551,9 @@ unsafe extern "C" fn init_store_cols() {
                                     })
                                         <= (-(1 as libc::c_int) - lines_per_body)
                                             as libc::c_longlong) as libc::c_int
-                                })
+                                }
                             } else {
-                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                if (if (if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int as libc::c_longlong
                                 } else {
                                     (if 1 as libc::c_int != 0 {
@@ -7659,7 +7660,7 @@ unsafe extern "C" fn init_store_cols() {
                                                 - 1 as libc::c_longlong)) as libc::c_int
                                 }) != 0 && columns == -(1 as libc::c_int)
                                 {
-                                    (if ((if 1 as libc::c_int != 0 {
+                                    if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int
                                     } else {
                                         lines_per_body
@@ -7676,19 +7677,19 @@ unsafe extern "C" fn init_store_cols() {
                                                     - 1 as libc::c_longlong)
                                                 < (lines_per_body - 1 as libc::c_int) as libc::c_longlong)
                                             as libc::c_int
-                                    })
+                                    }
                                 } else {
                                     (((-(9223372036854775807 as libc::c_longlong)
                                         - 1 as libc::c_longlong) / columns as libc::c_longlong)
                                         < lines_per_body as libc::c_longlong) as libc::c_int
-                                })
-                            })
+                                }
+                            }
                         } else {
-                            (if columns == 0 as libc::c_int {
+                            if columns == 0 as libc::c_int {
                                 0 as libc::c_int
                             } else {
-                                (if lines_per_body < 0 as libc::c_int {
-                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                if lines_per_body < 0 as libc::c_int {
+                                    if (if (if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_longlong
                                     } else {
                                         (if 1 as libc::c_int != 0 {
@@ -7795,7 +7796,7 @@ unsafe extern "C" fn init_store_cols() {
                                                     - 1 as libc::c_longlong)) as libc::c_int
                                     }) != 0 && lines_per_body == -(1 as libc::c_int)
                                     {
-                                        (if ((if 1 as libc::c_int != 0 {
+                                        if ((if 1 as libc::c_int != 0 {
                                             0 as libc::c_int
                                         } else {
                                             columns
@@ -7811,19 +7812,19 @@ unsafe extern "C" fn init_store_cols() {
                                                     - 1 as libc::c_longlong)
                                                 < (columns - 1 as libc::c_int) as libc::c_longlong)
                                                 as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         (((-(9223372036854775807 as libc::c_longlong)
                                             - 1 as libc::c_longlong)
                                             / lines_per_body as libc::c_longlong)
                                             < columns as libc::c_longlong) as libc::c_int
-                                    })
+                                    }
                                 } else {
                                     ((9223372036854775807 as libc::c_longlong
                                         / columns as libc::c_longlong)
                                         < lines_per_body as libc::c_longlong) as libc::c_int
-                                })
-                            })
+                                }
+                            }
                         }) != 0
                         {
                             total_lines = (lines_per_body as libc::c_ulonglong)
@@ -7835,11 +7836,11 @@ unsafe extern "C" fn init_store_cols() {
                                 .wrapping_mul(columns as libc::c_ulonglong)
                                 as libc::c_longlong as libc::c_int;
                             0 as libc::c_int
-                        })
+                        }
                     } else {
-                        (if (if columns < 0 as libc::c_int {
-                            (if lines_per_body < 0 as libc::c_int {
-                                (if (if 1 as libc::c_int != 0 {
+                        if (if columns < 0 as libc::c_int {
+                            if lines_per_body < 0 as libc::c_int {
+                                if (if 1 as libc::c_int != 0 {
                                     0 as libc::c_int as libc::c_ulonglong
                                 } else {
                                     (if 1 as libc::c_int != 0 {
@@ -7935,9 +7936,9 @@ unsafe extern "C" fn init_store_cols() {
                                     })
                                         <= (-(1 as libc::c_int) - lines_per_body)
                                             as libc::c_ulonglong) as libc::c_int
-                                })
+                                }
                             } else {
-                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                if (if (if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int
                                 } else {
                                     (if 1 as libc::c_int != 0 {
@@ -8020,7 +8021,7 @@ unsafe extern "C" fn init_store_cols() {
                                         }) + 0 as libc::c_int) as libc::c_int
                                 }) != 0 && columns == -(1 as libc::c_int)
                                 {
-                                    (if ((if 1 as libc::c_int != 0 {
+                                    if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int
                                     } else {
                                         lines_per_body
@@ -8032,17 +8033,17 @@ unsafe extern "C" fn init_store_cols() {
                                         ((0 as libc::c_int) < lines_per_body
                                             && (-(1 as libc::c_int) - 0 as libc::c_int)
                                                 < lines_per_body - 1 as libc::c_int) as libc::c_int
-                                    })
+                                    }
                                 } else {
                                     (0 as libc::c_int / columns < lines_per_body) as libc::c_int
-                                })
-                            })
+                                }
+                            }
                         } else {
-                            (if columns == 0 as libc::c_int {
+                            if columns == 0 as libc::c_int {
                                 0 as libc::c_int
                             } else {
-                                (if lines_per_body < 0 as libc::c_int {
-                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                if lines_per_body < 0 as libc::c_int {
+                                    if (if (if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int
                                     } else {
                                         (if 1 as libc::c_int != 0 {
@@ -8125,7 +8126,7 @@ unsafe extern "C" fn init_store_cols() {
                                             }) + 0 as libc::c_int) as libc::c_int
                                     }) != 0 && lines_per_body == -(1 as libc::c_int)
                                     {
-                                        (if ((if 1 as libc::c_int != 0 {
+                                        if ((if 1 as libc::c_int != 0 {
                                             0 as libc::c_int
                                         } else {
                                             columns
@@ -8136,10 +8137,10 @@ unsafe extern "C" fn init_store_cols() {
                                         } else {
                                             ((-(1 as libc::c_int) - 0 as libc::c_int)
                                                 < columns - 1 as libc::c_int) as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         (0 as libc::c_int / lines_per_body < columns) as libc::c_int
-                                    })
+                                    }
                                 } else {
                                     ((9223372036854775807 as libc::c_longlong
                                         as libc::c_ulonglong)
@@ -8147,8 +8148,8 @@ unsafe extern "C" fn init_store_cols() {
                                         .wrapping_add(1 as libc::c_ulonglong)
                                         .wrapping_div(columns as libc::c_ulonglong)
                                         < lines_per_body as libc::c_ulonglong) as libc::c_int
-                                })
-                            })
+                                }
+                            }
                         }) != 0
                         {
                             total_lines = (lines_per_body as libc::c_ulonglong)
@@ -8158,11 +8159,11 @@ unsafe extern "C" fn init_store_cols() {
                             total_lines = (lines_per_body as libc::c_ulonglong)
                                 .wrapping_mul(columns as libc::c_ulonglong) as libc::c_int;
                             0 as libc::c_int
-                        })
-                    })
-                })
-            })
-        })
+                        }
+                    }
+                }
+            }
+        }
     }) != 0
         || {
             let (fresh14, fresh15) = total_lines.overflowing_add(1 as libc::c_int);
@@ -8177,10 +8178,10 @@ unsafe extern "C" fn init_store_cols() {
         || (if ::core::mem::size_of::<libc::c_int>() as libc::c_ulong
             == ::core::mem::size_of::<libc::c_schar>() as libc::c_ulong
         {
-            (if !((0 as libc::c_int) < -(1 as libc::c_int)) {
-                (if (if chars_per_column_1 < 0 as libc::c_int {
-                    (if total_lines < 0 as libc::c_int {
-                        (if ((if 1 as libc::c_int != 0 {
+            if !((0 as libc::c_int) < -(1 as libc::c_int)) {
+                if (if chars_per_column_1 < 0 as libc::c_int {
+                    if total_lines < 0 as libc::c_int {
+                        if ((if 1 as libc::c_int != 0 {
                             0 as libc::c_int
                         } else {
                             (if 1 as libc::c_int != 0 {
@@ -8254,9 +8255,9 @@ unsafe extern "C" fn init_store_cols() {
                             } else {
                                 127 as libc::c_int / -chars_per_column_1
                             }) <= -(1 as libc::c_int) - total_lines) as libc::c_int
-                        })
+                        }
                     } else {
-                        (if (if (if ((if 1 as libc::c_int != 0 {
+                        if (if (if ((if 1 as libc::c_int != 0 {
                             0 as libc::c_int
                         } else {
                             (if 1 as libc::c_int != 0 {
@@ -8340,7 +8341,7 @@ unsafe extern "C" fn init_store_cols() {
                                 as libc::c_int
                         }) != 0 && chars_per_column_1 == -(1 as libc::c_int)
                         {
-                            (if ((if 1 as libc::c_int != 0 {
+                            if ((if 1 as libc::c_int != 0 {
                                 0 as libc::c_int
                             } else {
                                 total_lines
@@ -8354,18 +8355,18 @@ unsafe extern "C" fn init_store_cols() {
                                     && -(1 as libc::c_int)
                                         - (-(127 as libc::c_int) - 1 as libc::c_int)
                                         < total_lines - 1 as libc::c_int) as libc::c_int
-                            })
+                            }
                         } else {
                             ((-(127 as libc::c_int) - 1 as libc::c_int)
                                 / chars_per_column_1 < total_lines) as libc::c_int
-                        })
-                    })
+                        }
+                    }
                 } else {
-                    (if chars_per_column_1 == 0 as libc::c_int {
+                    if chars_per_column_1 == 0 as libc::c_int {
                         0 as libc::c_int
                     } else {
-                        (if total_lines < 0 as libc::c_int {
-                            (if (if (if ((if 1 as libc::c_int != 0 {
+                        if total_lines < 0 as libc::c_int {
+                            if (if (if ((if 1 as libc::c_int != 0 {
                                 0 as libc::c_int
                             } else {
                                 (if 1 as libc::c_int != 0 {
@@ -8449,7 +8450,7 @@ unsafe extern "C" fn init_store_cols() {
                                     as libc::c_int
                             }) != 0 && total_lines == -(1 as libc::c_int)
                             {
-                                (if ((if 1 as libc::c_int != 0 {
+                                if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int
                                 } else {
                                     chars_per_column_1
@@ -8462,16 +8463,16 @@ unsafe extern "C" fn init_store_cols() {
                                     (-(1 as libc::c_int)
                                         - (-(127 as libc::c_int) - 1 as libc::c_int)
                                         < chars_per_column_1 - 1 as libc::c_int) as libc::c_int
-                                })
+                                }
                             } else {
                                 ((-(127 as libc::c_int) - 1 as libc::c_int) / total_lines
                                     < chars_per_column_1) as libc::c_int
-                            })
+                            }
                         } else {
                             (127 as libc::c_int / chars_per_column_1 < total_lines)
                                 as libc::c_int
-                        })
-                    })
+                        }
+                    }
                 }) != 0
                 {
                     chars_if_truncate = (total_lines as libc::c_uint)
@@ -8483,11 +8484,11 @@ unsafe extern "C" fn init_store_cols() {
                         .wrapping_mul(chars_per_column_1 as libc::c_uint)
                         as libc::c_schar as libc::c_int;
                     0 as libc::c_int
-                })
+                }
             } else {
-                (if (if chars_per_column_1 < 0 as libc::c_int {
-                    (if total_lines < 0 as libc::c_int {
-                        (if ((if 1 as libc::c_int != 0 {
+                if (if chars_per_column_1 < 0 as libc::c_int {
+                    if total_lines < 0 as libc::c_int {
+                        if ((if 1 as libc::c_int != 0 {
                             0 as libc::c_int
                         } else {
                             (if 1 as libc::c_int != 0 {
@@ -8564,9 +8565,9 @@ unsafe extern "C" fn init_store_cols() {
                                 (127 as libc::c_int * 2 as libc::c_int + 1 as libc::c_int)
                                     / -chars_per_column_1
                             }) <= -(1 as libc::c_int) - total_lines) as libc::c_int
-                        })
+                        }
                     } else {
-                        (if (if (if ((if 1 as libc::c_int != 0 {
+                        if (if (if ((if 1 as libc::c_int != 0 {
                             0 as libc::c_int
                         } else {
                             (if 1 as libc::c_int != 0 {
@@ -8649,7 +8650,7 @@ unsafe extern "C" fn init_store_cols() {
                                 }) + 0 as libc::c_int) as libc::c_int
                         }) != 0 && chars_per_column_1 == -(1 as libc::c_int)
                         {
-                            (if ((if 1 as libc::c_int != 0 {
+                            if ((if 1 as libc::c_int != 0 {
                                 0 as libc::c_int
                             } else {
                                 total_lines
@@ -8661,18 +8662,18 @@ unsafe extern "C" fn init_store_cols() {
                                 ((0 as libc::c_int) < total_lines
                                     && (-(1 as libc::c_int) - 0 as libc::c_int)
                                         < total_lines - 1 as libc::c_int) as libc::c_int
-                            })
+                            }
                         } else {
                             (0 as libc::c_int / chars_per_column_1 < total_lines)
                                 as libc::c_int
-                        })
-                    })
+                        }
+                    }
                 } else {
-                    (if chars_per_column_1 == 0 as libc::c_int {
+                    if chars_per_column_1 == 0 as libc::c_int {
                         0 as libc::c_int
                     } else {
-                        (if total_lines < 0 as libc::c_int {
-                            (if (if (if ((if 1 as libc::c_int != 0 {
+                        if total_lines < 0 as libc::c_int {
+                            if (if (if ((if 1 as libc::c_int != 0 {
                                 0 as libc::c_int
                             } else {
                                 (if 1 as libc::c_int != 0 {
@@ -8755,7 +8756,7 @@ unsafe extern "C" fn init_store_cols() {
                                     }) + 0 as libc::c_int) as libc::c_int
                             }) != 0 && total_lines == -(1 as libc::c_int)
                             {
-                                (if ((if 1 as libc::c_int != 0 {
+                                if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int
                                 } else {
                                     chars_per_column_1
@@ -8766,16 +8767,16 @@ unsafe extern "C" fn init_store_cols() {
                                 } else {
                                     ((-(1 as libc::c_int) - 0 as libc::c_int)
                                         < chars_per_column_1 - 1 as libc::c_int) as libc::c_int
-                                })
+                                }
                             } else {
                                 (0 as libc::c_int / total_lines < chars_per_column_1)
                                     as libc::c_int
-                            })
+                            }
                         } else {
                             ((127 as libc::c_int * 2 as libc::c_int + 1 as libc::c_int)
                                 / chars_per_column_1 < total_lines) as libc::c_int
-                        })
-                    })
+                        }
+                    }
                 }) != 0
                 {
                     chars_if_truncate = (total_lines as libc::c_uint)
@@ -8787,16 +8788,16 @@ unsafe extern "C" fn init_store_cols() {
                         .wrapping_mul(chars_per_column_1 as libc::c_uint)
                         as libc::c_uchar as libc::c_int;
                     0 as libc::c_int
-                })
-            })
+                }
+            }
         } else {
-            (if ::core::mem::size_of::<libc::c_int>() as libc::c_ulong
+            if ::core::mem::size_of::<libc::c_int>() as libc::c_ulong
                 == ::core::mem::size_of::<libc::c_short>() as libc::c_ulong
             {
-                (if !((0 as libc::c_int) < -(1 as libc::c_int)) {
-                    (if (if chars_per_column_1 < 0 as libc::c_int {
-                        (if total_lines < 0 as libc::c_int {
-                            (if ((if 1 as libc::c_int != 0 {
+                if !((0 as libc::c_int) < -(1 as libc::c_int)) {
+                    if (if chars_per_column_1 < 0 as libc::c_int {
+                        if total_lines < 0 as libc::c_int {
+                            if ((if 1 as libc::c_int != 0 {
                                 0 as libc::c_int
                             } else {
                                 (if 1 as libc::c_int != 0 {
@@ -8870,9 +8871,9 @@ unsafe extern "C" fn init_store_cols() {
                                 } else {
                                     32767 as libc::c_int / -chars_per_column_1
                                 }) <= -(1 as libc::c_int) - total_lines) as libc::c_int
-                            })
+                            }
                         } else {
-                            (if (if (if ((if 1 as libc::c_int != 0 {
+                            if (if (if ((if 1 as libc::c_int != 0 {
                                 0 as libc::c_int
                             } else {
                                 (if 1 as libc::c_int != 0 {
@@ -8956,7 +8957,7 @@ unsafe extern "C" fn init_store_cols() {
                                     as libc::c_int
                             }) != 0 && chars_per_column_1 == -(1 as libc::c_int)
                             {
-                                (if ((if 1 as libc::c_int != 0 {
+                                if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int
                                 } else {
                                     total_lines
@@ -8971,18 +8972,18 @@ unsafe extern "C" fn init_store_cols() {
                                         && -(1 as libc::c_int)
                                             - (-(32767 as libc::c_int) - 1 as libc::c_int)
                                             < total_lines - 1 as libc::c_int) as libc::c_int
-                                })
+                                }
                             } else {
                                 ((-(32767 as libc::c_int) - 1 as libc::c_int)
                                     / chars_per_column_1 < total_lines) as libc::c_int
-                            })
-                        })
+                            }
+                        }
                     } else {
-                        (if chars_per_column_1 == 0 as libc::c_int {
+                        if chars_per_column_1 == 0 as libc::c_int {
                             0 as libc::c_int
                         } else {
-                            (if total_lines < 0 as libc::c_int {
-                                (if (if (if ((if 1 as libc::c_int != 0 {
+                            if total_lines < 0 as libc::c_int {
+                                if (if (if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int
                                 } else {
                                     (if 1 as libc::c_int != 0 {
@@ -9066,7 +9067,7 @@ unsafe extern "C" fn init_store_cols() {
                                         as libc::c_int
                                 }) != 0 && total_lines == -(1 as libc::c_int)
                                 {
-                                    (if ((if 1 as libc::c_int != 0 {
+                                    if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int
                                     } else {
                                         chars_per_column_1
@@ -9080,16 +9081,16 @@ unsafe extern "C" fn init_store_cols() {
                                         (-(1 as libc::c_int)
                                             - (-(32767 as libc::c_int) - 1 as libc::c_int)
                                             < chars_per_column_1 - 1 as libc::c_int) as libc::c_int
-                                    })
+                                    }
                                 } else {
                                     ((-(32767 as libc::c_int) - 1 as libc::c_int) / total_lines
                                         < chars_per_column_1) as libc::c_int
-                                })
+                                }
                             } else {
                                 (32767 as libc::c_int / chars_per_column_1 < total_lines)
                                     as libc::c_int
-                            })
-                        })
+                            }
+                        }
                     }) != 0
                     {
                         chars_if_truncate = (total_lines as libc::c_uint)
@@ -9101,11 +9102,11 @@ unsafe extern "C" fn init_store_cols() {
                             .wrapping_mul(chars_per_column_1 as libc::c_uint)
                             as libc::c_short as libc::c_int;
                         0 as libc::c_int
-                    })
+                    }
                 } else {
-                    (if (if chars_per_column_1 < 0 as libc::c_int {
-                        (if total_lines < 0 as libc::c_int {
-                            (if ((if 1 as libc::c_int != 0 {
+                    if (if chars_per_column_1 < 0 as libc::c_int {
+                        if total_lines < 0 as libc::c_int {
+                            if ((if 1 as libc::c_int != 0 {
                                 0 as libc::c_int
                             } else {
                                 (if 1 as libc::c_int != 0 {
@@ -9183,9 +9184,9 @@ unsafe extern "C" fn init_store_cols() {
                                     (32767 as libc::c_int * 2 as libc::c_int + 1 as libc::c_int)
                                         / -chars_per_column_1
                                 }) <= -(1 as libc::c_int) - total_lines) as libc::c_int
-                            })
+                            }
                         } else {
-                            (if (if (if ((if 1 as libc::c_int != 0 {
+                            if (if (if ((if 1 as libc::c_int != 0 {
                                 0 as libc::c_int
                             } else {
                                 (if 1 as libc::c_int != 0 {
@@ -9268,7 +9269,7 @@ unsafe extern "C" fn init_store_cols() {
                                     }) + 0 as libc::c_int) as libc::c_int
                             }) != 0 && chars_per_column_1 == -(1 as libc::c_int)
                             {
-                                (if ((if 1 as libc::c_int != 0 {
+                                if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int
                                 } else {
                                     total_lines
@@ -9280,18 +9281,18 @@ unsafe extern "C" fn init_store_cols() {
                                     ((0 as libc::c_int) < total_lines
                                         && (-(1 as libc::c_int) - 0 as libc::c_int)
                                             < total_lines - 1 as libc::c_int) as libc::c_int
-                                })
+                                }
                             } else {
                                 (0 as libc::c_int / chars_per_column_1 < total_lines)
                                     as libc::c_int
-                            })
-                        })
+                            }
+                        }
                     } else {
-                        (if chars_per_column_1 == 0 as libc::c_int {
+                        if chars_per_column_1 == 0 as libc::c_int {
                             0 as libc::c_int
                         } else {
-                            (if total_lines < 0 as libc::c_int {
-                                (if (if (if ((if 1 as libc::c_int != 0 {
+                            if total_lines < 0 as libc::c_int {
+                                if (if (if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int
                                 } else {
                                     (if 1 as libc::c_int != 0 {
@@ -9374,7 +9375,7 @@ unsafe extern "C" fn init_store_cols() {
                                         }) + 0 as libc::c_int) as libc::c_int
                                 }) != 0 && total_lines == -(1 as libc::c_int)
                                 {
-                                    (if ((if 1 as libc::c_int != 0 {
+                                    if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int
                                     } else {
                                         chars_per_column_1
@@ -9385,17 +9386,17 @@ unsafe extern "C" fn init_store_cols() {
                                     } else {
                                         ((-(1 as libc::c_int) - 0 as libc::c_int)
                                             < chars_per_column_1 - 1 as libc::c_int) as libc::c_int
-                                    })
+                                    }
                                 } else {
                                     (0 as libc::c_int / total_lines < chars_per_column_1)
                                         as libc::c_int
-                                })
+                                }
                             } else {
                                 ((32767 as libc::c_int * 2 as libc::c_int
                                     + 1 as libc::c_int) / chars_per_column_1 < total_lines)
                                     as libc::c_int
-                            })
-                        })
+                            }
+                        }
                     }) != 0
                     {
                         chars_if_truncate = (total_lines as libc::c_uint)
@@ -9407,21 +9408,21 @@ unsafe extern "C" fn init_store_cols() {
                             .wrapping_mul(chars_per_column_1 as libc::c_uint)
                             as libc::c_ushort as libc::c_int;
                         0 as libc::c_int
-                    })
-                })
+                    }
+                }
             } else {
-                (if ::core::mem::size_of::<libc::c_int>() as libc::c_ulong
+                if ::core::mem::size_of::<libc::c_int>() as libc::c_ulong
                     == ::core::mem::size_of::<libc::c_int>() as libc::c_ulong
                 {
-                    (if ((if 1 as libc::c_int != 0 {
+                    if ((if 1 as libc::c_int != 0 {
                         0 as libc::c_int
                     } else {
                         chars_if_truncate
                     }) - 1 as libc::c_int) < 0 as libc::c_int
                     {
-                        (if (if chars_per_column_1 < 0 as libc::c_int {
-                            (if total_lines < 0 as libc::c_int {
-                                (if ((if 1 as libc::c_int != 0 {
+                        if (if chars_per_column_1 < 0 as libc::c_int {
+                            if total_lines < 0 as libc::c_int {
+                                if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int
                                 } else {
                                     (if 1 as libc::c_int != 0 {
@@ -9496,9 +9497,9 @@ unsafe extern "C" fn init_store_cols() {
                                     } else {
                                         2147483647 as libc::c_int / -chars_per_column_1
                                     }) <= -(1 as libc::c_int) - total_lines) as libc::c_int
-                                })
+                                }
                             } else {
-                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                if (if (if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int
                                 } else {
                                     (if 1 as libc::c_int != 0 {
@@ -9582,7 +9583,7 @@ unsafe extern "C" fn init_store_cols() {
                                         as libc::c_int
                                 }) != 0 && chars_per_column_1 == -(1 as libc::c_int)
                                 {
-                                    (if ((if 1 as libc::c_int != 0 {
+                                    if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int
                                     } else {
                                         total_lines
@@ -9597,18 +9598,18 @@ unsafe extern "C" fn init_store_cols() {
                                             && -(1 as libc::c_int)
                                                 - (-(2147483647 as libc::c_int) - 1 as libc::c_int)
                                                 < total_lines - 1 as libc::c_int) as libc::c_int
-                                    })
+                                    }
                                 } else {
                                     ((-(2147483647 as libc::c_int) - 1 as libc::c_int)
                                         / chars_per_column_1 < total_lines) as libc::c_int
-                                })
-                            })
+                                }
+                            }
                         } else {
-                            (if chars_per_column_1 == 0 as libc::c_int {
+                            if chars_per_column_1 == 0 as libc::c_int {
                                 0 as libc::c_int
                             } else {
-                                (if total_lines < 0 as libc::c_int {
-                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                if total_lines < 0 as libc::c_int {
+                                    if (if (if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int
                                     } else {
                                         (if 1 as libc::c_int != 0 {
@@ -9692,7 +9693,7 @@ unsafe extern "C" fn init_store_cols() {
                                             as libc::c_int
                                     }) != 0 && total_lines == -(1 as libc::c_int)
                                     {
-                                        (if ((if 1 as libc::c_int != 0 {
+                                        if ((if 1 as libc::c_int != 0 {
                                             0 as libc::c_int
                                         } else {
                                             chars_per_column_1
@@ -9706,16 +9707,16 @@ unsafe extern "C" fn init_store_cols() {
                                             (-(1 as libc::c_int)
                                                 - (-(2147483647 as libc::c_int) - 1 as libc::c_int)
                                                 < chars_per_column_1 - 1 as libc::c_int) as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         ((-(2147483647 as libc::c_int) - 1 as libc::c_int)
                                             / total_lines < chars_per_column_1) as libc::c_int
-                                    })
+                                    }
                                 } else {
                                     (2147483647 as libc::c_int / chars_per_column_1
                                         < total_lines) as libc::c_int
-                                })
-                            })
+                                }
+                            }
                         }) != 0
                         {
                             chars_if_truncate = (total_lines as libc::c_uint)
@@ -9727,11 +9728,11 @@ unsafe extern "C" fn init_store_cols() {
                                 .wrapping_mul(chars_per_column_1 as libc::c_uint)
                                 as libc::c_int;
                             0 as libc::c_int
-                        })
+                        }
                     } else {
-                        (if (if chars_per_column_1 < 0 as libc::c_int {
-                            (if total_lines < 0 as libc::c_int {
-                                (if (if 1 as libc::c_int != 0 {
+                        if (if chars_per_column_1 < 0 as libc::c_int {
+                            if total_lines < 0 as libc::c_int {
+                                if (if 1 as libc::c_int != 0 {
                                     0 as libc::c_int as libc::c_uint
                                 } else {
                                     (if 1 as libc::c_int != 0 {
@@ -9823,9 +9824,9 @@ unsafe extern "C" fn init_store_cols() {
                                             .wrapping_div(-chars_per_column_1 as libc::c_uint)
                                     }) <= (-(1 as libc::c_int) - total_lines) as libc::c_uint)
                                         as libc::c_int
-                                })
+                                }
                             } else {
-                                (if (if (if ((if 1 as libc::c_int != 0 {
+                                if (if (if ((if 1 as libc::c_int != 0 {
                                     0 as libc::c_int
                                 } else {
                                     (if 1 as libc::c_int != 0 {
@@ -9908,7 +9909,7 @@ unsafe extern "C" fn init_store_cols() {
                                         }) + 0 as libc::c_int) as libc::c_int
                                 }) != 0 && chars_per_column_1 == -(1 as libc::c_int)
                                 {
-                                    (if ((if 1 as libc::c_int != 0 {
+                                    if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int
                                     } else {
                                         total_lines
@@ -9920,18 +9921,18 @@ unsafe extern "C" fn init_store_cols() {
                                         ((0 as libc::c_int) < total_lines
                                             && (-(1 as libc::c_int) - 0 as libc::c_int)
                                                 < total_lines - 1 as libc::c_int) as libc::c_int
-                                    })
+                                    }
                                 } else {
                                     (0 as libc::c_int / chars_per_column_1 < total_lines)
                                         as libc::c_int
-                                })
-                            })
+                                }
+                            }
                         } else {
-                            (if chars_per_column_1 == 0 as libc::c_int {
+                            if chars_per_column_1 == 0 as libc::c_int {
                                 0 as libc::c_int
                             } else {
-                                (if total_lines < 0 as libc::c_int {
-                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                if total_lines < 0 as libc::c_int {
+                                    if (if (if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int
                                     } else {
                                         (if 1 as libc::c_int != 0 {
@@ -10014,7 +10015,7 @@ unsafe extern "C" fn init_store_cols() {
                                             }) + 0 as libc::c_int) as libc::c_int
                                     }) != 0 && total_lines == -(1 as libc::c_int)
                                     {
-                                        (if ((if 1 as libc::c_int != 0 {
+                                        if ((if 1 as libc::c_int != 0 {
                                             0 as libc::c_int
                                         } else {
                                             chars_per_column_1
@@ -10025,19 +10026,19 @@ unsafe extern "C" fn init_store_cols() {
                                         } else {
                                             ((-(1 as libc::c_int) - 0 as libc::c_int)
                                                 < chars_per_column_1 - 1 as libc::c_int) as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         (0 as libc::c_int / total_lines < chars_per_column_1)
                                             as libc::c_int
-                                    })
+                                    }
                                 } else {
                                     ((2147483647 as libc::c_int as libc::c_uint)
                                         .wrapping_mul(2 as libc::c_uint)
                                         .wrapping_add(1 as libc::c_uint)
                                         .wrapping_div(chars_per_column_1 as libc::c_uint)
                                         < total_lines as libc::c_uint) as libc::c_int
-                                })
-                            })
+                                }
+                            }
                         }) != 0
                         {
                             chars_if_truncate = (total_lines as libc::c_uint)
@@ -10049,21 +10050,21 @@ unsafe extern "C" fn init_store_cols() {
                                 .wrapping_mul(chars_per_column_1 as libc::c_uint)
                                 as libc::c_int;
                             0 as libc::c_int
-                        })
-                    })
+                        }
+                    }
                 } else {
-                    (if ::core::mem::size_of::<libc::c_int>() as libc::c_ulong
+                    if ::core::mem::size_of::<libc::c_int>() as libc::c_ulong
                         == ::core::mem::size_of::<libc::c_long>() as libc::c_ulong
                     {
-                        (if ((if 1 as libc::c_int != 0 {
+                        if ((if 1 as libc::c_int != 0 {
                             0 as libc::c_int
                         } else {
                             chars_if_truncate
                         }) - 1 as libc::c_int) < 0 as libc::c_int
                         {
-                            (if (if chars_per_column_1 < 0 as libc::c_int {
-                                (if total_lines < 0 as libc::c_int {
-                                    (if ((if 1 as libc::c_int != 0 {
+                            if (if chars_per_column_1 < 0 as libc::c_int {
+                                if total_lines < 0 as libc::c_int {
+                                    if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_long
                                     } else {
                                         (if 1 as libc::c_int != 0 {
@@ -10141,9 +10142,9 @@ unsafe extern "C" fn init_store_cols() {
                                                 / -chars_per_column_1 as libc::c_long
                                         }) <= (-(1 as libc::c_int) - total_lines) as libc::c_long)
                                             as libc::c_int
-                                    })
+                                    }
                                 } else {
-                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                    if (if (if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_long
                                     } else {
                                         (if 1 as libc::c_int != 0 {
@@ -10248,7 +10249,7 @@ unsafe extern "C" fn init_store_cols() {
                                                     - 1 as libc::c_long)) as libc::c_int
                                     }) != 0 && chars_per_column_1 == -(1 as libc::c_int)
                                     {
-                                        (if ((if 1 as libc::c_int != 0 {
+                                        if ((if 1 as libc::c_int != 0 {
                                             0 as libc::c_int
                                         } else {
                                             total_lines
@@ -10265,19 +10266,19 @@ unsafe extern "C" fn init_store_cols() {
                                                         - 1 as libc::c_long)
                                                     < (total_lines - 1 as libc::c_int) as libc::c_long)
                                                 as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         (((-(9223372036854775807 as libc::c_long)
                                             - 1 as libc::c_long) / chars_per_column_1 as libc::c_long)
                                             < total_lines as libc::c_long) as libc::c_int
-                                    })
-                                })
+                                    }
+                                }
                             } else {
-                                (if chars_per_column_1 == 0 as libc::c_int {
+                                if chars_per_column_1 == 0 as libc::c_int {
                                     0 as libc::c_int
                                 } else {
-                                    (if total_lines < 0 as libc::c_int {
-                                        (if (if (if ((if 1 as libc::c_int != 0 {
+                                    if total_lines < 0 as libc::c_int {
+                                        if (if (if ((if 1 as libc::c_int != 0 {
                                             0 as libc::c_int as libc::c_long
                                         } else {
                                             (if 1 as libc::c_int != 0 {
@@ -10382,7 +10383,7 @@ unsafe extern "C" fn init_store_cols() {
                                                         - 1 as libc::c_long)) as libc::c_int
                                         }) != 0 && total_lines == -(1 as libc::c_int)
                                         {
-                                            (if ((if 1 as libc::c_int != 0 {
+                                            if ((if 1 as libc::c_int != 0 {
                                                 0 as libc::c_int
                                             } else {
                                                 chars_per_column_1
@@ -10398,18 +10399,18 @@ unsafe extern "C" fn init_store_cols() {
                                                         - 1 as libc::c_long)
                                                     < (chars_per_column_1 - 1 as libc::c_int) as libc::c_long)
                                                     as libc::c_int
-                                            })
+                                            }
                                         } else {
                                             (((-(9223372036854775807 as libc::c_long)
                                                 - 1 as libc::c_long) / total_lines as libc::c_long)
                                                 < chars_per_column_1 as libc::c_long) as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         ((9223372036854775807 as libc::c_long
                                             / chars_per_column_1 as libc::c_long)
                                             < total_lines as libc::c_long) as libc::c_int
-                                    })
-                                })
+                                    }
+                                }
                             }) != 0
                             {
                                 chars_if_truncate = (total_lines as libc::c_ulong)
@@ -10421,11 +10422,11 @@ unsafe extern "C" fn init_store_cols() {
                                     .wrapping_mul(chars_per_column_1 as libc::c_ulong)
                                     as libc::c_long as libc::c_int;
                                 0 as libc::c_int
-                            })
+                            }
                         } else {
-                            (if (if chars_per_column_1 < 0 as libc::c_int {
-                                (if total_lines < 0 as libc::c_int {
-                                    (if (if 1 as libc::c_int != 0 {
+                            if (if chars_per_column_1 < 0 as libc::c_int {
+                                if total_lines < 0 as libc::c_int {
+                                    if (if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_ulong
                                     } else {
                                         (if 1 as libc::c_int != 0 {
@@ -10517,9 +10518,9 @@ unsafe extern "C" fn init_store_cols() {
                                                 .wrapping_div(-chars_per_column_1 as libc::c_ulong)
                                         }) <= (-(1 as libc::c_int) - total_lines) as libc::c_ulong)
                                             as libc::c_int
-                                    })
+                                    }
                                 } else {
-                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                    if (if (if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int
                                     } else {
                                         (if 1 as libc::c_int != 0 {
@@ -10602,7 +10603,7 @@ unsafe extern "C" fn init_store_cols() {
                                             }) + 0 as libc::c_int) as libc::c_int
                                     }) != 0 && chars_per_column_1 == -(1 as libc::c_int)
                                     {
-                                        (if ((if 1 as libc::c_int != 0 {
+                                        if ((if 1 as libc::c_int != 0 {
                                             0 as libc::c_int
                                         } else {
                                             total_lines
@@ -10614,18 +10615,18 @@ unsafe extern "C" fn init_store_cols() {
                                             ((0 as libc::c_int) < total_lines
                                                 && (-(1 as libc::c_int) - 0 as libc::c_int)
                                                     < total_lines - 1 as libc::c_int) as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         (0 as libc::c_int / chars_per_column_1 < total_lines)
                                             as libc::c_int
-                                    })
-                                })
+                                    }
+                                }
                             } else {
-                                (if chars_per_column_1 == 0 as libc::c_int {
+                                if chars_per_column_1 == 0 as libc::c_int {
                                     0 as libc::c_int
                                 } else {
-                                    (if total_lines < 0 as libc::c_int {
-                                        (if (if (if ((if 1 as libc::c_int != 0 {
+                                    if total_lines < 0 as libc::c_int {
+                                        if (if (if ((if 1 as libc::c_int != 0 {
                                             0 as libc::c_int
                                         } else {
                                             (if 1 as libc::c_int != 0 {
@@ -10708,7 +10709,7 @@ unsafe extern "C" fn init_store_cols() {
                                                 }) + 0 as libc::c_int) as libc::c_int
                                         }) != 0 && total_lines == -(1 as libc::c_int)
                                         {
-                                            (if ((if 1 as libc::c_int != 0 {
+                                            if ((if 1 as libc::c_int != 0 {
                                                 0 as libc::c_int
                                             } else {
                                                 chars_per_column_1
@@ -10719,19 +10720,19 @@ unsafe extern "C" fn init_store_cols() {
                                             } else {
                                                 ((-(1 as libc::c_int) - 0 as libc::c_int)
                                                     < chars_per_column_1 - 1 as libc::c_int) as libc::c_int
-                                            })
+                                            }
                                         } else {
                                             (0 as libc::c_int / total_lines < chars_per_column_1)
                                                 as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         ((9223372036854775807 as libc::c_long as libc::c_ulong)
                                             .wrapping_mul(2 as libc::c_ulong)
                                             .wrapping_add(1 as libc::c_ulong)
                                             .wrapping_div(chars_per_column_1 as libc::c_ulong)
                                             < total_lines as libc::c_ulong) as libc::c_int
-                                    })
-                                })
+                                    }
+                                }
                             }) != 0
                             {
                                 chars_if_truncate = (total_lines as libc::c_ulong)
@@ -10743,18 +10744,18 @@ unsafe extern "C" fn init_store_cols() {
                                     .wrapping_mul(chars_per_column_1 as libc::c_ulong)
                                     as libc::c_int;
                                 0 as libc::c_int
-                            })
-                        })
+                            }
+                        }
                     } else {
-                        (if ((if 1 as libc::c_int != 0 {
+                        if ((if 1 as libc::c_int != 0 {
                             0 as libc::c_int
                         } else {
                             chars_if_truncate
                         }) - 1 as libc::c_int) < 0 as libc::c_int
                         {
-                            (if (if chars_per_column_1 < 0 as libc::c_int {
-                                (if total_lines < 0 as libc::c_int {
-                                    (if ((if 1 as libc::c_int != 0 {
+                            if (if chars_per_column_1 < 0 as libc::c_int {
+                                if total_lines < 0 as libc::c_int {
+                                    if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_longlong
                                     } else {
                                         (if 1 as libc::c_int != 0 {
@@ -10834,9 +10835,9 @@ unsafe extern "C" fn init_store_cols() {
                                         })
                                             <= (-(1 as libc::c_int) - total_lines) as libc::c_longlong)
                                             as libc::c_int
-                                    })
+                                    }
                                 } else {
-                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                    if (if (if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_longlong
                                     } else {
                                         (if 1 as libc::c_int != 0 {
@@ -10943,7 +10944,7 @@ unsafe extern "C" fn init_store_cols() {
                                                     - 1 as libc::c_longlong)) as libc::c_int
                                     }) != 0 && chars_per_column_1 == -(1 as libc::c_int)
                                     {
-                                        (if ((if 1 as libc::c_int != 0 {
+                                        if ((if 1 as libc::c_int != 0 {
                                             0 as libc::c_int
                                         } else {
                                             total_lines
@@ -10960,20 +10961,20 @@ unsafe extern "C" fn init_store_cols() {
                                                         - 1 as libc::c_longlong)
                                                     < (total_lines - 1 as libc::c_int) as libc::c_longlong)
                                                 as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         (((-(9223372036854775807 as libc::c_longlong)
                                             - 1 as libc::c_longlong)
                                             / chars_per_column_1 as libc::c_longlong)
                                             < total_lines as libc::c_longlong) as libc::c_int
-                                    })
-                                })
+                                    }
+                                }
                             } else {
-                                (if chars_per_column_1 == 0 as libc::c_int {
+                                if chars_per_column_1 == 0 as libc::c_int {
                                     0 as libc::c_int
                                 } else {
-                                    (if total_lines < 0 as libc::c_int {
-                                        (if (if (if ((if 1 as libc::c_int != 0 {
+                                    if total_lines < 0 as libc::c_int {
+                                        if (if (if ((if 1 as libc::c_int != 0 {
                                             0 as libc::c_int as libc::c_longlong
                                         } else {
                                             (if 1 as libc::c_int != 0 {
@@ -11080,7 +11081,7 @@ unsafe extern "C" fn init_store_cols() {
                                                         - 1 as libc::c_longlong)) as libc::c_int
                                         }) != 0 && total_lines == -(1 as libc::c_int)
                                         {
-                                            (if ((if 1 as libc::c_int != 0 {
+                                            if ((if 1 as libc::c_int != 0 {
                                                 0 as libc::c_int
                                             } else {
                                                 chars_per_column_1
@@ -11096,18 +11097,18 @@ unsafe extern "C" fn init_store_cols() {
                                                         - 1 as libc::c_longlong)
                                                     < (chars_per_column_1 - 1 as libc::c_int)
                                                         as libc::c_longlong) as libc::c_int
-                                            })
+                                            }
                                         } else {
                                             (((-(9223372036854775807 as libc::c_longlong)
                                                 - 1 as libc::c_longlong) / total_lines as libc::c_longlong)
                                                 < chars_per_column_1 as libc::c_longlong) as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         ((9223372036854775807 as libc::c_longlong
                                             / chars_per_column_1 as libc::c_longlong)
                                             < total_lines as libc::c_longlong) as libc::c_int
-                                    })
-                                })
+                                    }
+                                }
                             }) != 0
                             {
                                 chars_if_truncate = (total_lines as libc::c_ulonglong)
@@ -11119,11 +11120,11 @@ unsafe extern "C" fn init_store_cols() {
                                     .wrapping_mul(chars_per_column_1 as libc::c_ulonglong)
                                     as libc::c_longlong as libc::c_int;
                                 0 as libc::c_int
-                            })
+                            }
                         } else {
-                            (if (if chars_per_column_1 < 0 as libc::c_int {
-                                (if total_lines < 0 as libc::c_int {
-                                    (if (if 1 as libc::c_int != 0 {
+                            if (if chars_per_column_1 < 0 as libc::c_int {
+                                if total_lines < 0 as libc::c_int {
+                                    if (if 1 as libc::c_int != 0 {
                                         0 as libc::c_int as libc::c_ulonglong
                                     } else {
                                         (if 1 as libc::c_int != 0 {
@@ -11220,9 +11221,9 @@ unsafe extern "C" fn init_store_cols() {
                                         })
                                             <= (-(1 as libc::c_int) - total_lines) as libc::c_ulonglong)
                                             as libc::c_int
-                                    })
+                                    }
                                 } else {
-                                    (if (if (if ((if 1 as libc::c_int != 0 {
+                                    if (if (if ((if 1 as libc::c_int != 0 {
                                         0 as libc::c_int
                                     } else {
                                         (if 1 as libc::c_int != 0 {
@@ -11305,7 +11306,7 @@ unsafe extern "C" fn init_store_cols() {
                                             }) + 0 as libc::c_int) as libc::c_int
                                     }) != 0 && chars_per_column_1 == -(1 as libc::c_int)
                                     {
-                                        (if ((if 1 as libc::c_int != 0 {
+                                        if ((if 1 as libc::c_int != 0 {
                                             0 as libc::c_int
                                         } else {
                                             total_lines
@@ -11317,18 +11318,18 @@ unsafe extern "C" fn init_store_cols() {
                                             ((0 as libc::c_int) < total_lines
                                                 && (-(1 as libc::c_int) - 0 as libc::c_int)
                                                     < total_lines - 1 as libc::c_int) as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         (0 as libc::c_int / chars_per_column_1 < total_lines)
                                             as libc::c_int
-                                    })
-                                })
+                                    }
+                                }
                             } else {
-                                (if chars_per_column_1 == 0 as libc::c_int {
+                                if chars_per_column_1 == 0 as libc::c_int {
                                     0 as libc::c_int
                                 } else {
-                                    (if total_lines < 0 as libc::c_int {
-                                        (if (if (if ((if 1 as libc::c_int != 0 {
+                                    if total_lines < 0 as libc::c_int {
+                                        if (if (if ((if 1 as libc::c_int != 0 {
                                             0 as libc::c_int
                                         } else {
                                             (if 1 as libc::c_int != 0 {
@@ -11411,7 +11412,7 @@ unsafe extern "C" fn init_store_cols() {
                                                 }) + 0 as libc::c_int) as libc::c_int
                                         }) != 0 && total_lines == -(1 as libc::c_int)
                                         {
-                                            (if ((if 1 as libc::c_int != 0 {
+                                            if ((if 1 as libc::c_int != 0 {
                                                 0 as libc::c_int
                                             } else {
                                                 chars_per_column_1
@@ -11422,11 +11423,11 @@ unsafe extern "C" fn init_store_cols() {
                                             } else {
                                                 ((-(1 as libc::c_int) - 0 as libc::c_int)
                                                     < chars_per_column_1 - 1 as libc::c_int) as libc::c_int
-                                            })
+                                            }
                                         } else {
                                             (0 as libc::c_int / total_lines < chars_per_column_1)
                                                 as libc::c_int
-                                        })
+                                        }
                                     } else {
                                         ((9223372036854775807 as libc::c_longlong
                                             as libc::c_ulonglong)
@@ -11434,8 +11435,8 @@ unsafe extern "C" fn init_store_cols() {
                                             .wrapping_add(1 as libc::c_ulonglong)
                                             .wrapping_div(chars_per_column_1 as libc::c_ulonglong)
                                             < total_lines as libc::c_ulonglong) as libc::c_int
-                                    })
-                                })
+                                    }
+                                }
                             }) != 0
                             {
                                 chars_if_truncate = (total_lines as libc::c_ulonglong)
@@ -11447,11 +11448,11 @@ unsafe extern "C" fn init_store_cols() {
                                     .wrapping_mul(chars_per_column_1 as libc::c_ulonglong)
                                     as libc::c_int;
                                 0 as libc::c_int
-                            })
-                        })
-                    })
-                })
-            })
+                            }
+                        }
+                    }
+                }
+            }
         }) != 0
     {
         integer_overflow();

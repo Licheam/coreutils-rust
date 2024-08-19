@@ -14,6 +14,7 @@
 extern crate c2rust_bitfields;
 extern crate f128;#[macro_use]
 extern crate num_traits;
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -1568,7 +1569,7 @@ unsafe extern "C" fn du_files(
                 prev_level = 0 as libc::c_int as size_t;
                 break;
             } else {
-                ok = (ok as libc::c_int & process_file(fts, ent) as libc::c_int) as bool;
+                ok = (ok as libc::c_int & process_file(fts, ent) as libc::c_int) != 0;
             }
         }
         if rpl_fts_close(fts) != 0 as libc::c_int {
@@ -2157,7 +2158,7 @@ unsafe fn main_0(
         } else {
             temp_argv[0 as libc::c_int as usize] = file_name;
             ok = (ok as libc::c_int
-                & du_files(temp_argv.as_mut_ptr(), bit_flags) as libc::c_int) as bool;
+                & du_files(temp_argv.as_mut_ptr(), bit_flags) as libc::c_int) != 0;
         }
     }
     argv_iter_free(ai);

@@ -10,6 +10,7 @@
 #![feature(label_break_value)]
 
 
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -574,7 +575,7 @@ unsafe extern "C" fn expand() {
                     & (convert_entire_line as libc::c_int != 0
                         || *(*__ctype_b_loc()).offset(c as isize) as libc::c_int
                             & _ISblank as libc::c_int as libc::c_ushort as libc::c_int
-                            != 0) as libc::c_int) as bool;
+                            != 0) as libc::c_int) != 0;
             }
             if c < 0 as libc::c_int {
                 return;

@@ -10,6 +10,7 @@
 #![feature(label_break_value)]
 
 
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -4435,8 +4436,7 @@ unsafe fn main_0(
             }
         } else if fd != -(1 as libc::c_int) {
             errors = (errors as libc::c_int
-                | !do_ftruncate(fd, fname, size, rsize, rel_mode) as libc::c_int)
-                as bool;
+                | !do_ftruncate(fd, fname, size, rsize, rel_mode) as libc::c_int) != 0;
             if close(fd) != 0 as libc::c_int {
                 error(
                     0 as libc::c_int,

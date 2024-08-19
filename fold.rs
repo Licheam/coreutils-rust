@@ -10,6 +10,7 @@
 #![feature(label_break_value)]
 
 
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -773,7 +774,7 @@ unsafe fn main_0(
         i = optind;
         while i < argc {
             ok = (ok as libc::c_int
-                & fold_file(*argv.offset(i as isize), width) as libc::c_int) as bool;
+                & fold_file(*argv.offset(i as isize), width) as libc::c_int) != 0;
             i += 1;
             i;
         }

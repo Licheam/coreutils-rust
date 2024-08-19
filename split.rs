@@ -10,6 +10,7 @@
 #![feature(label_break_value)]
 
 
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -3390,7 +3391,7 @@ unsafe extern "C" fn lines_rr(
                 }
             } else {
                 file_limit = (file_limit as libc::c_int
-                    | ofile_open(files, i_file, n) as libc::c_int) as bool;
+                    | ofile_open(files, i_file, n) as libc::c_int) != 0;
                 if unbuffered {
                     if full_write(
                         (*files.offset(i_file as isize)).ofd,
@@ -3537,7 +3538,7 @@ unsafe extern "C" fn lines_rr(
         while i_file < n {
             if i_file >= ceiling as libc::c_ulong && !elide_empty_files {
                 file_limit = (file_limit as libc::c_int
-                    | ofile_open(files, i_file, n) as libc::c_int) as bool;
+                    | ofile_open(files, i_file, n) as libc::c_int) != 0;
             }
             if (*files.offset(i_file as isize)).ofd >= 0 as libc::c_int {
                 closeout(
@@ -3960,7 +3961,7 @@ unsafe fn main_0(
                 digits_optind = this_optind;
                 &mut n_units as *mut uintmax_t;
                 if (if ::core::mem::size_of::<C2RustUnnamed_60>() as libc::c_ulong != 0 {
-                    (if (-(1 as libc::c_int) as uintmax_t)
+                    if (-(1 as libc::c_int) as uintmax_t)
                         .wrapping_div(10 as libc::c_int as libc::c_ulong) < n_units
                         || n_units
                             .wrapping_mul(10 as libc::c_int as libc::c_ulong)
@@ -3972,9 +3973,9 @@ unsafe fn main_0(
                             .wrapping_mul(10 as libc::c_int as libc::c_ulong)
                             .wrapping_add((c - '0' as i32) as libc::c_ulong);
                         1 as libc::c_int
-                    })
+                    }
                 } else {
-                    (if (-(1 as libc::c_int) as uintmax_t)
+                    if (-(1 as libc::c_int) as uintmax_t)
                         .wrapping_div(10 as libc::c_int as libc::c_ulong) < n_units
                         || n_units
                             .wrapping_mul(10 as libc::c_int as libc::c_ulong)
@@ -3986,7 +3987,7 @@ unsafe fn main_0(
                             .wrapping_mul(10 as libc::c_int as libc::c_ulong)
                             .wrapping_add((c - '0' as i32) as libc::c_ulong);
                         1 as libc::c_int
-                    })
+                    }
                 }) == 0
                 {
                     let mut buffer: [libc::c_char; 21] = [0; 21];

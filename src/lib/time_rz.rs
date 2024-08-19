@@ -231,11 +231,11 @@ unsafe extern "C" fn setenv_TZ(mut tz: *const libc::c_char) -> libc::c_int {
 }
 unsafe extern "C" fn change_env(mut tz: timezone_t) -> bool {
     if setenv_TZ(
-        (if (*tz).tz_is_set as libc::c_int != 0 {
+        if (*tz).tz_is_set as libc::c_int != 0 {
             ((*tz).abbrs).as_mut_ptr()
         } else {
             0 as *mut libc::c_char
-        }),
+        },
     ) != 0 as libc::c_int
     {
         return 0 as libc::c_int != 0;

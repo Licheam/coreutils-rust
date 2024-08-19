@@ -10,6 +10,7 @@
 #![feature(label_break_value)]
 
 
+extern crate selinux_sys;
 extern crate libc;
 pub mod src {
 pub mod lib {
@@ -666,7 +667,7 @@ unsafe extern "C" fn unexpand() {
                         prev_blank = blank;
                         convert = (convert as libc::c_int
                             & (convert_entire_line as libc::c_int != 0
-                                || blank as libc::c_int != 0) as libc::c_int) as bool;
+                                || blank as libc::c_int != 0) as libc::c_int) != 0;
                         current_block_44 = 15512526488502093901;
                     }
                 }
@@ -783,7 +784,7 @@ unsafe fn main_0(
                 }
                 &mut tabval as *mut uintmax_t;
                 if (if ::core::mem::size_of::<C2RustUnnamed_7>() as libc::c_ulong != 0 {
-                    (if (-(1 as libc::c_int) as uintmax_t)
+                    if (-(1 as libc::c_int) as uintmax_t)
                         .wrapping_div(10 as libc::c_int as libc::c_ulong) < tabval
                         || tabval
                             .wrapping_mul(10 as libc::c_int as libc::c_ulong)
@@ -795,9 +796,9 @@ unsafe fn main_0(
                             .wrapping_mul(10 as libc::c_int as libc::c_ulong)
                             .wrapping_add((c - '0' as i32) as libc::c_ulong);
                         1 as libc::c_int
-                    })
+                    }
                 } else {
-                    (if (-(1 as libc::c_int) as uintmax_t)
+                    if (-(1 as libc::c_int) as uintmax_t)
                         .wrapping_div(10 as libc::c_int as libc::c_ulong) < tabval
                         || tabval
                             .wrapping_mul(10 as libc::c_int as libc::c_ulong)
@@ -809,7 +810,7 @@ unsafe fn main_0(
                             .wrapping_mul(10 as libc::c_int as libc::c_ulong)
                             .wrapping_add((c - '0' as i32) as libc::c_ulong);
                         1 as libc::c_int
-                    })
+                    }
                 }) == 0
                 {
                     if ::core::mem::size_of::<C2RustUnnamed_6>() as libc::c_ulong != 0 {
