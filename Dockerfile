@@ -16,6 +16,7 @@ RUN useradd -rmg root user
 USER user
 
 # 安装coreutils依赖
+RUN sudo dnf group install -y "Development Tools"
 RUN sudo dnf install -y openssl-devel gmp-devel
 
 # 安装配置rust
@@ -27,7 +28,7 @@ ENV PATH=/home/user/.cargo/bin:$PATH
 COPY --chown=user .cargo/config.toml /home/user/.cargo/config.toml
 
 # 编译
-COPY . /home/user/coreutils-rust
+COPY --chown=user . /home/user/coreutils-rust
 WORKDIR /home/user/coreutils-rust
 RUN cargo build --bins --keep-going -Z unstable-options -Z sparse-registry || true
 
