@@ -19,10 +19,11 @@ USER user
 RUN sudo dnf group install -y "Development Tools"
 RUN sudo dnf install -y openssl-devel gmp-devel
 
+RUN sudo dnf install -y llvm-libs-12.0.1-2.oe2203 llvm-devel-12.0.1-2.oe2203 clang-devel cmake curl
+
 # 安装配置rust
 ENV RUSTUP_DIST_SERVER="https://rsproxy.cn"
 ENV RUSTUP_UPDATE_ROOT="https://rsproxy.cn/rustup"
-RUN sudo dnf install -y curl
 RUN curl --proto '=https' --tlsv1.2 -sSf https://rsproxy.cn/rustup-init.sh | sh -s -- --default-toolchain nightly-2022-08-08-x86_64-unknown-linux-gnu -y
 ENV PATH=/home/user/.cargo/bin:$PATH
 COPY --chown=user .cargo/config.toml /home/user/.cargo/config.toml
@@ -32,4 +33,4 @@ COPY --chown=user . /home/user/coreutils-rust
 WORKDIR /home/user/coreutils-rust
 RUN cargo build --bins --keep-going -Z unstable-options -Z sparse-registry || true
 
-RUN find ./target/debug -maxdepth 1 -type f -executable | wc -l
+RUN find ./target/debug -maxdepth 1 -type f -executable
