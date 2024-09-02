@@ -70,6 +70,10 @@ path = "basename.rs"
 name = "basename"
 
 [[bin]]
+path = "basename_safe.rs"
+name = "basename_safe"
+
+[[bin]]
 path = "cat.rs"
 name = "cat"
 
