@@ -34,3 +34,8 @@ WORKDIR /home/user/coreutils-rust
 RUN cargo build --bins --keep-going -Z unstable-options -Z sparse-registry || true
 
 RUN find ./target/debug -maxdepth 1 -type f -executable
+
+
+WORKDIR /home/user
+COPY --chown=user ./FunctionalTest/FunctionalTest.sh /home/user/FunctionalTest.sh
+RUN ./FunctionalTest.sh
