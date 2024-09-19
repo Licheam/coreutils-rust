@@ -21,13 +21,13 @@ cp -r coreutils rust-coreutils
 cd coreutils
 export FORCE_UNSAFE_CONFIGURE=1 
 ./bootstrap --skip-po --force 
-FORCE_UNSAFE_CONFIGURE=1 ./configure --with-openssl --enable-install-program=arch --enable-no-install-program=kill,uptime CFLAGS="-pie -fPIE -fPIC"
+./configure --with-openssl --enable-install-program=arch --enable-no-install-program=kill,uptime
 make check -j RUN_EXPENSIVE_TESTS=yes RUN_VERY_EXPENSIVE_TESTS=yes
 # find result in ./tests/test-suite.log
 
 cd ../rust-coreutils
 export FORCE_UNSAFE_CONFIGURE=1
 ./bootstrap --skip-po --force 
-FORCE_UNSAFE_CONFIGURE=1 ./configure --with-openssl --enable-install-program=arch --enable-no-install-program=kill,uptime CFLAGS="-pie -fPIE -fPIC"
+./configure --with-openssl --enable-install-program=arch --enable-no-install-program=kill,uptime
 sed -i "s/^[[:blank:]]*PATH=.*/  PATH='\/home\/user\/coreutils-rust\/target\/debug\$(PATH_SEPARATOR)'\"\$\$PATH\" \\\/" Makefile
 make check -j RUN_EXPENSIVE_TESTS=yes RUN_VERY_EXPENSIVE_TESTS=yes
