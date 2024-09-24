@@ -33,9 +33,22 @@ COPY --chown=user . /home/user/coreutils-rust
 WORKDIR /home/user/coreutils-rust
 RUN cargo build --bins --keep-going -Z unstable-options -Z sparse-registry || true
 
-RUN find ./target/debug -maxdepth 1 -type f -executable
+RUN find ./target/debug -maxdepth 1 -type f -executable | wc -l
 
-
+# 测试
 WORKDIR /home/user
-COPY --chown=user ./FunctionalTest/FunctionalTest.sh /home/user/FunctionalTest.sh
-RUN ./FunctionalTest.sh
+RUN sudo dnf install -y wget openssl-devel rsync gperf texinfo
+RUN mkdir ./test
+COPY --chown=user ./coreutils /home/user/test/coreutils-origin
+COPY --chown=user ./coreutils /home/user/test/coreutils-rust
+
+WORKDIR /home/user/test/coreutils-origin
+RUN ./bootstrap --skip-po --force 
+RUN ./configure --with-openssl --enable-install-program=arch --enable-no-install-program=kill,uptime
+RUN make check -j $(nproc) RUN_EXPENSIVE_TESTS=yes RUN_VERY_EXPENSIVE_TESTS=yes || true
+
+WORKDIR /home/user/test/coreutils-rust
+RUN ./bootstrap --skip-po --force 
+RUN ./configure --with-openssl --enable-install-program=arch --enable-no-install-program=kill,uptime
+RUN sed -i "s/^[[:blank:]]*PATH=.*/  PATH='\/home\/user\/coreutils-rust\/target\/debug\$(PATH_SEPARATOR)'\"\$\$PATH\" \\\/" Makefile
+RUN make check -j $(nproc) RUN_EXPENSIVE_TESTS=yes RUN_VERY_EXPENSIVE_TESTS=yes || true
