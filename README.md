@@ -15,8 +15,6 @@ docker buildx build -t coreutils-rust --platform linux/amd64 -f Dockerfile ./
 3. coreutils二进制文件目录在`/home/user/coreutils-rust/target/debug`
 
 GNU coreutils二进制测试结果在`/home/user/test/coreutils-origin/tests/test-suite.log`
-
-结果为
 ```
 # TOTAL: 631
 # PASS:  544
@@ -28,8 +26,6 @@ GNU coreutils二进制测试结果在`/home/user/test/coreutils-origin/tests/tes
 ```
 
 Rust coreutils二进制测试结果在`/home/user/test/coreutils-rust/tests/test-suite.log`
-
-结果为
 ```
 # TOTAL: 631
 # PASS:  538
