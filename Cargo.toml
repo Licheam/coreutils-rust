@@ -10,8 +10,8 @@ edition = "2021"
 autobins = false
 
 [[bin]]
-name = "coreutils_rust"
-path = ""
+path = "chroot.rs"
+name = "chroot"
 
 [[bin]]
 path = "hostid.rs"
@@ -22,28 +22,36 @@ path = "timeout.rs"
 name = "timeout"
 
 [[bin]]
-path = "nice.rs"
-name = "nice"
-
-[[bin]]
 path = "who.rs"
 name = "who"
+
+[[bin]]
+path = "nice.rs"
+name = "nice"
 
 [[bin]]
 path = "users.rs"
 name = "users"
 
 [[bin]]
-path = "pinky.rs"
-name = "pinky"
+path = "b2sum_digest.rs"
+name = "b2sum_digest"
+
+[[bin]]
+path = "base64_basenc.rs"
+name = "base64_basenc"
 
 [[bin]]
 path = "stty.rs"
 name = "stty"
 
 [[bin]]
-path = "b2sum_digest.rs"
-name = "b2sum_digest"
+path = "pinky.rs"
+name = "pinky"
+
+[[bin]]
+path = "base32_basenc.rs"
+name = "base32_basenc"
 
 [[bin]]
 path = "df.rs"
@@ -54,24 +62,12 @@ path = "lbracket.rs"
 name = "lbracket"
 
 [[bin]]
-path = "base64_basenc.rs"
-name = "base64_basenc"
-
-[[bin]]
-path = "base32_basenc.rs"
-name = "base32_basenc"
-
-[[bin]]
 path = "basenc_basenc.rs"
 name = "basenc_basenc"
 
 [[bin]]
 path = "basename.rs"
 name = "basename"
-
-[[bin]]
-path = "basename_safe.rs"
-name = "basename_safe"
 
 [[bin]]
 path = "cat.rs"
@@ -82,36 +78,36 @@ path = "chcon.rs"
 name = "chcon"
 
 [[bin]]
-path = "cksum_digest.rs"
-name = "cksum_digest"
-
-[[bin]]
 path = "chgrp.rs"
 name = "chgrp"
-
-[[bin]]
-path = "chown.rs"
-name = "chown"
 
 [[bin]]
 path = "chmod.rs"
 name = "chmod"
 
 [[bin]]
-path = "comm.rs"
-name = "comm"
+path = "cksum_digest.rs"
+name = "cksum_digest"
+
+[[bin]]
+path = "chown.rs"
+name = "chown"
 
 [[bin]]
 path = "cp.rs"
 name = "cp"
 
 [[bin]]
-path = "cut.rs"
-name = "cut"
+path = "comm.rs"
+name = "comm"
 
 [[bin]]
 path = "csplit.rs"
 name = "csplit"
+
+[[bin]]
+path = "cut.rs"
+name = "cut"
 
 [[bin]]
 path = "date.rs"
@@ -134,20 +130,20 @@ path = "dirname.rs"
 name = "dirname"
 
 [[bin]]
-path = "echo.rs"
-name = "echo"
-
-[[bin]]
 path = "du.rs"
 name = "du"
 
 [[bin]]
-path = "expand.rs"
-name = "expand"
+path = "echo.rs"
+name = "echo"
 
 [[bin]]
 path = "env.rs"
 name = "env"
+
+[[bin]]
+path = "expand.rs"
+name = "expand"
 
 [[bin]]
 path = "expr.rs"
@@ -155,15 +151,15 @@ name = "expr"
 
 [[bin]]
 path = "false.rs"
-name = "r#false"
-
-[[bin]]
-path = "fmt.rs"
-name = "fmt"
+name = "false"
 
 [[bin]]
 path = "fold.rs"
 name = "fold"
+
+[[bin]]
+path = "fmt.rs"
+name = "fmt"
 
 [[bin]]
 path = "install.rs"
@@ -174,16 +170,16 @@ path = "groups.rs"
 name = "groups"
 
 [[bin]]
-path = "join.rs"
-name = "join"
-
-[[bin]]
 path = "head.rs"
 name = "head"
 
 [[bin]]
 path = "id.rs"
 name = "id"
+
+[[bin]]
+path = "join.rs"
+name = "join"
 
 [[bin]]
 path = "link.rs"
@@ -206,16 +202,16 @@ path = "mkdir.rs"
 name = "mkdir"
 
 [[bin]]
-path = "mktemp.rs"
-name = "mktemp"
-
-[[bin]]
 path = "mknod.rs"
 name = "mknod"
 
 [[bin]]
 path = "mkfifo.rs"
 name = "mkfifo"
+
+[[bin]]
+path = "mktemp.rs"
+name = "mktemp"
 
 [[bin]]
 path = "mv.rs"
@@ -226,12 +222,12 @@ path = "nl.rs"
 name = "nl"
 
 [[bin]]
-path = "nproc.rs"
-name = "nproc"
-
-[[bin]]
 path = "nohup.rs"
 name = "nohup"
+
+[[bin]]
+path = "nproc.rs"
+name = "nproc"
 
 [[bin]]
 path = "numfmt.rs"
@@ -250,10 +246,6 @@ path = "pathchk.rs"
 name = "pathchk"
 
 [[bin]]
-path = "printf.rs"
-name = "printf"
-
-[[bin]]
 path = "pr.rs"
 name = "pr"
 
@@ -262,16 +254,20 @@ path = "printenv.rs"
 name = "printenv"
 
 [[bin]]
+path = "printf.rs"
+name = "printf"
+
+[[bin]]
 path = "ptx.rs"
 name = "ptx"
 
 [[bin]]
-path = "readlink.rs"
-name = "readlink"
-
-[[bin]]
 path = "pwd.rs"
 name = "pwd"
+
+[[bin]]
+path = "readlink.rs"
+name = "readlink"
 
 [[bin]]
 path = "realpath.rs"
@@ -282,12 +278,12 @@ path = "rm.rs"
 name = "rm"
 
 [[bin]]
-path = "rmdir.rs"
-name = "rmdir"
-
-[[bin]]
 path = "runcon.rs"
 name = "runcon"
+
+[[bin]]
+path = "rmdir.rs"
+name = "rmdir"
 
 [[bin]]
 path = "seq.rs"
@@ -314,24 +310,24 @@ path = "sha512sum_digest.rs"
 name = "sha512sum_digest"
 
 [[bin]]
-path = "shuf.rs"
-name = "shuf"
-
-[[bin]]
 path = "shred.rs"
 name = "shred"
+
+[[bin]]
+path = "shuf.rs"
+name = "shuf"
 
 [[bin]]
 path = "sleep.rs"
 name = "sleep"
 
 [[bin]]
-path = "sort.rs"
-name = "sort"
-
-[[bin]]
 path = "split.rs"
 name = "split"
+
+[[bin]]
+path = "sort.rs"
+name = "sort"
 
 [[bin]]
 path = "stat.rs"
@@ -371,7 +367,7 @@ name = "tr"
 
 [[bin]]
 path = "true.rs"
-name = "r#true"
+name = "true"
 
 [[bin]]
 path = "truncate.rs"
@@ -390,12 +386,12 @@ path = "uname.rs"
 name = "uname"
 
 [[bin]]
-path = "unexpand.rs"
-name = "unexpand"
-
-[[bin]]
 path = "uniq.rs"
 name = "uniq"
+
+[[bin]]
+path = "unexpand.rs"
+name = "unexpand"
 
 [[bin]]
 path = "unlink.rs"
@@ -422,36 +418,32 @@ path = "make_prime_list.rs"
 name = "make_prime_list"
 
 [[bin]]
-path = "chroot.rs"
-name = "chroot"
-
-[[bin]]
 path = "bench_md5.rs"
 name = "bench_md5"
-
-[[bin]]
-path = "bench_sha1.rs"
-name = "bench_sha1"
 
 [[bin]]
 path = "bench_sha224.rs"
 name = "bench_sha224"
 
 [[bin]]
-path = "bench_sha256.rs"
-name = "bench_sha256"
-
-[[bin]]
 path = "bench_sha384.rs"
 name = "bench_sha384"
 
 [[bin]]
-path = "bench_sha512.rs"
-name = "bench_sha512"
+path = "bench_sha256.rs"
+name = "bench_sha256"
+
+[[bin]]
+path = "bench_sha1.rs"
+name = "bench_sha1"
 
 [[bin]]
 path = "locale.rs"
 name = "locale"
+
+[[bin]]
+path = "bench_sha512.rs"
+name = "bench_sha512"
 
 [[bin]]
 path = "test_localcharset.rs"
