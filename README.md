@@ -36,6 +36,20 @@ Rust coreutils二进制测试结果在`/home/user/test/coreutils-rust/tests/test
 # ERROR: 0
 ```
 
+新增的错误有：
+```
+FAIL: tests/misc/invalid-opt
+指令: yes
+FAIL: tests/misc/join
+指令: join
+FAIL: tests/misc/cut
+指令: cut
+FAIL: tests/misc/numfmt
+指令: numfmt
+FAIL: tests/misc/sort
+FAIL: tests/misc/sort-month
+指令: sort
+```
 ## 直接编译
 
 1. 拉取仓库
@@ -56,7 +70,7 @@ sudo dnf install -y openssl-devel gmp-devel llvm-libs-12.0.1-2.oe2203 llvm-devel
 cargo build --bins --keep-going -Z unstable-options -Z sparse-registry # 出现几个binary编译失败属正常现象
 ```
 
-5. 检查二进制文件数量（应当为80）
+5. 检查二进制文件数量（应当为81）
 ```bash
 find ./target/debug -maxdepth 1 -type f -executable | wc -l
 ```

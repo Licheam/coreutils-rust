@@ -33,7 +33,7 @@ COPY --chown=user . /home/user/coreutils-rust
 WORKDIR /home/user/coreutils-rust
 RUN cargo build --bins --keep-going -Z unstable-options -Z sparse-registry || true
 
-# RUN test 80 -eq $(find ./target/debug -type f -executable -maxdepth 1 | wc -l)
+RUN test 81 -eq $(find ./target/debug -type f -executable -maxdepth 1 | wc -l)
 
 # 测试
 WORKDIR /home/user
