@@ -52,3 +52,5 @@ RUN ./bootstrap --skip-po --force
 RUN ./configure --with-openssl --enable-install-program=arch --enable-no-install-program=kill,uptime
 RUN sed -i "s/^[[:blank:]]*PATH=.*/  PATH='\/home\/user\/coreutils-rust\/target\/debug\$(PATH_SEPARATOR)'\"\$\$PATH\" \\\/" Makefile
 RUN make check -j $(nproc) RUN_EXPENSIVE_TESTS=yes RUN_VERY_EXPENSIVE_TESTS=yes || true
+
+COPY --chown=user diff.py /home/user/test/diff.py
