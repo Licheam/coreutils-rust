@@ -74,3 +74,7 @@ cargo build --bins --keep-going -Z unstable-options -Z sparse-registry # 出现�
 ```bash
 find ./target/debug -maxdepth 1 -type f -executable | wc -l
 ```
+
+# 依赖图
+
+<embed src="dependencies.pdf" width="600" height="400" type="application/pdf">
