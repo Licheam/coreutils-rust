@@ -75,6 +75,6 @@ cargo build --bins --keep-going -Z unstable-options -Z sparse-registry # 出现�
 find ./target/debug -maxdepth 1 -type f -executable | wc -l
 ```
 
-# 依赖图
+## 依赖图
 
 [coreutils依赖关系](dependencies.pdf)
