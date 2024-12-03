@@ -21,15 +21,22 @@ def file_diff(file1_path, file2_path):
     file2_only = file2_lines - file1_lines
 
     # 将结果转为字符串
-    result = ""
+    result = "Rust:\n"
     for line in file2_only:
         result += line
+    
+    result += "\nGNU:\n"
+    file1_only = file1_lines - file2_lines
+    for line in file1_only:
+        result += line
+
 
 
     if result != "":
         return result
     else:
         return "No difference found.\n"
+    
 
 if __name__ == "__main__":
     result = "Functional Test Result: \n\n"
